@@ -111,7 +111,7 @@ namespace WPF_TTElectronics.Models
 
 
 
-        private string _modelToSearch;
+        private string _modelToSearch = string.Empty;
         public string ModelToSearch
         {
             get { return _modelToSearch; }
@@ -125,7 +125,7 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-        private string _codeDateToSearch;
+        private string _codeDateToSearch = string.Empty;
         public string CodeDateToSearch
         {
             get { return _codeDateToSearch; }
