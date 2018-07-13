@@ -111,13 +111,13 @@ namespace WPF_TTElectronics.Models
 
 
 
-        private string _modelToSearch = string.Empty;
+        private string _modelToSearch;
         public string ModelToSearch
         {
             get { return _modelToSearch; }
             set
             {
-                _modelToSearch = value.Replace(" ", string.Empty);
+                _modelToSearch = (value.All(char.IsDigit)) ? value : _modelToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
@@ -125,13 +125,13 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-        private string _codeDateToSearch = string.Empty;
+        private string _codeDateToSearch;
         public string CodeDateToSearch
         {
             get { return _codeDateToSearch; }
             set
             {
-                _codeDateToSearch = value.Replace(" ", string.Empty);
+                _codeDateToSearch = (value.All(char.IsDigit)) ? value : _codeDateToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
