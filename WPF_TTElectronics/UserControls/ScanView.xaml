@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="WPF_TTElectronics.UserControls.ScanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:WPF_TTElectronics.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic">
+    <UserControl.DataContext>
+        <vm:ScanViewModel></vm:ScanViewModel>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+            <Label  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontWeight="Bold" FontSize="20">
+            <Label.Content>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding _model.VisibilityHeader}">
+                    <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="20" Width="20" Margin="0,0,10,0"></icons:PackIconFontAwesome>
+                    <TextBlock Text="{Binding _model.OpenedFileName}"></TextBlock>
+                </StackPanel>
+            </Label.Content>
+            </Label>
+        <Button Command="{Binding ShowClosePDFCommand}" Visibility="{Binding _model.VisibilityHeader}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding _model.VisibilityHeader}">
+                    <TextBlock Text="Close document" VerticalAlignment="Bottom"></TextBlock>
+                    <icons:PackIconFontAwesome Kind="TimesSolid" Foreground="Red" Height="10" Width="10" Margin="10,0,0,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" Margin="5,0,5,5" BorderThickness="2" BorderBrush="#3FAFDF" Visibility="{Binding _model.VisibilityHeader}">
+            <WebBrowser x:Name="pdfview"  Focusable="False" >
+            </WebBrowser>
+        </Border>
+       
+       
+        <!--Container OPEN Button and SAVE AS Button-->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="5"  Orientation="Horizontal"  Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  >
+            <!--OPEN Button-->
+            <StackPanel>
+                <Button   Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100" BorderThickness="3" Command="{Binding ShowOpenFileCommand}" >
+                    <Button.Content>
+                        <icons:PackIconMaterialLight Kind="Upload" Width="25" Height="25"></icons:PackIconMaterialLight>
+                    </Button.Content>
+                </Button>
+                <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center">Open</Label>
+            </StackPanel>
+            <!--SAVE AS Button-->
+            <StackPanel>
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" IsEnabled="{Binding _model.SaveAsEnable}" Command="{Binding ShowSaveAsCommand}">
+                    <Button.Content>
+                        <icons:PackIconMaterialLight Kind="ContentDuplicate" Width="35" Height="35"></icons:PackIconMaterialLight>
+                    </Button.Content>
+                </Button>
+                <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center">Save as</Label>
+            </StackPanel>
+      
+        </StackPanel>
+        <!--Container SCAN Button-->
+        <StackPanel Grid.Column="2"  Grid.Row="5" HorizontalAlignment="Stretch"  Margin="10" Orientation="Horizontal"  >
+            <!--SCAN Button-->
+                <StackPanel  HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" Command="{Binding ScanCommand}">
+                        <Button.Content>
+                        <icons:PackIconMaterialLight Kind="File" Width="35" Height="35"></icons:PackIconMaterialLight>
+                        </Button.Content>
+                    </Button>
+                    <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center">Scan</Label>
+                </StackPanel>
+
+            <!--SCAN ALL Button-->
+            <StackPanel  HorizontalAlignment="Center">
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" IsEnabled="True" Command="{Binding ShowScanAllCommand}">
+                    <Button.Content>
+                        <icons:PackIconMaterialLight Kind="FileMultiple" Width="35" Height="35"></icons:PackIconMaterialLight>
+                    </Button.Content>
+                </Button>
+                <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center">Scan All</Label>
+            </StackPanel>
+
+
+        </StackPanel>
+        
+        <!--Container PATHS ComboBox, FILENAME TextBox and SAVE Button-->
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Orientation="Horizontal" >
+            <!-- PATHS ComboBox and FILENAME TextBox-->
+            <StackPanel>
+                <xctk:WatermarkComboBox  Height="30" Focusable="False"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" x:Name="comboBox" IsEnabled="{Binding _model.SaveAsEnable}" ItemsSource="{Binding _model.ComboItems}" HorizontalAlignment="Stretch" SelectedValue="{Binding _model.FolderToSave, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Title" Controls:ComboBoxHelper.CharacterCasing="Upper" Margin="0,0,0,10" BorderBrush="Black" BorderThickness="1">
+                    <xctk:WatermarkComboBox.Watermark>
+                        <StackPanel Orientation="Horizontal" >
+                            <icons:PackIconMaterialLight Kind="Folder" HorizontalAlignment="Left" Margin="0,0,10,0"></icons:PackIconMaterialLight>
+                            <TextBlock Text="Select A Folder"></TextBlock>
+                        </StackPanel>
+                    </xctk:WatermarkComboBox.Watermark>
+                </xctk:WatermarkComboBox>
+                <TextBox  Text="{Binding _model.ModelToSave, Mode=TwoWay   , UpdateSourceTrigger=PropertyChanged}"  Margin="0,5,0,5"  IsEnabled="{Binding _model.SaveAsEnable}"  HorizontalAlignment="Right" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Model"  Width="200" Height="35"  FontSize="10" BorderBrush="#FF3DB7E3" MaxLength="8" ></TextBox>
+                <TextBox  Text="{Binding _model.CodeDateToSave, Mode=TwoWay   , UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"  IsEnabled="{Binding _model.SaveAsEnable}"  HorizontalAlignment="Right" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Code Date"  Width="200" Height="35"  FontSize="10" BorderBrush="#FF3DB7E3" MaxLength="4"></TextBox>
+            </StackPanel>
+            <!--SAVE Button-->
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button  Margin="10,0,5,0" Width="75" Height="95" IsEnabled="{Binding _model.SaveEnable}" Command="{Binding ShowSaveCommand}">
+                    <Button.Content>
+                        <icons:PackIconMaterialLight Kind="ContentSave" Width="35" Height="35"></icons:PackIconMaterialLight>
+                    </Button.Content>
+                </Button>
+                <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Top">Save</Label>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HojaDeRuta>
+
+  
+  <!--Only one Container Folder.
+  Example:
+   <ContainerFolder Title="ContainerFolder" Path="C:\Users\MyUser\">
+  </ContainerFolder>
+  
+  then when user selected a FolderPath on ComboBox, will be added to the last slash 
+  C:\Users\MyUser\MyNewFolder\
+  
+  -->
+  
+  <ContainerFolder Title="ContainerFolder" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\" Code="null" Title2Display="null">
+  </ContainerFolder>
+  
+  
+  
+  
+  
+  
+  <!--add or remove paths
+  - Title -> Name to display on application ComboBox
+  - Path -> Folder path name
+  Example:
+  <FolderPath Title="MyFolderName" Path="MyNewFolder\">
+  </FolderPath>
+  
+  ComboBox will displays MyfolderName but its value will be MyNewFolder\
+  
+  -->
+  
+  <FolderPath Title="Pots" FolderPath="Pots\" Code ="111" Title2Display="111 - Pots" >
+  </FolderPath>
+
+  <FolderPath Title="Screening" FolderPath="Screening\" Code ="222" Title2Display="222 - Screening">
+  </FolderPath>
+
+  <FolderPath Title="Trimmers" FolderPath="Trimmers\" Code ="333" Title2Display="333 - Trimmers">
+  </FolderPath>
+
+  <FolderPath Title="ThisFolderNotExists" FolderPath="MyTestFolder\" Code ="000" Title2Display="000 - ThisFolderNotExists">
+  </FolderPath>
+
+
+</HojaDeRuta>

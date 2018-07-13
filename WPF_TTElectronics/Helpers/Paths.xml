@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HojaDeRuta>
+
+  <ContainerFolder Title="ContainerFolder" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser - copia\WPF_TTElectronics\bin\Debug\tmp\">
+  </ContainerFolder>
+  
+  <FolderPath Title="Pots" FolderPath="Pots\" Code="111" Title2Display="111 - Pots">
+  </FolderPath>
+
+  <FolderPath Title="Screening" FolderPath="Screening\" Code="222" Title2Display="222 - Screening">
+  </FolderPath>
+
+  <FolderPath Title="Trimmers" FolderPath="Trimmers\" Code="333" Title2Display="333 - Trimmers">
+  </FolderPath>
+
+  <FolderPath Title="ThisFolderNotExists" FolderPath="MyTestFolder\" Code="000" Title2Display="000 - ThisFolderNotExists">
+  </FolderPath>
+
+
+</HojaDeRuta>

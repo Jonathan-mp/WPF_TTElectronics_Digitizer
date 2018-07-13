@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_TTElectronics", "WPF_TTElectronics\WPF_TTElectronics.csproj", "{06550437-DFBF-49C9-82EE-582600080C79}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{F124DDBD-8389-40E3-84DB-7B96D4515379}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06550437-DFBF-49C9-82EE-582600080C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06550437-DFBF-49C9-82EE-582600080C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06550437-DFBF-49C9-82EE-582600080C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06550437-DFBF-49C9-82EE-582600080C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F124DDBD-8389-40E3-84DB-7B96D4515379}.Debug|Any CPU.ActiveCfg = Debug
+		{F124DDBD-8389-40E3-84DB-7B96D4515379}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {640A68A4-28D6-4559-A743-3BC67D5E3D8B}
+	EndGlobalSection
+EndGlobal

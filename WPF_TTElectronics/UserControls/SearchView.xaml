@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="WPF_TTElectronics.UserControls.SearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_TTElectronics.UserControls"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:WPF_TTElectronics.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic">
+    <UserControl.DataContext>
+        <vm:SearchViewModel></vm:SearchViewModel>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center" Visibility="{Binding _model.SearchStackVisibility}">
+                <TextBlock Text="Search a PDF File" HorizontalAlignment="Center" FontSize="32"></TextBlock>
+                <!--<Border   Padding="10">-->
+                    <StackPanel>
+                        <xctk:WatermarkComboBox  x:Name="comboBox" Width="300" Height="35"  Margin="0,10,0,0" Focusable="False"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ItemsSource="{Binding _model.ComboItems}" HorizontalAlignment="Center" SelectedValue="{Binding _model.FolderToSearch, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Title" Controls:ComboBoxHelper.CharacterCasing="Upper" BorderBrush="Black" BorderThickness="1">
+                            <xctk:WatermarkComboBox.Watermark>
+                                <StackPanel Orientation="Horizontal" >
+                                    <icons:PackIconMaterialLight Kind="Folder" HorizontalAlignment="Left" Margin="0,0,10,0"></icons:PackIconMaterialLight>
+                                    <TextBlock Text="Select A Family"></TextBlock>
+                                </StackPanel>
+                            </xctk:WatermarkComboBox.Watermark>
+                        </xctk:WatermarkComboBox>
+                        <TextBox x:Name="txtbx_model" Text="{Binding _model.ModelToSearch, UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"    HorizontalAlignment="Center" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Model"   FontSize="10" BorderBrush="#FF3DB7E3" Margin="0,10,0,0" MaxLength="8" ></TextBox>
+                        <TextBox x:Name="txtbx_datecode" Text="{Binding _model.CodeDateToSearch,  UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"   HorizontalAlignment="Center" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Date Code"    FontSize="10" BorderBrush="#FF3DB7E3" Margin="0,10,0,0" MaxLength="4" ></TextBox>
+                        <Button   Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"  Margin="0,10,0,0" Command="{Binding ShowTestCommand}" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <icons:PackIconFontAwesome Kind="SearchSolid" Margin="0,0,10,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                                    <Label Content="Search"></Label>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    <!--<Label Content="{Binding _model.Test}"></Label>-->
+                    </StackPanel>
+                <!--</Border>-->
+            </StackPanel>
+           
+
+
+            <Label  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontWeight="Bold" FontSize="20">
+                <Label.Content>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
+                        <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="35" Width="35" Margin="0,0,10,0"></icons:PackIconFontAwesome>
+                        <TextBlock Text="{Binding _model.Header}" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Label.Content>
+            </Label>
+            <Button Command="{Binding ShowClosePDFCommand}"  Visibility="{Binding _model.AddPageStackVisibility}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
+                        <TextBlock Text="Close document" VerticalAlignment="Bottom"></TextBlock>
+                        <icons:PackIconFontAwesome Kind="TimesSolid" Foreground="Red" Height="10" Width="10" Margin="10,0,0,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" Margin="5,0,5,5" BorderThickness="2" BorderBrush="#3FAFDF" Visibility="{Binding _model.AddPageStackVisibility}">
+                <WebBrowser x:Name="pdfview" Focusable="False" Visibility="{Binding _model.VisibilityView}"></WebBrowser>
+             </Border>
+
+
+            <!--<TextBlock Text="{Binding _model.FullPathOpenedFile}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"></TextBlock>-->
+
+
+            <Border Grid.Column="0" Grid.ColumnSpan="4"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="5" BorderBrush="#3FAFDF" BorderThickness="1" >
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="INFO" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
+
+                    <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+                        <StackPanel Margin="0,0,50,0">
+                            <StackPanel Orientation="Horizontal" >
+                                <icons:PackIconFontAwesome Kind="FolderOpenRegular" Margin="6" Height="20" Width="20"></icons:PackIconFontAwesome>
+                                <TextBlock Text="Family: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.Family }"  FontSize="20" Margin="6" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconFontAwesome Kind="FileAltRegular" Margin="6" Height="20" Width="20"></icons:PackIconFontAwesome>
+                                <TextBlock Text="Model: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.Model}"  FontSize="20" Margin="6" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <icons:PackIconFontAwesome Kind="CalendarAltRegular" Margin="6" Height="20" Width="20"></icons:PackIconFontAwesome>
+                                <TextBlock Text="Date Code: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.DateCode}"  FontSize="20" Margin="6" ></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <icons:PackIconFontAwesome Kind="EditSolid" Margin="6" Height="20" Width="20"></icons:PackIconFontAwesome>
+                            <TextBlock Text="Created: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                            <TextBlock Text="{Binding _model.SelectedFile.TimeCreation }"  FontSize="20" Margin="6" ></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <icons:PackIconMaterial Kind="Timetable" Margin="6" Height="20" Width="20"></icons:PackIconMaterial>
+                            <TextBlock Text="Lass Write: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                            <TextBlock Text="{Binding _model.SelectedFile.TimeLastWrite}"  FontSize="20" Margin="6" ></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <icons:PackIconMaterial Kind="Timetable" Margin="6" Height="20" Width="20"></icons:PackIconMaterial>
+                            <TextBlock Text="Last Access: " FontWeight="Bold" FontSize="20" Margin="6"></TextBlock>
+                            <TextBlock Text="{Binding _model.SelectedFile.TimeLastWrite}"  FontSize="20" Margin="6" ></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+
+
+                </Grid>
+
+               
+
+
+
+
+
+                <!--<StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    
+                    <Label  Content="INFO" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
+                  
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                      
+                        <StackPanel Margin="0,0,50,0">
+                          <StackPanel Orientation="Horizontal" >
+                              <icons:PackIconFontAwesome Kind="FolderOpenRegular" Margin="6"></icons:PackIconFontAwesome>
+                              <TextBlock Text="Family: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                              <TextBlock Text="{Binding _model.SelectedFile.Family }"  FontSize="15" Margin="6" ></TextBlock>
+                         </StackPanel>
+                         <StackPanel Orientation="Horizontal">
+                              <icons:PackIconFontAwesome Kind="FileAltRegular" Margin="6"></icons:PackIconFontAwesome>
+                              <TextBlock Text="Model: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                              <TextBlock Text="{Binding _model.SelectedFile.Model}"  FontSize="15" Margin="6" ></TextBlock>
+                          </StackPanel>
+                           <StackPanel Orientation="Horizontal" >
+                                <icons:PackIconFontAwesome Kind="CalendarAltRegular" Margin="6"></icons:PackIconFontAwesome>
+                                <TextBlock Text="Date Code: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                             <TextBlock Text="{Binding _model.SelectedFile.DateCode}"  FontSize="15" Margin="6" ></TextBlock>
+                          </StackPanel>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="0,0,50,0">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconFontAwesome Kind="EditSolid" Margin="6"></icons:PackIconFontAwesome>
+                                <TextBlock Text="Created: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.TimeCreation }"  FontSize="15" Margin="6" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="Timetable" Margin="6"></icons:PackIconMaterial>
+                                <TextBlock Text="Lass Write: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.TimeLastWrite}"  FontSize="15" Margin="6" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="Timetable" Margin="6"></icons:PackIconMaterial>
+                                <TextBlock Text="Last Access: " FontWeight="Bold" FontSize="15" Margin="6"></TextBlock>
+                                <TextBlock Text="{Binding _model.SelectedFile.TimeLastWrite}"  FontSize="15" Margin="6" ></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>-->
+            </Border>
+
+            <Border Grid.Column="4" Grid.ColumnSpan="5"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="5" BorderBrush="#3FAFDF" BorderThickness="1">
+
+
+                <StackPanel>
+                    <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="OPTIONS" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
+
+                    <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
+                        <Controls:ToggleSwitch  IsChecked="{Binding _model.PreviewIsChecked}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Button  Content="ADD" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2"> </Button>
+                            <Button Content="SAVE"  Width="60" Height="60" Margin="2" ></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+
+
+
+        </Grid>
+    </Grid>
+</UserControl>
