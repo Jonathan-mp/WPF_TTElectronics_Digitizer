@@ -17,14 +17,14 @@ using Xceed.Wpf.Toolkit;
 
 namespace WPF_TTElectronics.ViewModels
 {
-    class SearchViewModel
+    class SearchViewModel : HelperClosePDFProcess
     {
        MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
 
 
         public SearchModel _model { get; set; }
-        HelperClosePDFProcess killer = new HelperClosePDFProcess();
+        //HelperClosePDFProcess killer = new HelperClosePDFProcess();
         public PreviewViewModel vm_preview { get; set; }
         public string tmpFolder { get; set; }
 
@@ -35,14 +35,16 @@ namespace WPF_TTElectronics.ViewModels
 
         public SearchViewModel()
         {
-           var killer = new HelperClosePDFProcess();
+           //var killer = new HelperClosePDFProcess();
             var xmlhelper = new HelperPaths();
 
             _model = (_model != null) ? _model : new SearchModel();
-            tmpFolder = Path.GetTempPath();
+            tmpFolder = $@"{Path.GetTempPath()}TTElectronics_tmp\";
+            if (!Directory.Exists($@"{tmpFolder}"))
+                Directory.CreateDirectory($@"{tmpFolder}");
 
             Visibilities(true);
-            Task.Factory.StartNew(() => killer.AcrobatProcess());
+            Task.Factory.StartNew(() => AcrobatProcess());
 
             
         }
@@ -92,7 +94,7 @@ namespace WPF_TTElectronics.ViewModels
                    
                     File.Copy($@"{_model.FullPathToSearch}.pdf", $@"{tmpFolder}{_model.FileNameAdded}.pdf", true );
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{tmpFolder}{_model.FileNameAdded}.pdf");
-                    _model.Header = "Preview";
+                    _model.Header = $@"TTElectronics_tmp\{_model.FileNameAdded}";
                    
                     Visibilities(false);
                 }
@@ -147,7 +149,7 @@ namespace WPF_TTElectronics.ViewModels
         public async void ShowClosePDF()
         {
 
-            killer.AcrobatProcess();
+            AcrobatProcess();
             await Task.Delay(500);
             if (File.Exists($@"{tmpFolder}{_model.FileNameAdded}.pdf"))
                     File.Delete($@"{tmpFolder}{_model.FileNameAdded}.pdf");
@@ -217,7 +219,7 @@ namespace WPF_TTElectronics.ViewModels
             _model.IsMsgVisible = true;
             var pAsync = await activeWindow.ShowProgressAsync("Status", "Adding Files...");
 
-            killer.AcrobatProcess();   
+            AcrobatProcess();   
             await Task.Delay(500);
 
             //_model.IsMsgVisible = true;

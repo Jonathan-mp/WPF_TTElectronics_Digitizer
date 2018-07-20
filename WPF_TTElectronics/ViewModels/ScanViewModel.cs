@@ -18,13 +18,13 @@ using WIA;
 
 namespace WPF_TTElectronics.ViewModels
 {
-    public class ScanViewModel
+    public class ScanViewModel : HelperClosePDFProcess
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
         public ScanModel _model { get; set; }
         MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
        
-         HelperClosePDFProcess killer = new HelperClosePDFProcess();
+         //HelperClosePDFProcess killer = new HelperClosePDFProcess();
         
   
 
@@ -38,7 +38,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             
             _model = (_model != null) ? _model : new ScanModel();
-            Task.Factory.StartNew(() => killer.AcrobatProcess());
+            Task.Factory.StartNew(() => AcrobatProcess());
 
         }
 
@@ -90,7 +90,7 @@ namespace WPF_TTElectronics.ViewModels
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
                 //killer.AcrobatProcess();
                 if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
-                    await Task.Factory.StartNew(() => killer.AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
+                    await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
 
 
 
@@ -384,7 +384,7 @@ namespace WPF_TTElectronics.ViewModels
 
                 if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
                 {
-                    await Task.Factory.StartNew(() => killer.AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
+                    await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
                 }
 
 
@@ -443,7 +443,7 @@ namespace WPF_TTElectronics.ViewModels
                 if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
                 {
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
-                    killer.AcrobatProcess();
+                    AcrobatProcess();
                     await Task.Delay(500);
                     File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf");
                     //await Task.Factory.StartNew(() => killer.AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
@@ -548,7 +548,7 @@ namespace WPF_TTElectronics.ViewModels
                
                 _model.VisibilityHeader = Visibility.Hidden;
                 ControlsErrorState();
-                await Task.Factory.StartNew(() => killer.AcrobatProcess());
+                await Task.Factory.StartNew(() => AcrobatProcess());
 
             }
             catch (Exception ex)

@@ -9,22 +9,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WPF_TTElectronics.Helpers;
 using WPF_TTElectronics.Models;
 
 namespace WPF_TTElectronics.ViewModels
 {
-    public class TestViewModel
+    public class TestViewModel : HelperClosePDFProcess
     {
 
         public TestModel  _model { get; set; }
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-        Helpers.HelperClosePDFProcess killer;
+       // Helpers.HelperClosePDFProcess killer;
 
 
         public TestViewModel()
         {
             _model = new TestModel();
-            killer = new Helpers.HelperClosePDFProcess();
+            //killer = new Helpers.HelperClosePDFProcess();
           
             
 
@@ -62,17 +63,20 @@ namespace WPF_TTElectronics.ViewModels
             fullView.Fullpdfview.Navigate($@"{_model.FileNameSelected.FullPathWithExtension}");
             var vm_fullView = new FullWindowModel() {TitleWindow= $@"OPENED FILE: {_model.FileNameSelected.FullName}"};
             fullView.DataContext = vm_fullView;
-            //fullView.Closing += (s, e) =>
-            //{
+            fullView.Closing += (s, e) =>
+            {
 
-            //   // killer.AcrobatProcess();
-            //    //activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.FileNameSelected.FullPathWithExtension}");
+                fullView.Fullpdfview.Dispose();
 
 
-            //};
+            };
+
+            
+
             fullView.ShowDialog();
 
-          
+            AcrobatProcess();
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.FileNameSelected.FullPathWithExtension}");
 
 
         }

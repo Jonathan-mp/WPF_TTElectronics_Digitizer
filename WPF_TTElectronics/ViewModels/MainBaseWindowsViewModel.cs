@@ -8,10 +8,11 @@ using WPF_TTElectronics.Models;
 using System.Windows.Threading;
 using WPF_TTElectronics.UserControls;
 using System.IO;
+using WPF_TTElectronics.Helpers;
 
 namespace WPF_TTElectronics.ViewModels
 {
-    public class MainBaseWindowsViewModel : Observable
+    public class MainBaseWindowsViewModel : HelperClosePDFProcess
     {
 
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
@@ -43,13 +44,19 @@ namespace WPF_TTElectronics.ViewModels
             v_search = (v_search != null) ? v_search : new SearchView();
             v_view = (v_view != null) ? v_view : new ViewView();
             v_test = (v_test != null) ? v_test : new TestView();
+           
+                
+
+            
+
             activeWindow.Closed += (s,e) =>{
-                var killer = new Helpers.HelperClosePDFProcess();
-                killer.AcrobatProcess();
-                if (File.Exists($@"{_model.FoldersContainer.FolderPath}Preview.pdf"))
-                    File.Delete($@"{_model.FoldersContainer.FolderPath}Preview.pdf");
+                // var killer = new Helpers.HelperClosePDFProcess();
+                // killer.AcrobatProcess();
+                AcrobatProcess();
+                ClearTempFolder();
             };
 
+           
 
 
             _model = (_model != null) ? _model : new MainBaseModel();
@@ -135,6 +142,7 @@ namespace WPF_TTElectronics.ViewModels
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is SearchView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new SearchView(); //v_search;
+            ClearTempFolder();
         }
 
 
@@ -231,7 +239,12 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
+        public void ClearTempFolder()
+        {
+            if(Directory.GetFiles($@"{Path.GetTempPath()}TTElectronics_tmp\") != null)
+            Array.ForEach(Directory.GetFiles($@"{Path.GetTempPath()}TTElectronics_tmp\"), delegate (string path) { File.Delete(path); });
 
+        }
 
 
 
