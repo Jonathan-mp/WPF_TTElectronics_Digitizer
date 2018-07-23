@@ -97,7 +97,7 @@ namespace WPF_TTElectronics.Models
                 var y = new ObservableCollection<cHojaDeRuta>();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "FolderPath");
+                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
                 });
                 return y;
             }

@@ -685,7 +685,7 @@ namespace WPF_TTElectronics.ViewModels
             get { return true; }
         }
 
-        public async void ShowTest()
+        public void ShowTest()
         {
 
             

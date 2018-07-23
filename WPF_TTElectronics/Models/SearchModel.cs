@@ -21,7 +21,7 @@ namespace WPF_TTElectronics.Models
                 var y = string.Empty;
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "TemporaryFolder");
                     y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
                 return y;
@@ -133,7 +133,7 @@ namespace WPF_TTElectronics.Models
                 var y = new ObservableCollection<cHojaDeRuta>();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "FolderPath");
+                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
                 });
                 return y;
             }
