@@ -12,6 +12,30 @@ namespace WPF_TTElectronics.Models
     public class SearchModel : Observable
     {
 
+        private string _tempFolder;
+        public string TempFolder
+        {
+            get
+            {
+                var x = new Helpers.HelperPaths();
+                var y = string.Empty;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
+                });
+                return y;
+            }
+            set
+            {
+                _tempFolder = value;
+                NotifyPropertyChanged();
+
+
+            }
+        }
+
+
         private cFileInfo _selectedFile;
         public cFileInfo SelectedFile
         {
@@ -264,11 +288,11 @@ namespace WPF_TTElectronics.Models
 
 
 
-        private bool _previewIsChecked;
-        public bool PreviewIsChecked
+        private bool _autoAdd;
+        public bool AutoAdd
         {
-            get { return _previewIsChecked; }
-            set { _previewIsChecked = value;
+            get { return _autoAdd; }
+            set { _autoAdd = value;
                 NotifyPropertyChanged();
             }
         }

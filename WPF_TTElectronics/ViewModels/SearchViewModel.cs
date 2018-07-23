@@ -14,6 +14,7 @@ using System.Diagnostics;
 using WPF_TTElectronics.Helpers;
 using System.Linq;
 using Xceed.Wpf.Toolkit;
+using WIA;
 
 namespace WPF_TTElectronics.ViewModels
 {
@@ -26,7 +27,7 @@ namespace WPF_TTElectronics.ViewModels
         public SearchModel _model { get; set; }
         //HelperClosePDFProcess killer = new HelperClosePDFProcess();
         public PreviewViewModel vm_preview { get; set; }
-        public string tmpFolder { get; set; }
+     
 
 
 
@@ -39,9 +40,7 @@ namespace WPF_TTElectronics.ViewModels
             var xmlhelper = new HelperPaths();
 
             _model = (_model != null) ? _model : new SearchModel();
-            tmpFolder = $@"{Path.GetTempPath()}_TTElectronics\";
-            if (!Directory.Exists($@"{tmpFolder}"))
-                Directory.CreateDirectory($@"{tmpFolder}");
+          
 
             Visibilities(true);
             Task.Factory.StartNew(() => AcrobatProcess());
@@ -92,8 +91,8 @@ namespace WPF_TTElectronics.ViewModels
                 if (File.Exists($"{_model.FullPathToSearch}.pdf"))
                 {
                    
-                    File.Copy($@"{_model.FullPathToSearch}.pdf", $@"{tmpFolder}{_model.FileNameAdded}.pdf", true );
-                    activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{tmpFolder}{_model.FileNameAdded}.pdf");
+                    File.Copy($@"{_model.FullPathToSearch}.pdf", $@"{_model.TempFolder}{_model.FileNameAdded}.pdf", true );
+                    activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
                     _model.Header = $@"tmp\{_model.FileNameAdded}";
                    
                     Visibilities(false);
@@ -151,8 +150,8 @@ namespace WPF_TTElectronics.ViewModels
 
             AcrobatProcess();
             await Task.Delay(500);
-            if (File.Exists($@"{tmpFolder}{_model.FileNameAdded}.pdf"))
-                    File.Delete($@"{tmpFolder}{_model.FileNameAdded}.pdf");
+            if (File.Exists($@"{_model.TempFolder}{_model.FileNameAdded}.pdf"))
+                    File.Delete($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
 
           
          
@@ -217,26 +216,76 @@ namespace WPF_TTElectronics.ViewModels
         public async void ShowScanAndAdd()
         {
             _model.IsMsgVisible = true;
-            var pAsync = await activeWindow.ShowProgressAsync("Status", "Adding Files...");
-
+            var scanner = new ScannerService();
+            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting..."); 
             AcrobatProcess();   
             await Task.Delay(500);
-
-            //_model.IsMsgVisible = true;
-            //var pAsync = await activeWindow.ShowProgressAsync("Status", "Scanning...");
-            //pAsync.SetIndeterminate();
-            //var scanner = new ScannerService();
+            var converter = new ScannerImageConverter(_model.TempFolder);
 
 
-            var converter = new ScannerImageConverter(tmpFolder);
-        
-            await Task.Factory.StartNew(() => converter.AddToExistingPDF($@"{tmpFolder}01.pdf", $@"{tmpFolder}02.pdf"));
+            switch (_model.AutoAdd)
+            {
+                case true:
+                    await Task.Factory.StartNew(async () =>
+                    {
 
-            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{tmpFolder}02.pdf");
+                        var filee = scanner.ScanAll(pAsync);
+                        if (filee.Count == 0)
+                        {
+                            await pAsync.CloseAsync();
+                            return;
+                        }
 
+                        converter.SavePDFsOn(filee);
+                        await pAsync.CloseAsync();
+                        _model.IsMsgVisible = false;
+                    });
+
+
+                    //pAsync.SetMessage("Adding pages to file...");
+                    //await Task.Factory.StartNew(() => converter.AddToExistingPDF($@"{_model.TempFolder}Preview.pdf", $@"{_model.TempFolder}{_model.FileNameAdded}.pdf"));
+                    //activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
+                    //await pAsync.CloseAsync();
+                    //_model.IsMsgVisible = false;
+
+                    break;
+
+
+                case false:
+                    var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
+                    {
+                        try
+                        {
+                            if (t != null)
+                            {
+                                var scannedImage = converter.ConvertScannedImage(t.Result);
+                                var saveResult = converter.SaveOnPDF(scannedImage as BitmapFrame);
+                            }
+                            else
+                            {
+
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            await pAsync.CloseAsync();
+                            ShowErrorMessage(ex.Message);
+                        }
+                    });
+                    break;
+
+                
+                default:
+                    break;
+            }
+
+
+            pAsync.SetMessage("Adding pages to file...");
+            await Task.Factory.StartNew(() => converter.AddToExistingPDF($@"{_model.TempFolder}Preview.pdf", $@"{_model.TempFolder}{_model.FileNameAdded}.pdf"));
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
             await pAsync.CloseAsync();
             _model.IsMsgVisible = false;
-
 
 
 

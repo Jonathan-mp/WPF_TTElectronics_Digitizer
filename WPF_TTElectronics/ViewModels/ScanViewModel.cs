@@ -87,8 +87,8 @@ namespace WPF_TTElectronics.ViewModels
             var scanner = new ScannerService();
 
          
-                activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
-            //killer.AcrobatProcess();
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
+        
             if (File.Exists($"{_model.TempFolder}Preview.pdf"))
             {
                 AcrobatProcess();
