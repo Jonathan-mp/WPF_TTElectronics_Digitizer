@@ -157,7 +157,7 @@
                         <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
                         <StackPanel HorizontalAlignment="Center">
                             <Button  Content="ADD" Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2"> </Button>
-                            <Button Content="SAVE" Cursor="Hand" Width="60" Height="60" Margin="2" ></Button>
+                            <Button Content="SAVE" Cursor="Hand" Width="60" Height="60" Margin="2" Command="{Binding ShowSaveCommand}" ></Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

@@ -277,7 +277,7 @@ namespace WPF_TTElectronics.Models
         private bool _isMsgVisible = false;
         public bool IsMsgVisible
         {
-            get { return _isMsgVisible;; }
+            get { return _isMsgVisible; }
             set { _isMsgVisible = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("VisibilityView");
