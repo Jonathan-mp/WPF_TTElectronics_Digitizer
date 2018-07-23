@@ -75,7 +75,7 @@ namespace WPF_TTElectronics.Services
             {
                 if (ex.ErrorCode == -2145320939)
                 {
-                   throw new ScannerNotFoundException();
+                    throw new ScannerNotFoundException();
                 }
                 else
                 {
@@ -136,10 +136,12 @@ namespace WPF_TTElectronics.Services
             {
                 if (ex.ErrorCode == -2145320939)
                 {
+                   
                     throw new ScannerNotFoundException();
                 }
                 else
                 {
+                   
                     throw new ScannerException(ex.Message, ex);
                 }
             }

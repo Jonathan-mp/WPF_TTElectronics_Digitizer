@@ -46,7 +46,7 @@
                         </xctk:WatermarkComboBox>
                         <TextBox x:Name="txtbx_model" Text="{Binding _model.ModelToSearch, UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"    HorizontalAlignment="Center" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Model"   FontSize="10" BorderBrush="#FF3DB7E3" Margin="0,10,0,0" MaxLength="8" ></TextBox>
                         <TextBox x:Name="txtbx_datecode" Text="{Binding _model.CodeDateToSearch,  UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"   HorizontalAlignment="Center" Controls:TextBoxHelper.IsWaitingForData="True" VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.Watermark="Date Code"    FontSize="10" BorderBrush="#FF3DB7E3" Margin="0,10,0,0" MaxLength="4" ></TextBox>
-                        <Button   Width="{Binding Width, ElementName=comboBox}" Height="{Binding Height, ElementName=comboBox}"  Margin="0,10,0,0" Command="{Binding ShowTestCommand}" >
+                        <Button   Width="{Binding Width, ElementName=comboBox}" Cursor="Hand" Height="{Binding Height, ElementName=comboBox}"  Margin="0,10,0,0" Command="{Binding ShowTestCommand}" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <icons:PackIconFontAwesome Kind="SearchSolid" Margin="0,0,10,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
@@ -154,10 +154,10 @@
                     <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="OPTIONS" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
 
                     <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
-                        <Controls:ToggleSwitch  IsChecked="{Binding _model.PreviewIsChecked}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
+                        <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.PreviewIsChecked}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
                         <StackPanel HorizontalAlignment="Center">
-                            <Button  Content="ADD" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2"> </Button>
-                            <Button Content="SAVE"  Width="60" Height="60" Margin="2" ></Button>
+                            <Button  Content="ADD" Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2"> </Button>
+                            <Button Content="SAVE" Cursor="Hand" Width="60" Height="60" Margin="2" ></Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

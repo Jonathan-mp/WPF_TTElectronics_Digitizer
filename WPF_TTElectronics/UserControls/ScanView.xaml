@@ -36,7 +36,7 @@
                 </StackPanel>
             </Label.Content>
             </Label>
-        <Button Command="{Binding ShowClosePDFCommand}" Visibility="{Binding _model.VisibilityHeader}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
+        <Button Command="{Binding ShowClosePDFCommand}" Cursor="Hand" Visibility="{Binding _model.VisibilityHeader}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
             <Button.Content>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding _model.VisibilityHeader}">
                     <TextBlock Text="Close document" VerticalAlignment="Bottom"></TextBlock>
@@ -55,7 +55,7 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="5"  Orientation="Horizontal"  Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  >
             <!--OPEN Button-->
             <StackPanel>
-                <Button   Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100" BorderThickness="3" Command="{Binding ShowOpenFileCommand}" >
+                <Button   Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" Width="100" Height="100" BorderThickness="3" Command="{Binding ShowOpenFileCommand}" >
                     <Button.Content>
                         <icons:PackIconMaterialLight Kind="Upload" Width="25" Height="25"></icons:PackIconMaterialLight>
                     </Button.Content>
@@ -64,7 +64,7 @@
             </StackPanel>
             <!--SAVE AS Button-->
             <StackPanel>
-                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" IsEnabled="{Binding _model.SaveAsEnable}" Command="{Binding ShowSaveAsCommand}">
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" Width="80" Height="80" BorderThickness="3" IsEnabled="{Binding _model.SaveAsEnable}" Command="{Binding ShowSaveAsCommand}">
                     <Button.Content>
                         <icons:PackIconMaterialLight Kind="ContentDuplicate" Width="35" Height="35"></icons:PackIconMaterialLight>
                     </Button.Content>
@@ -77,7 +77,7 @@
         <StackPanel Grid.Column="2"  Grid.Row="5" HorizontalAlignment="Stretch"  Margin="10" Orientation="Horizontal"  >
             <!--SCAN Button-->
                 <StackPanel  HorizontalAlignment="Center">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" Command="{Binding ScanCommand}">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" Width="80" Height="80" BorderThickness="3" Command="{Binding ScanCommand}">
                         <Button.Content>
                         <icons:PackIconMaterialLight Kind="File" Width="35" Height="35"></icons:PackIconMaterialLight>
                         </Button.Content>
@@ -87,7 +87,7 @@
 
             <!--SCAN ALL Button-->
             <StackPanel  HorizontalAlignment="Center">
-                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Width="80" Height="80" BorderThickness="3" IsEnabled="True" Command="{Binding ShowScanAllCommand}">
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" Width="80" Height="80" BorderThickness="3" IsEnabled="True" Command="{Binding ShowScanAllCommand}">
                     <Button.Content>
                         <icons:PackIconMaterialLight Kind="FileMultiple" Width="35" Height="35"></icons:PackIconMaterialLight>
                     </Button.Content>
@@ -115,7 +115,7 @@
             </StackPanel>
             <!--SAVE Button-->
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button  Margin="10,0,5,0" Width="75" Height="95" IsEnabled="{Binding _model.SaveEnable}" Command="{Binding ShowSaveCommand}">
+                <Button  Margin="10,0,5,0" Cursor="Hand" Width="75" Height="95" IsEnabled="{Binding _model.SaveEnable}" Command="{Binding ShowSaveCommand}">
                     <Button.Content>
                         <icons:PackIconMaterialLight Kind="ContentSave" Width="35" Height="35"></icons:PackIconMaterialLight>
                     </Button.Content>

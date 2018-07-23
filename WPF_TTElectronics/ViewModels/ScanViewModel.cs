@@ -95,7 +95,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-                var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
+               var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
                {
 
                    try
@@ -437,9 +437,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-            try
-            {
-              
+            
                 if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
                 {
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
@@ -457,28 +455,43 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-
-
-
-
-
-                    var file = scanner.ScanAll(pAsync);
-                    if (file.Count == 0)
+                    try
                     {
+
+                        var file = scanner.ScanAll(pAsync);
+                        if (file.Count == 0)
+                        {
+                            await pAsync.CloseAsync();
+                            return;
+                        }
+
+                        _model.ScannedImage = null;
+                        _model.OpenedFileName = "Preview";
+                        _model.FileNameToSave = _model.OpenedFileName;
+                        _model.OpenedFileFolder = _model.FoldersContainer.FolderPath;
+                        converter.SavePDFsOn(file);
+                        if (File.Exists($@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}.pdf"))
+                            _model.FullPathOpenedFile = $@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}";
+                        else
+                            return;
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        ControlsErrorState();
                         await pAsync.CloseAsync();
-                        return;
+                        ShowErrorMessage(ex.Message);
+                        _model.ScannedImage = null;
+
+
+
                     }
 
-                    _model.ScannedImage = null;
-                    _model.OpenedFileName = "Preview";
-                    _model.FileNameToSave = _model.OpenedFileName;
-                    _model.OpenedFileFolder = _model.FoldersContainer.FolderPath;
-                    converter.SavePDFsOn(file);
-                    if (File.Exists($@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}.pdf"))
-                        _model.FullPathOpenedFile = $@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}";
-                    else
-                        return;
-                  
+
+
+
+
                 });
 
                 if (File.Exists($@"{_model.FullPathOpenedFile}.pdf"))
@@ -493,21 +506,6 @@ namespace WPF_TTElectronics.ViewModels
 
                 await pAsync.CloseAsync();
                 _model.VisibilityHeader = Visibility.Visible;
-
-            }
-            catch (Exception ex)
-            {
-
-                ControlsErrorState();
-                await pAsync.CloseAsync();
-                ShowErrorMessage(ex.Message);
-                _model.ScannedImage = null;
-              
-
-
-            }
-
-
 
 
         }
