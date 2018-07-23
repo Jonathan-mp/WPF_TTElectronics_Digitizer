@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,22 +33,49 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-        private cHojaDeRuta _foldersContainer;
-        public cHojaDeRuta FoldersContainer
+        //private cHojaDeRuta _foldersContainer;
+        //public cHojaDeRuta FoldersContainer
+        //{
+        //    get
+        //    {
+        //        var x = new Helpers.HelperPaths();
+        //        var y = new cHojaDeRuta();
+        //        Application.Current.Dispatcher.Invoke(() =>
+        //        {
+        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
+        //        });
+        //        return y;
+        //    }
+        //    set
+        //    {
+        //        _foldersContainer = value;
+        //        NotifyPropertyChanged();
+
+
+        //    }
+        //}
+
+
+        
+
+
+        private string _tempFolder;
+        public string TempFolder
         {
             get
             {
                 var x = new Helpers.HelperPaths();
-                var y = new cHojaDeRuta();
+                var y = string.Empty;
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
                 return y;
             }
             set
             {
-                _foldersContainer = value;
+                _tempFolder = value;
                 NotifyPropertyChanged();
 
 

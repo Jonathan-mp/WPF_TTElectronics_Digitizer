@@ -21,7 +21,7 @@ namespace WPF_TTElectronics.Models
                 try
                 {
 
-                    var dirInfo = new DirectoryInfo($@"{FoldersContainer.FolderPath}{FolderToSearch.FolderPath}");
+                    var dirInfo = new DirectoryInfo($@"{FolderToSearch.FolderPath}");
 
                     var result = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.Contains($@"{ModelToSearch}_{CodeDateToSearch}")).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).FirstOrDefault();
 
@@ -51,27 +51,27 @@ namespace WPF_TTElectronics.Models
 
 
 
-        private cHojaDeRuta _foldersContainer;
-        public cHojaDeRuta FoldersContainer
-        {
-            get
-            {
-                var x = new Helpers.HelperPaths();
-                var y = new cHojaDeRuta();
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
-                });
-                return y;
-            }
-            set
-            {
-                _foldersContainer = value;
-                NotifyPropertyChanged();
+        //private cHojaDeRuta _folderContainer;
+        //public cHojaDeRuta FolderContainer
+        //{
+        //    get
+        //    {
+        //        var x = new Helpers.HelperPaths();
+        //        var y = new cHojaDeRuta();
+        //        Application.Current.Dispatcher.Invoke(() =>
+        //        {
+        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
+        //        });
+        //        return y;
+        //    }
+        //    set
+        //    {
+        //        _folderContainer = value;
+        //        NotifyPropertyChanged();
 
 
-            }
-        }
+        //    }
+        //}
 
 
         private cHojaDeRuta _folderToSearch;
@@ -186,8 +186,8 @@ namespace WPF_TTElectronics.Models
                 {
 
 
-                   return (FoldersContainer.FolderPath != null && FolderToSearch.FolderPath != null && FileNameAdded != null) ?
-                         $"{FoldersContainer.FolderPath}{FolderToSearch.FolderPath}{FileNameAdded}" : null;
+                   return (FolderToSearch.FolderPath != null && FileNameAdded != null) ?
+                         $"{FolderToSearch.FolderPath}{FileNameAdded}" : null;
                   
                 }
                 catch

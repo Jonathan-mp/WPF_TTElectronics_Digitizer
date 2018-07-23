@@ -55,21 +55,6 @@ namespace WPF_TTElectronics.Helpers
         {
             var tmp = new cHojaDeRuta();
 
-            //Task.Factory.StartNew(delegate {
-            //    var xmlStr = File.ReadAllText($@"{xmlFullPath}");
-            //    var xmlReader = XmlReader.Create(new StringReader(xmlStr));
-            //    while (xmlReader.Read())
-            //    {
-            //        if (xmlReader.Name.Equals(elementName) && (xmlReader.NodeType == XmlNodeType.Element))
-            //        {
-            //            tmp.Title = xmlReader.GetAttribute("Title");
-            //            tmp.FolderPath = xmlReader.GetAttribute("Path");
-
-            //        }
-            //    }
-
-            //});
-
 
             var xmlStr = File.ReadAllText($@"{xmlFullPath}");
             var xmlReader = XmlReader.Create(new StringReader(xmlStr));
@@ -86,6 +71,29 @@ namespace WPF_TTElectronics.Helpers
             }
         
              
+
+            return tmp;
+        }
+
+
+        public string GetTemporaryFolderNameFromXML(string xmlFullPath, string elementName)
+        {
+            var tmp = string.Empty;
+
+
+            var xmlStr = File.ReadAllText($@"{xmlFullPath}");
+            var xmlReader = XmlReader.Create(new StringReader(xmlStr));
+            while (xmlReader.Read())
+            {
+                if (xmlReader.Name.Equals(elementName) && (xmlReader.NodeType == XmlNodeType.Element))
+                {
+                    tmp = xmlReader.GetAttribute("Name");
+                   
+
+                }
+            }
+
+
 
             return tmp;
         }

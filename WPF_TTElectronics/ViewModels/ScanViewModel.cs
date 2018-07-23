@@ -88,9 +88,16 @@ namespace WPF_TTElectronics.ViewModels
 
          
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
-                //killer.AcrobatProcess();
-                if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
-                    await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
+            //killer.AcrobatProcess();
+            if (File.Exists($"{_model.TempFolder}Preview.pdf"))
+            {
+                AcrobatProcess();
+                await Task.Delay(500);
+                File.Delete($"{_model.TempFolder}Preview.pdf");
+
+
+            }
+                    //await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.TempFolder}Preview.pdf"));
 
 
 
@@ -102,14 +109,14 @@ namespace WPF_TTElectronics.ViewModels
                    {
                        if (t != null)
                        {
-                           var converter = new ScannerImageConverter(_model.FoldersContainer.FolderPath);
+                           var converter = new ScannerImageConverter(_model.TempFolder);
                            _model.OpenedFileName = "Preview";
                            _model.FileNameToSave = _model.OpenedFileName;
-                           _model.OpenedFileFolder = _model.FoldersContainer.FolderPath;
+                           _model.OpenedFileFolder = _model.TempFolder;
                            _model.ScannedImage = converter.ConvertScannedImage(t.Result);
                            var saveResult = converter.SaveOnPDF(_model.ScannedImage as BitmapFrame);
 
-                           _model.FullPathOpenedFile = $@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}";
+                           _model.FullPathOpenedFile = $@"{_model.TempFolder}{_model.OpenedFileName}";
                            await pAsync.CloseAsync();
                            _model.SaveAsEnable = true;
                            _model.VisibilityHeader = Visibility.Visible;
@@ -236,7 +243,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             try
             {
-                var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = _model.FoldersContainer.FolderPath };
+                var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = _model.ComboItems[0].FolderPath };
                 if (openFileDialog.ShowDialog() != true)
                     return;
           
@@ -382,9 +389,9 @@ namespace WPF_TTElectronics.ViewModels
                 _model.FullPathOpenedFile = _model.FullPathToSave;
                 _model.VisibilityHeader = Visibility.Visible;
 
-                if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
+                if (File.Exists($"{_model.TempFolder}Preview.pdf"))
                 {
-                    await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
+                    await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.TempFolder}Preview.pdf"));
                 }
 
 
@@ -438,17 +445,17 @@ namespace WPF_TTElectronics.ViewModels
 
 
             
-                if (File.Exists($"{_model.FoldersContainer.FolderPath}Preview.pdf"))
+                if (File.Exists($"{_model.TempFolder}Preview.pdf"))
                 {
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
                     AcrobatProcess();
                     await Task.Delay(500);
-                    File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf");
+                    File.Delete($"{_model.TempFolder}Preview.pdf");
                     //await Task.Factory.StartNew(() => killer.AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
                 }
 
                 var scanner = new ScannerService();
-                var converter = new ScannerImageConverter(_model.FoldersContainer.FolderPath);
+                var converter = new ScannerImageConverter(_model.TempFolder);
 
                 await Task.Factory.StartNew(async () =>
                 {
@@ -468,10 +475,10 @@ namespace WPF_TTElectronics.ViewModels
                         _model.ScannedImage = null;
                         _model.OpenedFileName = "Preview";
                         _model.FileNameToSave = _model.OpenedFileName;
-                        _model.OpenedFileFolder = _model.FoldersContainer.FolderPath;
+                        _model.OpenedFileFolder = _model.TempFolder;
                         converter.SavePDFsOn(file);
-                        if (File.Exists($@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}.pdf"))
-                            _model.FullPathOpenedFile = $@"{_model.FoldersContainer.FolderPath}{_model.OpenedFileName}";
+                        if (File.Exists($@"{_model.TempFolder}{_model.OpenedFileName}.pdf"))
+                            _model.FullPathOpenedFile = $@"{_model.TempFolder}{_model.OpenedFileName}";
                         else
                             return;
 

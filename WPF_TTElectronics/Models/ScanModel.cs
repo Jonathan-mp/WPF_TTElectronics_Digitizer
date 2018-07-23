@@ -1,6 +1,7 @@
 ﻿using PdfSharp.Pdf;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -10,25 +11,50 @@ namespace WPF_TTElectronics.Models
     public class ScanModel : Observable
     {
 
-        private cHojaDeRuta _foldersContainer;
-        public cHojaDeRuta FoldersContainer
+        //private cHojaDeRuta _folderContainer;
+        //public cHojaDeRuta FolderContainer
+        //{
+        //    get
+        //    {
+        //        var x = new Helpers.HelperPaths();
+        //        var y = new cHojaDeRuta();
+        //        Application.Current.Dispatcher.Invoke(() =>
+        //        {
+        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
+        //        });
+        //        return y;
+        //    }
+        //    set { _folderContainer = value;
+        //        NotifyPropertyChanged();
+
+
+        //    }
+        //}
+
+        private string _tempFolder;
+        public string TempFolder
         {
             get
             {
                 var x = new Helpers.HelperPaths();
-                var y = new cHojaDeRuta();
+                var y = string.Empty;
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
                 return y;
             }
-            set { _foldersContainer = value;
+            set
+            {
+                _tempFolder = value;
                 NotifyPropertyChanged();
 
 
             }
         }
+
+
 
 
         private cHojaDeRuta _folderToSave;
@@ -103,7 +129,7 @@ namespace WPF_TTElectronics.Models
 
         public string FullPathToSave
         {
-            get { return $"{FoldersContainer.FolderPath}{FolderToSave.FolderPath}{FileNameToSave}"; }
+            get { return $"{FolderToSave.FolderPath}{FileNameToSave}"; }
             set { _fullPathToSave = value;
                 NotifyPropertyChanged();
 

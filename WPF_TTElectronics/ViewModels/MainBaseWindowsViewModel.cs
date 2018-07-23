@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using WPF_TTElectronics.UserControls;
 using System.IO;
 using WPF_TTElectronics.Helpers;
+using System.Threading.Tasks;
 
 namespace WPF_TTElectronics.ViewModels
 {
@@ -26,10 +27,10 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        private ScanView v_scan { get; set; }
-        private SearchView v_search { get; set; }
-        private ViewView v_view { get; set; }
-        private TestView v_test { get; set; }
+        //private ScanView v_scan { get; set; }
+        //private SearchView v_search { get; set; }
+       // private ViewView v_view { get; set; }
+        //private TestView v_test { get; set; }
 
 
 
@@ -40,18 +41,18 @@ namespace WPF_TTElectronics.ViewModels
 
         public MainBaseWindowsViewModel()
         {
-            v_scan = (v_scan != null) ? v_scan : new ScanView();
-            v_search = (v_search != null) ? v_search : new SearchView();
-            v_view = (v_view != null) ? v_view : new ViewView();
-            v_test = (v_test != null) ? v_test : new TestView();
-           
-                
+            _model = (_model != null) ? _model : new MainBaseModel();
 
-            
+            //if (!Directory.Exists($@"{Path.GetTempPath()}{_model.TempFolderName}"))
+            //    Directory.CreateDirectory($@"{Path.GetTempPath()}{_model.TempFolderName}");   
+            if (!Directory.Exists($@"{_model.TempFolder}"))
+                Directory.CreateDirectory($@"{_model.TempFolder}");
+
+
+
 
             activeWindow.Closed += (s,e) =>{
-                // var killer = new Helpers.HelperClosePDFProcess();
-                // killer.AcrobatProcess();
+           
                 AcrobatProcess();
                 ClearTempFolder();
             };
@@ -59,7 +60,7 @@ namespace WPF_TTElectronics.ViewModels
            
 
 
-            _model = (_model != null) ? _model : new MainBaseModel();
+           
 
         }
 
@@ -241,8 +242,12 @@ namespace WPF_TTElectronics.ViewModels
 
         public void ClearTempFolder()
         {
-            if(Directory.GetFiles($@"{Path.GetTempPath()}TTElectronics_tmp\") != null)
-            Array.ForEach(Directory.GetFiles($@"{Path.GetTempPath()}TTElectronics_tmp\"), delegate (string path) { File.Delete(path); });
+            AcrobatProcess();
+            Task.Delay(500);
+            //if(Directory.GetFiles($@"{Path.GetTempPath()}{_model.TempFolderName}") != null)
+            //Array.ForEach(Directory.GetFiles($@"{Path.GetTempPath()}{_model.TempFolderName}"), delegate (string path) { File.Delete(path); });
+            if (Directory.GetFiles($@"{_model.TempFolder}") != null)
+                Array.ForEach(Directory.GetFiles($@"{_model.TempFolder}"), delegate (string path) { File.Delete(path); });
 
         }
 

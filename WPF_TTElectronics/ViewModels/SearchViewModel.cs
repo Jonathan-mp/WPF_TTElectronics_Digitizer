@@ -39,7 +39,7 @@ namespace WPF_TTElectronics.ViewModels
             var xmlhelper = new HelperPaths();
 
             _model = (_model != null) ? _model : new SearchModel();
-            tmpFolder = $@"{Path.GetTempPath()}TTElectronics_tmp\";
+            tmpFolder = $@"{Path.GetTempPath()}_TTElectronics\";
             if (!Directory.Exists($@"{tmpFolder}"))
                 Directory.CreateDirectory($@"{tmpFolder}");
 
@@ -94,7 +94,7 @@ namespace WPF_TTElectronics.ViewModels
                    
                     File.Copy($@"{_model.FullPathToSearch}.pdf", $@"{tmpFolder}{_model.FileNameAdded}.pdf", true );
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{tmpFolder}{_model.FileNameAdded}.pdf");
-                    _model.Header = $@"TTElectronics_tmp\{_model.FileNameAdded}";
+                    _model.Header = $@"tmp\{_model.FileNameAdded}";
                    
                     Visibilities(false);
                 }
