@@ -243,7 +243,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             try
             {
-                var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = _model.ComboItems[0].FolderPath };
+                var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
                 if (openFileDialog.ShowDialog() != true)
                     return;
           

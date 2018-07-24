@@ -17,17 +17,13 @@
   
   ComboBox will displays MyFolderName but its value will be C:\Users\MyUser\Desktop\MyFolder\
   -->
-  <FolderPath Title="Pots" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Pots\" Code ="111" Title2Display="111 - Pots" >
+  <FolderPath Title="Pots" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Pots\">
   </FolderPath>
 
-  <FolderPath Title="Screening" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Screening\" Code ="222" Title2Display="222 - Screening">
+  <FolderPath Title="Screening" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Screening\">
   </FolderPath>
 
-  <FolderPath Title="Trimmers" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Trimmers\" Code ="333" Title2Display="333 - Trimmers">
+  <FolderPath Title="Trimmers" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Trimmers\">
   </FolderPath>
-
-  <FolderPath Title="ThisFolderNotExists" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\MyTestFolder\" Code ="000" Title2Display="000 - ThisFolderNotExists">
-  </FolderPath>
-
 
 </HojaDeRuta>

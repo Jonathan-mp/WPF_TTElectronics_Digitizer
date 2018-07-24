@@ -19,11 +19,20 @@ namespace WPF_TTElectronics.Models
             {
                 var x = new Helpers.HelperPaths();
                 var y = string.Empty;
+
+#if(DEBUG)
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
                     y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
+#else
+  Application.Current.Dispatcher.Invoke(() =>
+                {
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
+                });
+#endif
                 return y;
             }
             set
@@ -99,10 +108,21 @@ namespace WPF_TTElectronics.Models
             {
                 var x = new Helpers.HelperPaths();
                 var y = new ObservableCollection<cHojaDeRuta>();
+
+#if(DEBUG)
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "FolderPath");
                 });
+
+#else
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
+                });
+
+#endif
                 return y;
             }
             set
