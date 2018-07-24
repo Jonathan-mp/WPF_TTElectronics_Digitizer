@@ -21,7 +21,7 @@ namespace WPF_TTElectronics.Models
                 var y = string.Empty;
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "TemporaryFolder");
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
                     y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
                 return y;
@@ -69,35 +69,6 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-
-
-
-
-
-
-        //private cHojaDeRuta _folderContainer;
-        //public cHojaDeRuta FolderContainer
-        //{
-        //    get
-        //    {
-        //        var x = new Helpers.HelperPaths();
-        //        var y = new cHojaDeRuta();
-        //        Application.Current.Dispatcher.Invoke(() =>
-        //        {
-        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
-        //        });
-        //        return y;
-        //    }
-        //    set
-        //    {
-        //        _folderContainer = value;
-        //        NotifyPropertyChanged();
-
-
-        //    }
-        //}
-
-
         private cHojaDeRuta _folderToSearch;
         public cHojaDeRuta FolderToSearch
         {
@@ -121,9 +92,6 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-
-
-
         private ObservableCollection<cHojaDeRuta> _comboItems;
         public ObservableCollection<cHojaDeRuta> ComboItems
         {
@@ -133,7 +101,7 @@ namespace WPF_TTElectronics.Models
                 var y = new ObservableCollection<cHojaDeRuta>();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
+                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "FolderPath");
                 });
                 return y;
             }
@@ -155,7 +123,6 @@ namespace WPF_TTElectronics.Models
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
                 NotifyPropertyChanged("AllFileNames");
-
             }
         }
 
@@ -169,9 +136,6 @@ namespace WPF_TTElectronics.Models
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
-                
-
-
             }
         }
 
@@ -188,7 +152,6 @@ namespace WPF_TTElectronics.Models
                     return null;
                 }
 
-
             }
             set { _fileNameAdded = value;
                 NotifyPropertyChanged();
@@ -204,8 +167,6 @@ namespace WPF_TTElectronics.Models
         public string FullPathToSearch
         {
             get {
-
-
                 try
                 {
 
@@ -267,8 +228,6 @@ namespace WPF_TTElectronics.Models
             get { return (IsMsgVisible==true)? Visibility.Hidden : Visibility.Visible; }
             set { _visibilityView = value;
                 NotifyPropertyChanged();
-               
-
             }
         }
 
@@ -281,7 +240,6 @@ namespace WPF_TTElectronics.Models
             set { _isMsgVisible = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("VisibilityView");
-
             }
         }
 
@@ -296,14 +254,6 @@ namespace WPF_TTElectronics.Models
                 NotifyPropertyChanged();
             }
         }
-
-
-
-
-      
-
-
-
 
     }
 }

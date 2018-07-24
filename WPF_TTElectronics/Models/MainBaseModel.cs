@@ -33,28 +33,6 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-        //private cHojaDeRuta _foldersContainer;
-        //public cHojaDeRuta FoldersContainer
-        //{
-        //    get
-        //    {
-        //        var x = new Helpers.HelperPaths();
-        //        var y = new cHojaDeRuta();
-        //        Application.Current.Dispatcher.Invoke(() =>
-        //        {
-        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
-        //        });
-        //        return y;
-        //    }
-        //    set
-        //    {
-        //        _foldersContainer = value;
-        //        NotifyPropertyChanged();
-
-
-        //    }
-        //}
-
 
         
 
@@ -68,7 +46,7 @@ namespace WPF_TTElectronics.Models
                 var y = string.Empty;
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "TemporaryFolder");
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
                     y = string.Format("{0}{1}", Path.GetTempPath(), y);
                 });
                 return y;

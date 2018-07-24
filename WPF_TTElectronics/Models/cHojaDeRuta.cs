@@ -9,9 +9,7 @@ namespace WPF_TTElectronics.Models
     public class cHojaDeRuta
     {
         public string Title { get; set; }
-        public string Code { get; set; }
         public string FolderPath { get; set; }
-        public string Title2Display { get; set; }
 
     }
 }

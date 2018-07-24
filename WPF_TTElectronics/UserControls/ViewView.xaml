@@ -42,20 +42,17 @@
             </Label.Content>
         </Label>
 
-        <!--<StackPanel  Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" >-->
 
 
         <Border Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3"  Margin="5" BorderThickness="2" BorderBrush="#3FAFDF">
-            <WebBrowser  x:Name="pdfview" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></WebBrowser>
+            <WebBrowser  x:Name="pdfview" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="{Binding _model.VisibilityHeader}"></WebBrowser>
         </Border>
 
 
-        <!--</StackPanel>-->
 
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" >
 
-            <!--<Border   Padding="10">-->
             <StackPanel>
                 <xctk:WatermarkComboBox  x:Name="comboBox" Width="300" Height="35"  Margin="0,10,0,0" Focusable="False"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ItemsSource="{Binding _model.ComboItems}" HorizontalAlignment="Center" SelectedValue="{Binding _model.FolderToSearch, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Title" Controls:ComboBoxHelper.CharacterCasing="Upper" BorderBrush="Black" BorderThickness="1">
                     <xctk:WatermarkComboBox.Watermark>
@@ -78,7 +75,6 @@
 
 
             </StackPanel>
-            <!--</Border>-->
 
 
 
@@ -90,7 +86,6 @@
 
             <DataGrid x:Name="list"  SelectedValue="{Binding _model.FileNameSelected}" SelectedCellsChanged="list_SelectedCellsChanged" IsTabStop="False" IsReadOnly="True" HorizontalAlignment="Stretch"   AutoGenerateColumns="False" HorizontalContentAlignment="Center" AlternatingRowBackground="#BFE4F4" ItemsSource="{Binding Path=_model.AllFileNames}"  CanUserReorderColumns="True" CanUserResizeColumns="False">
                 <DataGrid.Columns>
-                    <!--<DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" Width="*"></DataGridTextColumn>-->
                     <DataGridTextColumn Header="Family" Binding="{Binding Family}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Date Code" Binding="{Binding DateCode}" Width="*"></DataGridTextColumn>

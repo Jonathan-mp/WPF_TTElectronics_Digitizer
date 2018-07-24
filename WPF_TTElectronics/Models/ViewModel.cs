@@ -19,11 +19,8 @@ namespace WPF_TTElectronics.Models
 
                 try
                 {
-
                     var dirInfo = new DirectoryInfo($@"{FolderToSearch.FolderPath}");
-
                     var listResult = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.StartsWith(ModelToSearch) && x.Name.Split('_')[1].StartsWith($@"{CodeDateToSearch}")).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).ToList();
-
 
                     _allFilesNames = new ObservableCollection<cFileInfo>(listResult);
                 }
@@ -39,37 +36,11 @@ namespace WPF_TTElectronics.Models
             {
                 _allFilesNames = value;
                 NotifyPropertyChanged();
-
             }
         }
 
 
 
-
-
-
-        //private cHojaDeRuta _folderContainer;
-        //public cHojaDeRuta FolderContainer
-        //{
-        //    get
-        //    {
-        //        var x = new Helpers.HelperPaths();
-        //        var y = new cHojaDeRuta();
-        //        Application.Current.Dispatcher.Invoke(() =>
-        //        {
-        //            y = x.GetOneElementFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "ContainerFolder");
-        //        });
-        //        return y;
-        //    }
-        //    set
-        //    {
-        //        _folderContainer = value;
-        //        NotifyPropertyChanged();
-
-
-
-        //    }
-        //}
 
 
         private cHojaDeRuta _folderToSearch;
@@ -82,7 +53,6 @@ namespace WPF_TTElectronics.Models
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("AllFileNames");
-
             }
         }
 
@@ -97,7 +67,7 @@ namespace WPF_TTElectronics.Models
                 var y = new ObservableCollection<cHojaDeRuta>();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
+                    y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "FolderPath");
                 });
                 return y;
             }
@@ -105,7 +75,6 @@ namespace WPF_TTElectronics.Models
             {
                 _comboItems = value;
                 NotifyPropertyChanged();
-
             }
         }
 
@@ -147,8 +116,6 @@ namespace WPF_TTElectronics.Models
             get
             {
                 return (_fileNameSelected != null) ? _fileNameSelected : null;
-
-
             }
             set
             {
@@ -179,7 +146,6 @@ namespace WPF_TTElectronics.Models
             {
                 _visibilityHeader = value;
                 NotifyPropertyChanged();
-
             }
         }
 

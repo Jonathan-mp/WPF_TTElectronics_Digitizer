@@ -1,36 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HojaDeRuta>
 
-  
-  <!--Only one Container Folder.
-  Example:
-   <ContainerFolder Title="ContainerFolder" Path="C:\Users\MyUser\">
-  </ContainerFolder>
-  
-  then when user selected a FolderPath on ComboBox, will be added to the last slash 
-  C:\Users\MyUser\MyNewFolder\
-  
-  -->
-  
-  <ContainerFolder Title="ContainerFolder" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\" Code="null" Title2Display="null">
-  </ContainerFolder>
-
-
+  <!--Folder name that will be created on Temp folder-->
   <TemporaryFolder Name ="_TTElectronics\"></TemporaryFolder>
   
   
   
-  <!--add or remove paths
+  <!--
+  add or remove paths
   - Title -> Name to display on application ComboBox
-  - Path -> Folder path name
+  - Path -> Full Path
+  
   Example:
-  <FolderPath Title="MyFolderName" Path="MyNewFolder\">
+  <FolderPath Title="MyFolderName" Path="C:\Users\MyUser\Desktop\MyFolder\">
   </FolderPath>
   
-  ComboBox will displays MyfolderName but its value will be MyNewFolder\
-  
+  ComboBox will displays MyFolderName but its value will be C:\Users\MyUser\Desktop\MyFolder\
   -->
-  
   <FolderPath Title="Pots" FolderPath="C:\Users\Jonathanmp\Desktop\WPF_TTElectronics_WebBrowser\WPF_TTElectronics\bin\Debug\ExampleFolderContainer\Pots\" Code ="111" Title2Display="111 - Pots" >
   </FolderPath>
 

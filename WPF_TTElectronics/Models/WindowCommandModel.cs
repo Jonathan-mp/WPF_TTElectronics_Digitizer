@@ -28,7 +28,6 @@ namespace WPF_TTElectronics.Models
             {
                 _dateNow = value;
                 NotifyPropertyChanged();
-
             }
         }
 

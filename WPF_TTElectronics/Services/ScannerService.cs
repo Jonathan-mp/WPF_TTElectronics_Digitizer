@@ -58,8 +58,10 @@ namespace WPF_TTElectronics.Services
                 var item = x.Items[1];
 
 
-                image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
+                //image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
+                  image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
 
+                
 
                 if (image != null)
                 {
