@@ -100,7 +100,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="INFO" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="I N F O" Background="#3FAFDF"  FontSize="10"></Label>
 
                     <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
                         <StackPanel Margin="0,0,50,0">
@@ -141,18 +141,13 @@
                         </StackPanel>
                     </StackPanel>
 
-
-
                 </Grid>
 
             </Border>
 
             <Border Grid.Column="4" Grid.ColumnSpan="5"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="5" BorderBrush="#3FAFDF" BorderThickness="1">
-
-
                 <StackPanel>
-                    <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="OPTIONS" Background="#3FAFDF"  FontWeight="Bold"  FontSize="10"></Label>
-
+                    <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="O P T I O N S" Background="#3FAFDF"    FontSize="10"></Label>
                     <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
                         <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
                         <StackPanel HorizontalAlignment="Center">

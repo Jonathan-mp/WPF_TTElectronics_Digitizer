@@ -134,6 +134,7 @@
     <Compile Include="Helpers\HelperClosePDFProcess.cs" />
     <Compile Include="Helpers\HelperPaths.cs" />
     <Compile Include="Models\AboutModel.cs" />
+    <Compile Include="Models\AddPDFModel.cs" />
     <Compile Include="Models\cFileInfo.cs" />
     <Compile Include="Models\cHojaDeRuta.cs" />
     <Compile Include="Models\FullWindowModel.cs" />
@@ -152,6 +153,9 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\ScannerImageConverter.cs" />
     <Compile Include="Services\ScannerService.cs" />
+    <Compile Include="UserControls\AddPDFView.xaml.cs">
+      <DependentUpon>AddPDFView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +169,7 @@
       <DependentUpon>ViewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AddPDFViewModel.cs" />
     <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainBaseWindowsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
@@ -190,6 +195,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\AddPDFView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

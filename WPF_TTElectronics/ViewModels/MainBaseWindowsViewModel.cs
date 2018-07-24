@@ -27,11 +27,6 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        //private ScanView v_scan { get; set; }
-        //private SearchView v_search { get; set; }
-       // private ViewView v_view { get; set; }
-        //private TestView v_test { get; set; }
-
 
 
 
@@ -43,8 +38,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             _model = (_model != null) ? _model : new MainBaseModel();
 
-            //if (!Directory.Exists($@"{Path.GetTempPath()}{_model.TempFolderName}"))
-            //    Directory.CreateDirectory($@"{Path.GetTempPath()}{_model.TempFolderName}");   
+            
             if (!Directory.Exists($@"{_model.TempFolder}"))
                 Directory.CreateDirectory($@"{_model.TempFolder}");
 
@@ -114,7 +108,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        #region --------ShowSearch and ShowSearchCommand
+        #region --------ShowSearchView and ShowSearchCommand
 
         private RelayCommand _showSearchCommand;
         public ICommand ShowSearchCommand
@@ -139,11 +133,10 @@ namespace WPF_TTElectronics.ViewModels
     
         public void ShowSearch()
         {
-            // v_search = new SearchView();
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is SearchView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new SearchView(); //v_search;
-            ClearTempFolder();
+          
         }
 
 
@@ -184,7 +177,8 @@ namespace WPF_TTElectronics.ViewModels
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is ScanView)
                 return;
 
-            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ScanView(); // _model.V_Scan; //v_scan; //new ScanView(); //v_scan;
+            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ScanView(); // _model.V_Scan;
+
         }
 
 
@@ -224,7 +218,7 @@ namespace WPF_TTElectronics.ViewModels
 
         public void ShowView()
         {
-            // v_view = new ViewView();
+            
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is ViewView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ViewView(); //v_view;
@@ -236,6 +230,41 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
+        #region --------ShowAddPDFView and ShowAddPDFCommand
+
+        private RelayCommand _showAddPDFCommand;
+        public ICommand ShowAddPDFCommand
+        {
+            get
+            {
+                if (_showAddPDFCommand == null)
+                {
+                    _showAddPDFCommand = new RelayCommand(param => this.ShowAddPDF(), param => this.CanAddPDF);
+                }
+
+                return _showAddPDFCommand;
+            }
+        }
+
+        public bool CanAddPDF
+        {
+            get { return true; }
+        }
+
+
+
+        public void ShowAddPDF()
+        {
+
+            if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is AddPDFView)
+                return;
+            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new AddPDFView(); 
+        }
+
+
+
+        #endregion
+
 
 
 
@@ -244,10 +273,11 @@ namespace WPF_TTElectronics.ViewModels
         {
             AcrobatProcess();
             Task.Delay(500);
-            //if(Directory.GetFiles($@"{Path.GetTempPath()}{_model.TempFolderName}") != null)
-            //Array.ForEach(Directory.GetFiles($@"{Path.GetTempPath()}{_model.TempFolderName}"), delegate (string path) { File.Delete(path); });
-            if (Directory.GetFiles($@"{_model.TempFolder}") != null)
-                Array.ForEach(Directory.GetFiles($@"{_model.TempFolder}"), delegate (string path) { File.Delete(path); });
+            var tmpfiles = Directory.GetFiles($@"{_model.TempFolder}");
+
+
+            if (tmpfiles != null)
+                Array.ForEach(tmpfiles, delegate (string path) { File.Delete(path); });
 
         }
 
