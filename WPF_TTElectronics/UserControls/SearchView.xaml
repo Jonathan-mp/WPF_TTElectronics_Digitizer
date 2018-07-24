@@ -79,7 +79,7 @@
                 </Button.Content>
             </Button>
 
-            <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" Margin="5,0,5,5" BorderThickness="2" BorderBrush="#3FAFDF" Visibility="{Binding _model.AddPageStackVisibility}">
+            <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" Margin="2" BorderThickness="2" BorderBrush="#3FAFDF" Visibility="{Binding _model.AddPageStackVisibility}">
                 <WebBrowser x:Name="pdfview" Focusable="False" Visibility="{Binding _model.VisibilityView}"></WebBrowser>
              </Border>
 
@@ -87,7 +87,7 @@
             <!--<TextBlock Text="{Binding _model.FullPathOpenedFile}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"></TextBlock>-->
 
 
-            <Border Grid.Column="0" Grid.ColumnSpan="4"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="5" BorderBrush="#3FAFDF" BorderThickness="1" >
+            <Border Grid.Column="0" Grid.ColumnSpan="4"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="2" BorderBrush="#3FAFDF" BorderThickness="1" >
 
 
                 <Grid>
@@ -145,14 +145,30 @@
 
             </Border>
 
-            <Border Grid.Column="4" Grid.ColumnSpan="5"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="5" BorderBrush="#3FAFDF" BorderThickness="1">
+            <Border Grid.Column="4" Grid.ColumnSpan="5"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="2" BorderBrush="#3FAFDF" BorderThickness="1">
                 <StackPanel>
                     <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="O P T I O N S" Background="#3FAFDF"    FontSize="10"></Label>
                     <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
-                        <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
+                        <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="2" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
                         <StackPanel HorizontalAlignment="Center">
-                            <Button  Content="ADD" Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2"> </Button>
-                            <Button Content="SAVE" Cursor="Hand" Width="60" Height="60" Margin="2" Command="{Binding ShowSaveCommand}" ></Button>
+                            <Button  Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <icons:PackIconFontAwesome Kind="PlusSolid" Width="10" Height="10" ></icons:PackIconFontAwesome>
+                                      
+                                        <TextBlock Text=" Add"></TextBlock>
+
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button  Cursor="Hand" Width="60" Height="60" Margin="2" Command="{Binding ShowSaveCommand}" >
+                                <Button.Content>
+                                    <StackPanel>
+                                        <icons:PackIconMaterialLight Kind="ContentSave" Width="30" Height="30" HorizontalAlignment="Center"></icons:PackIconMaterialLight>
+                                        <Label Content="Save"></Label>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

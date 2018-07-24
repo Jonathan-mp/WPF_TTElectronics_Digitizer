@@ -115,12 +115,17 @@
             </StackPanel>
             <!--SAVE Button-->
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button  Margin="10,0,5,0" Cursor="Hand" Width="75" Height="95" IsEnabled="{Binding _model.SaveEnable}" Command="{Binding ShowSaveCommand}">
+                <Button  Margin="10,0,5,0" Cursor="Hand" Width="75" Height="125" IsEnabled="{Binding _model.SaveEnable}" Command="{Binding ShowSaveCommand}">
                     <Button.Content>
-                        <icons:PackIconMaterialLight Kind="ContentSave" Width="35" Height="35"></icons:PackIconMaterialLight>
+                        <StackPanel>
+                            <icons:PackIconMaterialLight Kind="ContentSave" Width="45" Height="45" HorizontalAlignment="Center" VerticalAlignment="Center"></icons:PackIconMaterialLight>
+                            <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center">Save</TextBlock>
+                        </StackPanel>
+                       
+                       
                     </Button.Content>
                 </Button>
-                <Label FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Top">Save</Label>
+               
             </StackPanel>
         </StackPanel>
     </Grid>

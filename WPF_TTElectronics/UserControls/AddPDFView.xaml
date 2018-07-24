@@ -30,34 +30,45 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Background="Red" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N" Background="#3FAFDF"    FontSize="10"></Label>
-            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" >
-                <Button Content="Browser"></Button>
-                <Label Content="Select a principal file..."></Label>
-            </StackPanel>
+        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="2" BorderBrush="#3FAFDF" BorderThickness="1">
+            <Grid >
+              <Grid.ColumnDefinitions>
+                 <ColumnDefinition></ColumnDefinition>
+                  <ColumnDefinition></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                 <RowDefinition Height="auto"></RowDefinition>
+                 <RowDefinition Height="auto"></RowDefinition>
+                 <RowDefinition Height="*"></RowDefinition>
+              </Grid.RowDefinitions>
+           
+
+              <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N" Background="#3FAFDF" FontSize="10" HorizontalAlignment="Stretch"></Label>
+              <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" >
+                  <Button BorderBrush="#3FAFDF" BorderThickness="1"  >
+                     <Button.Content>
+                         <StackPanel Orientation="Horizontal">
+                                <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                               <TextBlock Text=" Browser" VerticalAlignment="Center"></TextBlock>
+                           </StackPanel>
+                        </Button.Content>
+                    </Button>
+                 <Label Content="Select a destination file..."></Label>
+               </StackPanel>
             
             
+          </Grid>
+        </Border>
+
+
+
+
+        <Grid Background="Blue" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="4" Margin="2">
+
         </Grid>
-        
-        
-        
 
-        <Grid Background="Blue" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="4" Margin="5">
-
-        </Grid>
-
-        <Border Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" BorderBrush="#3FAFDF" BorderThickness="1" Margin="5">
+        <Border Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" BorderBrush="#3FAFDF" BorderThickness="1" Margin="2">
             
         </Border>
 

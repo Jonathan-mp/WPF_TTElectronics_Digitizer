@@ -130,7 +130,7 @@
 
                 <Controls:HamburgerMenu.ItemsSource>
                     <Controls:HamburgerMenuItemCollection>
-                        <Controls:HamburgerMenuGlyphItem Glyph="Scanner" Label="Scan" ToolTip="Scan single page or multi pages" Command="{Binding ShowScanCommand}"/>
+                        <Controls:HamburgerMenuGlyphItem Glyph="Scanner" Label="New Scan" ToolTip="Scan single page or multi pages" Command="{Binding ShowScanCommand}"/>
                         <Controls:HamburgerMenuGlyphItem Glyph="FileFind" Label="Search and Add" ToolTip="Search your files and adding new pages" Command="{Binding ShowSearchCommand}"/>
                         <Controls:HamburgerMenuGlyphItem Glyph="Eye" Label="View" ToolTip="Open your files to view them" Command="{Binding ShowViewsCommand}"/>
                         <Controls:HamburgerMenuGlyphItem Glyph="FilePlus" Label="Add PDFs" ToolTip="Open your files to view them" Command="{Binding ShowAddPDFCommand}"/>
