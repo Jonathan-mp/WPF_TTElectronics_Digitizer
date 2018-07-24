@@ -36,7 +36,7 @@
         <Label FontWeight="Bold" FontSize="20" Visibility="{Binding _model.VisibilityHeader}"  Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center" >
             <Label.Content>
                 <StackPanel Orientation="Horizontal">
-                    <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="20" Width="20" Margin="0,0,10,0"></icons:PackIconFontAwesome>
+                    <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="20" Width="20" Margin="0,0,10,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
                     <TextBlock Text="{Binding _model.FileNameSelected.FullName}"></TextBlock>
                 </StackPanel>
             </Label.Content>

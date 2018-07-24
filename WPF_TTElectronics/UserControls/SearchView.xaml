@@ -65,7 +65,7 @@
             <Label  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontWeight="Bold" FontSize="20">
                 <Label.Content>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
-                        <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="35" Width="35" Margin="0,0,10,0"></icons:PackIconFontAwesome>
+                        <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="20" Width="20" Margin="0,0,10,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
                         <TextBlock Text="{Binding _model.Header}" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Label.Content>
