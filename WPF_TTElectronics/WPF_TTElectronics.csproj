@@ -285,5 +285,17 @@
   <ItemGroup>
     <Resource Include="Resources\view_icon.ico" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ScreenShots\AddExistingPDF_01.png" />
+    <Resource Include="ScreenShots\Main_01.png" />
+    <Resource Include="ScreenShots\NewScan_01.png" />
+    <Resource Include="ScreenShots\NewScan_02.png" />
+    <Resource Include="ScreenShots\Scan&amp;Add_01.png" />
+    <Resource Include="ScreenShots\Scan&amp;Add_02.png" />
+    <Resource Include="ScreenShots\Scan&amp;Add_03.png" />
+    <Resource Include="ScreenShots\View_01.png" />
+    <Resource Include="ScreenShots\View_02.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

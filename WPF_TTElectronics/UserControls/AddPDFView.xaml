@@ -31,7 +31,7 @@
 
 
 
-        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="2" BorderBrush="#3FAFDF" BorderThickness="1">
+        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="2.5"  BorderBrush="#3FAFDF" BorderThickness="1">
             <Grid >
               <Grid.ColumnDefinitions>
                  <ColumnDefinition></ColumnDefinition>
@@ -44,7 +44,7 @@
               </Grid.RowDefinitions>
            
 
-              <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N" Background="#3FAFDF" FontSize="10" HorizontalAlignment="Stretch"></Label>
+              <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N" Background="#3FAFDF" VerticalAlignment="Stretch" FontSize="10" HorizontalAlignment="Stretch"></Label>
               <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" >
                   <Button BorderBrush="#3FAFDF" BorderThickness="1"  >
                      <Button.Content>
@@ -64,7 +64,7 @@
 
 
 
-        <Grid Background="Blue" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="4" Margin="2">
+        <Grid Background="Blue" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="4" Margin="2.5">
 
         </Grid>
 
