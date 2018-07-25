@@ -99,7 +99,7 @@ namespace WPF_TTElectronics.ViewModels
                 else
                     ShowErrorMessage("File NOT Found");
             }
-            catch(Exception ex)
+            catch
             {
 
                 return;

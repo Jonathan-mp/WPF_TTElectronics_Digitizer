@@ -15,6 +15,7 @@ namespace WPF_TTElectronics.Models
         public DateTime TimeLastAccess { get; set; }
         public DateTime TimeLastWrite { get; set; }
 
+        public bool Check2Add { get; set; }
 
 
     }

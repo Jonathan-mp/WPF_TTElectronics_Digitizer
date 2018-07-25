@@ -106,7 +106,7 @@
                     <xctk:WatermarkComboBox.Watermark>
                         <StackPanel Orientation="Horizontal" >
                             <icons:PackIconMaterialLight Kind="Folder" HorizontalAlignment="Left" Margin="0,0,10,0"></icons:PackIconMaterialLight>
-                            <TextBlock Text="Select A Folder"></TextBlock>
+                            <TextBlock Text="Select A Family"></TextBlock>
                         </StackPanel>
                     </xctk:WatermarkComboBox.Watermark>
                 </xctk:WatermarkComboBox>

@@ -6,7 +6,31 @@ using System.Threading.Tasks;
 
 namespace WPF_TTElectronics.Models
 {
-    class AddPDFModel
+    public class AddPDFModel : Observable
     {
+
+        private cFileInfo _fileDestination;
+        public cFileInfo  FileDestination
+        {
+            get { return _fileDestination; }
+            set { _fileDestination = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+
+        private bool _isMsgVisible;
+        public bool IsMsgVisible
+        {
+            get { return _isMsgVisible; }
+            set { _isMsgVisible = value;
+                NotifyPropertyChanged();
+
+            }
+        }
+
+        
+
     }
 }
