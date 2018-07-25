@@ -170,7 +170,12 @@
         
         
         <Border Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" BorderBrush="#3FAFDF" BorderThickness="1" Margin="2">
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+
         </Border>
 
 

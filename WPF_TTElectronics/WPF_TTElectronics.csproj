@@ -141,7 +141,6 @@
     <Compile Include="Models\MainBaseModel.cs" />
     <Compile Include="Models\ScanModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
-    <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Models\WindowCommandModel.cs" />
     <Compile Include="Observable.cs" />
@@ -162,9 +161,6 @@
     <Compile Include="UserControls\ScanView.xaml.cs">
       <DependentUpon>ScanView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ViewView.xaml.cs">
       <DependentUpon>ViewView.xaml</DependentUpon>
     </Compile>
@@ -175,8 +171,6 @@
     <Compile Include="ViewModels\PreviewViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ScanViewModel.cs" />
-    <Compile Include="ViewModels\TestViewModel.cs" />
-    <Compile Include="ViewModels\ViewViewModel2.cs" />
     <Compile Include="ViewModels\ViewViewModel.cs" />
     <Compile Include="ViewModels\WindowCommandViewModel.cs" />
     <Compile Include="Views\FullWindowView.xaml.cs">
@@ -204,10 +198,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ScanView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,7 +15,7 @@ namespace WPF_TTElectronics.ViewModels
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
         MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
-        Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,4}$");
+        Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
 
 
         public AddPDFModel _model { get; set; }
@@ -91,12 +91,12 @@ namespace WPF_TTElectronics.ViewModels
                     TimeLastWrite = file.LastWriteTime
                 };
 
-                //var result = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.Contains($@"{ModelToSearch}_{CodeDateToSearch}")).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).FirstOrDefault();
+               
 
 
 
             }
-            catch (Exception ex)
+            catch
             {
                 _model.FileDestination = null;
               

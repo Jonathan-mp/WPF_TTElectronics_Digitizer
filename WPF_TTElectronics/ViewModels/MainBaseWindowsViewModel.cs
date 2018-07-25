@@ -327,38 +327,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        #region --------ShowViewView and ShowViewViewCommand
-
-        private RelayCommand _showTestCommand;
-        public ICommand ShowTestCommand
-        {
-            get
-            {
-                if (_showTestCommand == null)
-                {
-                    _showTestCommand = new RelayCommand(param => this.ShowTest(), param => this.CanTest);
-                }
-
-                return _showTestCommand;
-            }
-        }
-
-        public bool CanTest
-        {
-            get { return true; }
-        }
-
-
-
-        public void ShowTest()
-        {
-            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new TestView(); //v_test; //new TestView();  //v_test;
-        }
-
-
-
-        #endregion
-
+     
 
 
 

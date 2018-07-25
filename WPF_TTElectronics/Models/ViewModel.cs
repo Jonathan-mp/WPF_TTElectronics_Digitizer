@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,6 +12,8 @@ namespace WPF_TTElectronics.Models
 {
     class ViewModel : Observable
     {
+        readonly Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
+
         private ObservableCollection<cFileInfo> _allFilesNames;
         public ObservableCollection<cFileInfo> AllFileNames
         {
@@ -20,7 +23,7 @@ namespace WPF_TTElectronics.Models
                 try
                 {
                     var dirInfo = new DirectoryInfo($@"{FolderToSearch.FolderPath}");
-                    var listResult = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.StartsWith(ModelToSearch) && x.Name.Split('_')[1].StartsWith($@"{CodeDateToSearch}") && x.Name.Split('.')[0].Length <= 13).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).ToList();
+                    var listResult = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.StartsWith(ModelToSearch) && x.Name.Split('_')[1].StartsWith($@"{CodeDateToSearch}") && nameFormat.IsMatch(x.Name.Split('.')[0])).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).ToList();
 
                     _allFilesNames = new ObservableCollection<cFileInfo>(listResult);
                 }
