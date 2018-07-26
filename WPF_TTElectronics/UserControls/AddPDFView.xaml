@@ -51,35 +51,35 @@
            
 
               <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="F I L E   D E S T I N A T I O N" Background="#3FAFDF" VerticalAlignment="Stretch" FontSize="10" HorizontalAlignment="Stretch"></Label>
-              <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2" >
-                  <Button Command="{Binding ShowBrowseDestinationCommand}">
+              <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" >
+                  <Button Command="{Binding ShowBrowseDestinationCommand}" Focusable="False">
                      <Button.Content>
                          <StackPanel Orientation="Horizontal">
-                                <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
-                               <TextBlock Text=" Browse file" VerticalAlignment="Center"></TextBlock>
+                           <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                           <TextBlock Text=" Browse file" VerticalAlignment="Center"></TextBlock>
                            </StackPanel>
                         </Button.Content>
                     </Button>
-                 <Label Content="Select a destination file..."></Label>
+                 <TextBlock Text="{Binding _model.SelectADestinationFile}" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
                </StackPanel>
 
                 
                    
-                        <StackPanel  Orientation="Horizontal" Margin="2" Grid.Column="0" Grid.Row="3" >
-                            <icons:PackIconFontAwesome Kind="FolderOpenRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
-                            <TextBlock Text="Family:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
-                            <TextBlock Text="{Binding _model.FileDestination.Family }"  FontSize="12" Margin="2" ></TextBlock>
+                <StackPanel  Orientation="Horizontal" Margin="2" Grid.Column="0" Grid.Row="3" >
+                        <icons:PackIconFontAwesome Kind="FolderOpenRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
+                        <TextBlock Text="Family:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
+                        <TextBlock Text="{Binding _model.FileDestination.Family }"  FontSize="12" Margin="2" ></TextBlock>
                         </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="2" Grid.Column="0" Grid.Row="4">
-                            <icons:PackIconFontAwesome Kind="FileAltRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
-                            <TextBlock Text="Model:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
-                            <TextBlock Text="{Binding _model.FileDestination.Model}"  FontSize="12" Margin="2" ></TextBlock>
-                        </StackPanel>
+                        <icons:PackIconFontAwesome Kind="FileAltRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
+                        <TextBlock Text="Model:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
+                        <TextBlock Text="{Binding _model.FileDestination.Model}"  FontSize="12" Margin="2" ></TextBlock>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="2" Grid.Column="0" Grid.Row="5">
-                            <icons:PackIconFontAwesome Kind="CalendarAltRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
-                            <TextBlock Text="Date Code:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
-                            <TextBlock Text="{Binding _model.FileDestination.DateCode}"  FontSize="12" Margin="2" ></TextBlock>
-                        </StackPanel>
+                        <icons:PackIconFontAwesome Kind="CalendarAltRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
+                        <TextBlock Text="Date Code:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
+                        <TextBlock Text="{Binding _model.FileDestination.DateCode}"  FontSize="12" Margin="2" ></TextBlock>
+                </StackPanel>
 
 
 
@@ -123,7 +123,7 @@
 
 
                 <StackPanel  Orientation="Horizontal" Grid.Column="0"  Grid.Row="1" Margin="5" >
-                    <Button>
+                    <Button Focusable="False">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
@@ -131,11 +131,11 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Label Content="Select files to add..."></Label>
+                    <TextBlock Text=" Select files to add..." VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
 
                 <StackPanel  Orientation="Horizontal" Grid.Column="1"  Grid.Row="1" Margin="5" HorizontalAlignment="Right" >
-                    <Button>
+                    <Button Focusable="False">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <icons:PackIconFontAwesome Kind="PlusSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
@@ -169,12 +169,25 @@
         
         
         
-        <Border Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" BorderBrush="#3FAFDF" BorderThickness="1" Margin="2">
+        <Border Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" BorderBrush="#3FAFDF" BorderThickness="1" Margin="2.5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding _model.FileDestination.FullName}" Background="#3FAFDF"  VerticalAlignment="Stretch" FontWeight="Bold" Padding="4" FontSize="12"  HorizontalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+                <Button Grid.Column="0" Focusable="False" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Command="{Binding ShowClosePDFDocumentCommand}">
+                    <Button.Content>
+                        <icons:PackIconFontAwesome Kind="TimesSolid" Foreground="Red" Height="10" Width="10" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                    </Button.Content>
+                </Button>
+                <WebBrowser x:Name="pdfview" Grid.Column="0" Grid.Row="1" Visibility="{Binding _model.VisibilityPDF}" ></WebBrowser>
+
             </Grid>
+            
 
         </Border>
 

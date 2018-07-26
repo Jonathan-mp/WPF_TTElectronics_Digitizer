@@ -91,7 +91,7 @@
         <Controls:TransitioningContentControl x:Name="contentControl" Content="{Binding}" Transition="Normal"  Grid.Column="1" Margin="1" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5"></Controls:TransitioningContentControl>
 
 
-        <DockPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="5" >
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="5">
             <DockPanel.DataContext>
                 <vm:MainBaseWindowsViewModel></vm:MainBaseWindowsViewModel>
             </DockPanel.DataContext>
@@ -110,13 +110,13 @@
                 </DataTemplate>
 
                 <DataTemplate x:Key="MenuOptionsTemplate">
-                    <Grid>
+                    <Grid Focusable="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Icons:PackIconMaterial Cursor="Help" Grid.Column="0" Margin="10,0,30,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Foreground="White" Kind="{Binding Glyph}"/>
-                        <TextBlock Grid.Column="1" Cursor="Help" VerticalAlignment="Center"   FontSize="12" Foreground="White" Text="{Binding Label}"/>
+                        <Icons:PackIconMaterial Focusable="False" Cursor="Help" Grid.Column="0" Margin="10,0,30,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Foreground="White" Kind="{Binding Glyph}"/>
+                        <TextBlock Grid.Column="1" Focusable="False" Cursor="Help" VerticalAlignment="Center"   FontSize="12" Foreground="White" Text="{Binding Label}"/>
                     </Grid>
                 </DataTemplate>
             </DockPanel.Resources>
@@ -141,7 +141,7 @@
 
                 <Controls:HamburgerMenu.OptionsItemsSource>
                     <Controls:HamburgerMenuItemCollection>
-                        <Controls:HamburgerMenuGlyphItem Glyph="InformationOutline" Label="{Binding _model.Version}" IsEnabled="{Binding _model.About}"  ToolTip="About this software!" Command="{Binding ShowAboutCommand}" />
+                        <Controls:HamburgerMenuGlyphItem  Glyph="InformationOutline" Label="{Binding _model.Version}" IsEnabled="{Binding _model.About}"  ToolTip="About this software!" Command="{Binding ShowAboutCommand}" />
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.OptionsItemsSource>
 

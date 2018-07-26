@@ -275,7 +275,9 @@
   <ItemGroup>
     <Resource Include="Resources\view_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ScreenShots\AddExistingPDF_02.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="ScreenShots\AddExistingPDF_01.png" />
     <Resource Include="ScreenShots\Main_01.png" />

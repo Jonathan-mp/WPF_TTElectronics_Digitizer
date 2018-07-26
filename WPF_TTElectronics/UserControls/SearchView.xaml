@@ -70,7 +70,7 @@
                     </StackPanel>
                 </Label.Content>
             </Label>
-            <Button Command="{Binding ShowClosePDFCommand}"  Visibility="{Binding _model.AddPageStackVisibility}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
+            <Button Focusable="False" Command="{Binding ShowClosePDFCommand}"  Visibility="{Binding _model.AddPageStackVisibility}" Grid.Row="0" Grid.Column="4" IsTabStop="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="Transparent"  FontWeight="Bold"  Margin="0,0,5,0">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
                         <TextBlock Text="Close document" VerticalAlignment="Bottom"></TextBlock>
@@ -151,7 +151,7 @@
                     <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
                         <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="2" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
                         <StackPanel HorizontalAlignment="Center">
-                            <Button  Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2">
+                            <Button Focusable="False"  Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <icons:PackIconFontAwesome Kind="PlusSolid" Width="10" Height="10" ></icons:PackIconFontAwesome>
@@ -161,7 +161,7 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button  Cursor="Hand" Width="60" Height="60" Margin="2" Command="{Binding ShowSaveCommand}" >
+                            <Button  Focusable="False" Cursor="Hand" Width="60" Height="60" Margin="2" Command="{Binding ShowSaveCommand}" >
                                 <Button.Content>
                                     <StackPanel>
                                         <icons:PackIconMaterialLight Kind="ContentSave" Width="30" Height="30" HorizontalAlignment="Center"></icons:PackIconMaterialLight>

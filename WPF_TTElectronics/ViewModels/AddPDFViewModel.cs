@@ -5,13 +5,16 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using WPF_TTElectronics.Helpers;
 using WPF_TTElectronics.Models;
 
 namespace WPF_TTElectronics.ViewModels
 {
-    public class AddPDFViewModel
+    public class AddPDFViewModel : HelperClosePDFProcess
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
         MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
@@ -91,7 +94,7 @@ namespace WPF_TTElectronics.ViewModels
                     TimeLastWrite = file.LastWriteTime
                 };
 
-               
+                activeWindow.FindChild<WebBrowser>("pdfview").Navigate(_model.FileDestination.FullPathWithExtension);
 
 
 
@@ -109,6 +112,47 @@ namespace WPF_TTElectronics.ViewModels
 
 
         #endregion
+
+
+
+
+        #region --------ShowBrowseDestination and ShowBrowseDestinationCommand
+
+        private RelayCommand _showClosePDFDocumentCommand;
+        public ICommand ShowClosePDFDocumentCommand
+        {
+            get
+            {
+                if (_showClosePDFDocumentCommand == null)
+                {
+                    _showClosePDFDocumentCommand = new RelayCommand(param => this.ShowClosePDFDocument(), param => this.CanClosePDFDocument);
+                }
+
+                return _showClosePDFDocumentCommand;
+            }
+        }
+
+        public bool CanClosePDFDocument
+        {
+            get { return true; }
+        }
+
+
+
+        public void ShowClosePDFDocument()
+        {
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
+            AcrobatProcess();
+            Task.Delay(500);
+            _model.FileDestination = null;
+
+
+        }
+
+
+
+        #endregion
+
 
 
         public async void ShowErrorMessage(string title = "Error", string message = "default message")
