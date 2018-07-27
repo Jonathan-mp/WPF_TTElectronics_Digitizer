@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,34 @@ namespace WPF_TTElectronics.Models
             set { _fileDestination = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("SelectADestinationFile");
+                NotifyPropertyChanged("CorrectFormat");
+                NotifyPropertyChanged("VisibilityInfo");
+            }
+        }
+
+        private bool _correctFormat;
+        public bool CorrectFormat
+        {
+            get { return (FileDestination != null) ? true : false; }
+            set
+            {
+                _correctFormat = value;
+                NotifyPropertyChanged();
+               
+
+            }
+        }
+
+        private Visibility _visibilityInfo;
+        public Visibility VisibilityInfo
+        {
+            get { return (CorrectFormat) ? Visibility.Visible : Visibility.Hidden; }
+            set
+            {
+                _visibilityInfo = value;
+                NotifyPropertyChanged();
+               
+
             }
         }
 
@@ -44,25 +73,42 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-
-        private bool _correctFormat;
-        public bool CorrectFormat
-        {
-            get { return _correctFormat; }
-            set { _correctFormat = value;
-                NotifyPropertyChanged();
-               
-            }
-        }
-
         private Visibility _visibilityPDF;
         public Visibility VisibilityPDF
         {
             get { return (IsMsgVisible) ? Visibility.Hidden : Visibility.Visible; }
-            set { _visibilityPDF = value;
+            set
+            {
+                _visibilityPDF = value;
                 NotifyPropertyChanged();
             }
         }
+
+
+
+        private ObservableCollection<cFileInfo> _pdf2Add;
+        public ObservableCollection<cFileInfo> PDF2Add
+        {
+            get { return _pdf2Add; }
+            set { _pdf2Add = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("SelectFiles2Add");
+              
+            }
+        }
+
+        private string _selectFiles2Add;
+        public string SelectFiles2Add
+        {
+            get { return (PDF2Add != null) ? $" {PDF2Add.Where(x => x.Check2Add == true).Count()} PDF files selected" : " Select files to add..." ; }
+            set
+            {
+                _selectFiles2Add = value;
+                NotifyPropertyChanged();
+
+            }
+        }
+
 
         
 

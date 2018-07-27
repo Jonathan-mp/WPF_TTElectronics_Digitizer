@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -81,7 +82,6 @@ namespace WPF_TTElectronics.ViewModels
             try
             {
 
-
                 _model.FileDestination = new cFileInfo()
                 {
                     FullName = file.Name.Split('.')[0],
@@ -95,14 +95,10 @@ namespace WPF_TTElectronics.ViewModels
                 };
 
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate(_model.FileDestination.FullPathWithExtension);
-
-
-
             }
             catch
             {
                 _model.FileDestination = null;
-              
             }
 
 
@@ -116,7 +112,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        #region --------ShowBrowseDestination and ShowBrowseDestinationCommand
+        #region --------ShowClosePDFDocument and ShowClosePDFDocumentCommand
 
         private RelayCommand _showClosePDFDocumentCommand;
         public ICommand ShowClosePDFDocumentCommand
@@ -154,6 +150,122 @@ namespace WPF_TTElectronics.ViewModels
         #endregion
 
 
+
+
+
+
+        #region --------ShowSelectPDF2Add and ShowSelectPDF2AddCommand
+
+        private RelayCommand _showSelectPDF2AddCommand;
+        public ICommand ShowSelectPDF2Addommand
+        {
+            get
+            {
+                if (_showSelectPDF2AddCommand == null)
+                {
+                    _showSelectPDF2AddCommand = new RelayCommand(param => this.ShowSelectPDF2Add(), param => this.CanSelectPDF2Add);
+                }
+
+                return _showSelectPDF2AddCommand;
+            }
+        }
+
+        public bool CanSelectPDF2Add
+        {
+            get { return true; }
+        }
+
+
+
+        public void ShowSelectPDF2Add()
+        {
+            var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Multiselect=true };
+            if (openFileDialog.ShowDialog() != true)
+                return;
+
+
+           
+
+
+            try
+            {
+                var infofiles = openFileDialog.FileNames.Select(x => new FileInfo(x)).ToList();
+
+                var list = infofiles.Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Family = x.Directory.Name,  Check2Add = true }).ToList();
+
+                _model.PDF2Add = new ObservableCollection<cFileInfo>(list);
+
+                       
+                   
+               
+                
+
+               
+
+                //activeWindow.FindChild<WebBrowser>("pdfview").Navigate(_model.FileDestination.FullPathWithExtension);
+            }
+            catch
+            {
+                _model.FileDestination = null;
+            }
+
+
+
+
+
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+        #region --------TEST
+
+        private RelayCommand _showTestCommand;
+        public ICommand ShowTestCommand
+        {
+            get
+            {
+                if (_showTestCommand == null)
+                {
+                    _showTestCommand = new RelayCommand(param => this.ShowTest(), param => this.CanTest);
+                }
+
+                return _showTestCommand;
+            }
+        }
+
+        public bool CanTest
+        {
+            get { return true; }
+        }
+
+
+
+        public async void ShowTest()
+        {
+
+            foreach (var item in _model.PDF2Add)
+            {
+                _model.IsMsgVisible = true;
+               await activeWindow.ShowMessageAsync(item.Check2Add.ToString(), item.FullName);
+                //await Task.Delay(1000);
+                _model.IsMsgVisible = false;
+            }
+
+
+
+        }
+
+
+        #endregion
 
         public async void ShowErrorMessage(string title = "Error", string message = "default message")
         {

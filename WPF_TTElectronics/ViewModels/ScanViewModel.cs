@@ -359,21 +359,25 @@ namespace WPF_TTElectronics.ViewModels
             {
                 _model.VisibilityHeader = Visibility.Hidden;
                 if (File.Exists($@"{_model.FullPathToSave}.pdf"))
-                    while (File.Exists($@"{_model.FullPathToSave}.pdf"))
-                    {
+                {
+                    ShowErrorMessage($"The file named \"{_model.FileNameToSave}\" already exists on this folder");
+                    return;
+                }
+                    //while (File.Exists($@"{_model.FullPathToSave}.pdf"))
+                    //{
                       
-                        var x = await AskReplaceFile();
-                        // _model.VisibilityHeader = Visibility.Visible;
-                        if (x == _model.FileNameToSave)
-                            continue;
-                        else if (string.IsNullOrWhiteSpace(x))
-                        {
-                            _model.VisibilityHeader = Visibility.Visible;
-                            return;
-                        }
-                        else
-                            _model.FileNameToSave = x;
-                    }
+                    //    var x = await AskReplaceFile();
+                    //    // _model.VisibilityHeader = Visibility.Visible;
+                    //    if (x == _model.FileNameToSave)
+                    //        continue;
+                    //    else if (string.IsNullOrWhiteSpace(x))
+                    //    {
+                    //        _model.VisibilityHeader = Visibility.Visible;
+                    //        return;
+                    //    }
+                    //    else
+                    //        _model.FileNameToSave = x;
+                    //}
 
 
                
