@@ -146,18 +146,44 @@
             </Border>
 
             <Border Grid.Column="4" Grid.ColumnSpan="5"  Grid.Row="5" Visibility="{Binding _model.AddPageStackVisibility}" Margin="2" BorderBrush="#3FAFDF" BorderThickness="1">
-                <StackPanel>
-                    <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="O P T I O N S" Background="#3FAFDF"    FontSize="10"></Label>
-                    <StackPanel HorizontalAlignment="Right"  Margin="10" Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
-                        <Controls:ToggleSwitch Cursor="Hand"  IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Right" Margin="2" Visibility="{Binding _model.AddPageStackVisibility}" VerticalAlignment="Top"></Controls:ToggleSwitch>
-                        <StackPanel HorizontalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="O P T I O N S" Background="#3FAFDF"    FontSize="10" ></Label>
+                    
+                    <Controls:ToggleSwitch Grid.Column="0" Grid.Row="1" Cursor="Hand"  VerticalAlignment="Center" IsChecked="{Binding _model.AutoAdd}" IsTabStop="False" OnLabel="Yes" OffLabel="No" OffSwitchBrush="Gray"  Header="Auto-adding" ContentDirection="LeftToRight" HorizontalAlignment="Left" Margin="5" Visibility="{Binding _model.AddPageStackVisibility}" ></Controls:ToggleSwitch>
+                    <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Focusable="False"  Cursor="Hand"  BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="5">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconFontAwesome Kind="PlusSolid" Width="10" Height="10" ></icons:PackIconFontAwesome>
+                                <TextBlock Text=" Add"></TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="3"  Focusable="False" Cursor="Hand" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" Command="{Binding ShowSaveCommand}" >
+                        <Button.Content>
+                            <StackPanel>
+                                <icons:PackIconMaterialLight VerticalContentAlignment="Center" Kind="ContentSave" Width="45" Height="45" HorizontalAlignment="Center"></icons:PackIconMaterialLight>
+                                <Label Content="Save" FontSize="15"></Label>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <!--<StackPanel HorizontalAlignment="Right" Background="Gray">
                             <Button Focusable="False"  Cursor="Hand" Width="60" Height="20" BorderThickness="1" Command="{Binding ShowScanAndAddCommand}" Margin="2">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <icons:PackIconFontAwesome Kind="PlusSolid" Width="10" Height="10" ></icons:PackIconFontAwesome>
-                                      
                                         <TextBlock Text=" Add"></TextBlock>
-
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -169,9 +195,13 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
+                    </StackPanel>-->
+
+                </Grid>
+                
+               
+                   
+                
             </Border>
 
 

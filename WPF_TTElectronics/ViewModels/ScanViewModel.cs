@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using WPF_TTElectronics.Models;
-using System.Diagnostics;
 using WPF_TTElectronics.Helpers;
 using System.Linq;
 using Xceed.Wpf.Toolkit;
 using WIA;
+
 
 namespace WPF_TTElectronics.ViewModels
 {
@@ -140,7 +140,7 @@ namespace WPF_TTElectronics.ViewModels
                    {
                        ControlsErrorState();
                        await pAsync.CloseAsync();
-                       ShowErrorMessage(ex.Message);
+                       ShowErrorMessage(message:ex.Message);
                        _model.ScannedImage = null;
                        _model.VisibilityHeader = (string.IsNullOrWhiteSpace(_model.OpenedFileName)) ? Visibility.Hidden : Visibility.Visible;
 
@@ -260,7 +260,7 @@ namespace WPF_TTElectronics.ViewModels
 
                 ControlsErrorState();
                 //_model.VisibilityHeader = Visibility.Hidden;
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessage(message:ex.Message);
                
                 //_model.VisibilityHeader = Visibility.Visible;
             }
@@ -317,7 +317,7 @@ namespace WPF_TTElectronics.ViewModels
             catch (Exception ex)
             {
                
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessage(message:ex.Message);
                // _model.VisibilityHeader = Visibility.Visible;
             }
            
@@ -360,7 +360,7 @@ namespace WPF_TTElectronics.ViewModels
                 _model.VisibilityHeader = Visibility.Hidden;
                 if (File.Exists($@"{_model.FullPathToSave}.pdf"))
                 {
-                    ShowErrorMessage($"The file named \"{_model.FileNameToSave}\" already exists on this folder");
+                    ShowErrorMessage(message:$"The file named \"{_model.FileNameToSave}\" already exists on this folder");
                     return;
                 }
                     //while (File.Exists($@"{_model.FullPathToSave}.pdf"))
@@ -404,7 +404,7 @@ namespace WPF_TTElectronics.ViewModels
             catch (Exception ex)
             {
               
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessage(message:ex.Message);
                 //_model.FileNameToSave = string.Empty;
                 //_model.VisibilityHeader = Visibility.Visible;
             }
@@ -492,7 +492,7 @@ namespace WPF_TTElectronics.ViewModels
 
                         ControlsErrorState();
                         await pAsync.CloseAsync();
-                        ShowErrorMessage(ex.Message);
+                        ShowErrorMessage(message:ex.Message);
                         _model.ScannedImage = null;
 
 
@@ -562,7 +562,7 @@ namespace WPF_TTElectronics.ViewModels
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessage(message:ex.Message);
             }
 
 
@@ -623,13 +623,13 @@ namespace WPF_TTElectronics.ViewModels
         /// <param name="message">
         /// This is the message error.
         /// </param>
-        public async void ShowErrorMessage(string message = "default message")
+        public async void ShowErrorMessage(string title = "Error", string message = "default message")
         {
 
            await  App.Current.Dispatcher.Invoke(async() =>
             {
                 _model.VisibilityHeader = Visibility.Hidden;
-                await activeWindow.ShowMessageAsync("Error", message, MessageDialogStyle.Affirmative, s_err);
+                await activeWindow.ShowMessageAsync(title, message, MessageDialogStyle.Affirmative, s_err);
                 _model.VisibilityHeader = (string.IsNullOrWhiteSpace(_model.OpenedFileName)) ? Visibility.Hidden : Visibility.Visible;
 
             });

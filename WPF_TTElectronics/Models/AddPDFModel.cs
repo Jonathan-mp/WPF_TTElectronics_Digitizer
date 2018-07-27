@@ -20,6 +20,8 @@ namespace WPF_TTElectronics.Models
                 NotifyPropertyChanged("SelectADestinationFile");
                 NotifyPropertyChanged("CorrectFormat");
                 NotifyPropertyChanged("VisibilityInfo");
+                NotifyPropertyChanged("VisibilityPDF");
+
             }
         }
 
@@ -32,6 +34,7 @@ namespace WPF_TTElectronics.Models
                 _correctFormat = value;
                 NotifyPropertyChanged();
                
+
 
             }
         }
@@ -76,7 +79,7 @@ namespace WPF_TTElectronics.Models
         private Visibility _visibilityPDF;
         public Visibility VisibilityPDF
         {
-            get { return (IsMsgVisible) ? Visibility.Hidden : Visibility.Visible; }
+            get { return (!IsMsgVisible && CorrectFormat) ? Visibility.Visible : Visibility.Hidden; }
             set
             {
                 _visibilityPDF = value;
