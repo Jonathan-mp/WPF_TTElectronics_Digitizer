@@ -66,7 +66,7 @@
                 <Label.Content>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding _model.AddPageStackVisibility}">
                         <icons:PackIconFontAwesome Kind="FilePdfRegular" Height="20" Width="20" Margin="0,0,10,0" VerticalAlignment="Center"></icons:PackIconFontAwesome>
-                        <TextBlock Text="{Binding _model.Header}" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding _model.SelectedFile.FullName}" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Label.Content>
             </Label>

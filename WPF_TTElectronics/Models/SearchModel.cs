@@ -92,14 +92,14 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-        private string _header;
-        public string Header
-        {
-            get { return _header; }
-            set { _header = value;
-                NotifyPropertyChanged();
-            }
-        }
+        //private string _header;
+        //public string Header
+        //{
+        //    get { return _header; }
+        //    set { _header = value;
+        //        NotifyPropertyChanged();
+        //    }
+        //}
 
         private ObservableCollection<cHojaDeRuta> _comboItems;
         public ObservableCollection<cHojaDeRuta> ComboItems

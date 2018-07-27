@@ -92,7 +92,7 @@ namespace WPF_TTElectronics.ViewModels
                    
                     File.Copy($@"{_model.FullPathToSearch}.pdf", $@"{_model.TempFolder}{_model.FileNameAdded}.pdf", true );
                     activeWindow.FindChild<WebBrowser>("pdfview").Navigate($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
-                    _model.Header = $@"tmp\{_model.FileNameAdded}";
+                    //_model.Header = $@"tmp\{_model.FileNameAdded}";
                    
                     Visibilities(false);
                 }
@@ -358,14 +358,14 @@ namespace WPF_TTElectronics.ViewModels
 
                 File.Copy($"{_model.TempFolder}{_model.FileNameAdded}.pdf", $"{_model.FullPathToSearch}.pdf", true);
                 saved = true;
-                _model.Header = _model.FileNameAdded;
+                //_model.Header = _model.FileNameAdded;
                 var c = await activeWindow.ShowProgressAsync("Status!", $"{_model.FileNameAdded}.pdf saved successfully", false);
                 await Task.Delay(1000);
                 await c.CloseAsync();
                 _model.IsMsgVisible = false;
 
 
-                _model.Header = _model.FileNameAdded;
+               // _model.Header = _model.FileNameAdded;
               
 
 

@@ -36,53 +36,31 @@ namespace WPF_TTElectronics.Services
 
         public ImageFile Scan(ProgressDialogController ctrl)
         {
-
-         
             try
             {
-                
                 var image = new ImageFile();
                 var dialog = new CommonDialog();
-                //dialog.ShowAcquireImage(
-                //     WiaDeviceType.UnspecifiedDeviceType,
-                //     WiaImageIntent.ColorIntent,
-                //     WiaImageBias.MaximizeQuality,
-                //     "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}",
-                //     false,
-                //     false,false
-                //    );
 
                 ctrl.SetTitle("STARTING SCANNER");
                 ctrl.SetMessage("This can take a few seconds...");
                 var x = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, false, false);
                 var item = x.Items[1];
 
-
-                //image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
-                  image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
-
-                
+                image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
 
                 if (image != null)
                 {
-                    
                     ctrl.SetTitle("SCANNING FINISHED!");
                     ctrl.SetMessage($"File Scanned Successfully...");
-                   
-
                 }
                 return image;
             }
             catch (COMException ex)
             {
                 if (ex.ErrorCode == -2145320939)
-                {
                     throw new ScannerNotFoundException();
-                }
                 else
-                {
                     throw new ScannerException(ex.Message, ex);
-                }
             }
 
         }
@@ -103,7 +81,6 @@ namespace WPF_TTElectronics.Services
                 ctrl.SetTitle("STARTING SCANNER");
                 ctrl.SetMessage("This can take a few seconds...");
 
-
                 var x = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, false, true);
                 foreach (Item item in x.Items)
                 {
@@ -111,12 +88,10 @@ namespace WPF_TTElectronics.Services
                     {
                         try
                         {
-
                             image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
                             images.Add(image);
                             ctrl.SetTitle("SCANNING");
                             ctrl.SetMessage($"{images.Count} {(images.Count>1? "Files" : "File")} Scanned Successfully...");
-                            
                         }
                         catch
                         {
@@ -137,15 +112,9 @@ namespace WPF_TTElectronics.Services
             catch (COMException ex)
             {
                 if (ex.ErrorCode == -2145320939)
-                {
-                   
                     throw new ScannerNotFoundException();
-                }
                 else
-                {
-                   
                     throw new ScannerException(ex.Message, ex);
-                }
             }
         }
 

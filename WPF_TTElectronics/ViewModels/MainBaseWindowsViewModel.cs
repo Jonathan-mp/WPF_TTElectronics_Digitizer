@@ -48,7 +48,7 @@ namespace WPF_TTElectronics.ViewModels
             activeWindow.Closed += (s,e) =>{
            
                 AcrobatProcess();
-                ClearTempFolder();
+                ClearTempFolder(_model.TempFolder);
             };
 
            
@@ -269,17 +269,7 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        public void ClearTempFolder()
-        {
-            AcrobatProcess();
-            Task.Delay(500);
-            var tmpfiles = Directory.GetFiles($@"{_model.TempFolder}");
-
-
-            if (tmpfiles != null)
-                Array.ForEach(tmpfiles, delegate (string path) { File.Delete(path); });
-
-        }
+        
 
 
 
