@@ -59,15 +59,15 @@ namespace WPF_TTElectronics.ViewModels
         public void ShowBrowseDestination()
         {
            
-            var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+            var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = $@"{_model.ComboItems[0].FolderPath}" };
             if (openFileDialog.ShowDialog() != true)
                 return;
+            AcrobatProcess();
+            Task.Delay(500);
 
-          
             var file = new FileInfo(openFileDialog.FileName);
             App.Current.Dispatcher.Invoke(() => {
-                AcrobatProcess();
-                Task.Delay(500);
+              
                 File.Copy(file.FullName, $"{_model.TempFolder}{file.Name}", true);
             });
             
@@ -342,6 +342,8 @@ namespace WPF_TTElectronics.ViewModels
                 return;
             _model.IsMsgVisible = true;
             var x = await activeWindow.ShowProgressAsync("Saving file", $"");
+            AcrobatProcess();
+            await Task.Delay(500);
 
             try
             {
@@ -351,6 +353,7 @@ namespace WPF_TTElectronics.ViewModels
                 //  });
                 x.SetTitle("File saved!");
                 x.SetMessage($"{_model.DestinationFile.FullName}.pdf saved successfully");
+                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
                 await Task.Delay(1500);
                 await x.CloseAsync();
                 _model.IsMsgVisible = false;

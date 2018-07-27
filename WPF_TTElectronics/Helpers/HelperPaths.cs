@@ -31,24 +31,7 @@ namespace WPF_TTElectronics.Helpers
         }
 
 
-        public cHojaDeRuta GetOneElementFromXML(string xmlFullPath, string elementName)
-        {
-            var tmp = new cHojaDeRuta();
-
-
-            var xmlStr = File.ReadAllText($@"{xmlFullPath}");
-            var xmlReader = XmlReader.Create(new StringReader(xmlStr));
-            while (xmlReader.Read())
-            {
-                if (xmlReader.Name.Equals(elementName) && (xmlReader.NodeType == XmlNodeType.Element))
-                {
-                    tmp.Title = xmlReader.GetAttribute("Title");
-                    tmp.FolderPath = xmlReader.GetAttribute("FolderPath");
-                }
-            }
-
-            return tmp;
-        }
+        
 
 
         public string GetTemporaryFolderNameFromXML(string xmlFullPath, string elementName)

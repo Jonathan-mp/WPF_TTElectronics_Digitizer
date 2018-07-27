@@ -264,9 +264,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Helpers\Paths.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="main_icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +285,10 @@
     <Resource Include="ScreenShots\Scan&amp;Add_03.png" />
     <Resource Include="ScreenShots\View_01.png" />
     <Resource Include="ScreenShots\View_02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ScreenShots\AddExistingPDF_03.png" />
+    <Resource Include="ScreenShots\AddExistingPDF_04.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
