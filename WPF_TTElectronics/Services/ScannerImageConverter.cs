@@ -6,6 +6,9 @@ using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Collections.ObjectModel;
 using PdfSharp.Pdf.IO;
+using MahApps.Metro.Controls.Dialogs;
+using WPF_TTElectronics.Models;
+using System.Threading.Tasks;
 
 namespace WPF_TTElectronics.Services
 {
@@ -204,11 +207,6 @@ namespace WPF_TTElectronics.Services
             outPdf.Dispose();
          
             inputPdf.Dispose();
-   
-                
-          
-
-
         }
 
         public PdfDocument CopyPages(PdfDocument from, PdfDocument to)
@@ -222,7 +220,40 @@ namespace WPF_TTElectronics.Services
 
 
 
-     
+        public  void AddToExistingPDF(string pathFrom, string pathTo, ProgressDialogController ctrl)
+        {
+            var _in = new FileInfo(pathFrom);
+            var _out = new FileInfo(pathTo);
+
+            var inputPdf = PdfReader.Open($@"{_in.FullName}", PdfDocumentOpenMode.Import);
+            var outPdf = PdfReader.Open($@"{_out.FullName}", PdfDocumentOpenMode.Modify);
+            outPdf =  CopyPages(inputPdf, outPdf, ctrl, _in, _out);
+      
+            outPdf.Save(pathTo);
+            outPdf.Close();
+            outPdf.Dispose();
+
+            inputPdf.Dispose();
+        }
+
+        public PdfDocument CopyPages(PdfDocument from, PdfDocument to, ProgressDialogController ctrl, FileInfo _in, FileInfo _out)
+        {
+            for (int i = 0; i < from.PageCount; i++)
+            {
+                ctrl.SetTitle($"Adding pages to {_out.Name}");
+                ctrl.SetMessage($"{i+1}/{from.PageCount} from {_in.Name}");
+                to.AddPage(from.Pages[i]);
+                ctrl.SetProgress((((i+1)*(100))/((from.PageCount)*(1000))));
+                
+            }
+
+
+            return to;
+        }
+
+
+
+
 
 
 

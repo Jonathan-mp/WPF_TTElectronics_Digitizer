@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,43 @@ namespace WPF_TTElectronics.Models
     public class AddPDFModel : Observable
     {
 
-        private cFileInfo _fileDestination;
-        public cFileInfo  FileDestination
+        private string _tempFolder;
+        public string TempFolder
         {
-            get { return _fileDestination; }
-            set { _fileDestination = value;
+            get
+            {
+                var x = new Helpers.HelperPaths();
+                var y = string.Empty;
+
+#if(DEBUG)
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\..\..\Helpers\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
+                });
+#else
+  Application.Current.Dispatcher.Invoke(() =>
+                {
+                    y = x.GetTemporaryFolderNameFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "TemporaryFolder");
+                    y = string.Format("{0}{1}", Path.GetTempPath(), y);
+                });
+#endif
+                return y;
+            }
+            set
+            {
+                _tempFolder = value;
+                NotifyPropertyChanged();
+
+
+            }
+        }
+
+        private cFileInfo _destinationFile;
+        public cFileInfo  DestinationFile
+        {
+            get { return _destinationFile; }
+            set { _destinationFile = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("SelectADestinationFile");
                 NotifyPropertyChanged("CorrectFormat");
@@ -28,7 +61,7 @@ namespace WPF_TTElectronics.Models
         private bool _correctFormat;
         public bool CorrectFormat
         {
-            get { return (FileDestination != null) ? true : false; }
+            get { return (DestinationFile != null) ? true : false; }
             set
             {
                 _correctFormat = value;
@@ -55,7 +88,7 @@ namespace WPF_TTElectronics.Models
         private string _selectADestinationFile;
         public string SelectADestinationFile
         {
-            get { return (FileDestination == null) ? " Select a destination file..." : $" FILE SELECTED: {FileDestination.FullName}"; }
+            get { return (DestinationFile == null) ? " Select a destination file..." : $" FILE SELECTED: {DestinationFile.FullName}"; }
             set { _selectADestinationFile = value;
                 NotifyPropertyChanged();
 
@@ -113,7 +146,18 @@ namespace WPF_TTElectronics.Models
         }
 
 
-        
+        private cFileInfo _fileSelected;
+        public cFileInfo FileSelected
+        {
+            get { return _fileSelected; }
+            set
+            {
+                _fileSelected = value;
+                NotifyPropertyChanged();
+
+            }
+        }
+
 
 
     }

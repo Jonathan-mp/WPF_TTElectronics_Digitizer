@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_TTElectronics.Helpers;
 using WPF_TTElectronics.Models;
+using WPF_TTElectronics.Services;
 
 namespace WPF_TTElectronics.ViewModels
 {
@@ -64,7 +65,10 @@ namespace WPF_TTElectronics.ViewModels
                 return;
 
             var file = new FileInfo(openFileDialog.FileName);
-
+            App.Current.Dispatcher.Invoke(() => {
+                File.Copy(file.FullName, $"{_model.TempFolder}{file.Name}", true);
+            });
+            
 
             if (nameFormat.IsMatch(file.Name.Split('.')[0]) != true)
             {
@@ -82,7 +86,7 @@ namespace WPF_TTElectronics.ViewModels
             try
             {
 
-                _model.FileDestination = new cFileInfo()
+                _model.DestinationFile = new cFileInfo()
                 {
                     FullName = file.Name.Split('.')[0],
                     Model = file.Name.Split('_')[0],
@@ -94,11 +98,11 @@ namespace WPF_TTElectronics.ViewModels
                     TimeLastWrite = file.LastWriteTime
                 };
 
-                activeWindow.FindChild<WebBrowser>("pdfview").Navigate(_model.FileDestination.FullPathWithExtension);
+                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.DestinationFile.FullPathWithExtension}");
             }
             catch
             {
-                _model.FileDestination = null;
+                _model.DestinationFile = null;
             }
 
 
@@ -140,7 +144,7 @@ namespace WPF_TTElectronics.ViewModels
             activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
             AcrobatProcess();
             Task.Delay(500);
-            _model.FileDestination = null;
+            _model.DestinationFile = null;
 
 
         }
@@ -191,22 +195,12 @@ namespace WPF_TTElectronics.ViewModels
             {
                 var infofiles = openFileDialog.FileNames.Select(x => new FileInfo(x)).ToList();
 
-                var list = infofiles.Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Family = x.Directory.Name,  Check2Add = true }).ToList();
-
+                var list = infofiles.Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, Check2Add = true }).ToList();
                 _model.PDF2Add = new ObservableCollection<cFileInfo>(list);
-
-                       
-                   
-               
-                
-
-               
-
-                //activeWindow.FindChild<WebBrowser>("pdfview").Navigate(_model.FileDestination.FullPathWithExtension);
             }
             catch
             {
-                _model.FileDestination = null;
+                _model.DestinationFile = null;
             }
 
 
@@ -251,21 +245,76 @@ namespace WPF_TTElectronics.ViewModels
 
         public async void ShowTest()
         {
+            if (_model.PDF2Add == null || _model.DestinationFile ==  null)
+                return;
+            if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
+                return;
+
+            var converter = new ScannerImageConverter(_model.TempFolder);
+            _model.IsMsgVisible = true;
+            var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false);
+            AcrobatProcess();
+            await Task.Delay(500);
 
             foreach (var item in _model.PDF2Add)
+                if (item.Check2Add != false)
+                    await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
+
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
+            await x.CloseAsync();
+            _model.IsMsgVisible = false;
+        }
+
+
+        #endregion
+
+
+
+        #region --------ShowFullScreen and ShowFullScreenCommand
+
+        private RelayCommand _showFullScreenCommand;
+        public ICommand ShowFullScreenCommand
+        {
+            get
             {
-                _model.IsMsgVisible = true;
-               await activeWindow.ShowMessageAsync(item.Check2Add.ToString(), item.FullName);
-                //await Task.Delay(1000);
-                _model.IsMsgVisible = false;
+                if (_showFullScreenCommand == null)
+                {
+                    _showFullScreenCommand = new RelayCommand(param => this.ShowFullScreen(), param => this.CanFullScreen);
+                }
+
+                return _showFullScreenCommand;
             }
+        }
+
+        public bool CanFullScreen
+        {
+            get { return true; }
+        }
+
+
+
+        public void ShowFullScreen()
+        {
+            if (_model.FileSelected == null)
+                return;
+            var fullView = new Views.FullWindowView();
+            fullView.Fullpdfview.Navigate($@"{_model.FileSelected.FullPathWithExtension}");
+            var vm_fullView = new FullWindowModel() { TitleWindow = $@"OPENED FILE: {_model.FileSelected.FullName}" };
+            fullView.DataContext = vm_fullView;
+           
+            fullView.ShowDialog();
+
 
 
 
         }
 
 
+
+
         #endregion
+
+
 
         public async void ShowErrorMessage(string title = "Error", string message = "default message")
         {

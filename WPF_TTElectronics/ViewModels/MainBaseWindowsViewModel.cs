@@ -176,8 +176,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is ScanView)
                 return;
-
-            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ScanView(); // _model.V_Scan;
+            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ScanView();
 
         }
 
