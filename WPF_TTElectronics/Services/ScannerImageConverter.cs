@@ -243,7 +243,9 @@ namespace WPF_TTElectronics.Services
                 ctrl.SetTitle($"Adding pages to {_out.Name}");
                 ctrl.SetMessage($"{i+1}/{from.PageCount} from {_in.Name}");
                 to.AddPage(from.Pages[i]);
-                ctrl.SetProgress((((i+1)*(100))/((from.PageCount)*(1000))));
+                var progress = (((((i + 1f) * 100f)) / ((from.PageCount) * (100f))));
+                ctrl.SetProgress(progress);
+                Task.Factory.StartNew(async() => await Task.Delay(500));
                 
             }
 

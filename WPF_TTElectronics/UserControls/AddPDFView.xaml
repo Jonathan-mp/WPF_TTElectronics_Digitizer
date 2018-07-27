@@ -126,7 +126,7 @@
                 <TextBlock Text="{Binding _model.SelectFiles2Add}" FontSize="15" VerticalAlignment="Center"  FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"></TextBlock>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1"  Grid.Row="1" Margin="5" HorizontalAlignment="Right" >
-                    <Button Focusable="False" Command="{Binding ShowTestCommand}">
+                    <Button Focusable="False" Command="{Binding ShowAddingPageCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <icons:PackIconFontAwesome Kind="PlusSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
@@ -185,7 +185,7 @@
             </Grid>
         </Border>
         
-        <Button Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="6" Margin="2" Focusable="False">
+        <Button Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="6" Margin="2" Focusable="False" Command="{Binding ShowSaveCommand}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <icons:PackIconMaterialLight Kind="ContentSave" Width="45" Height="45" HorizontalAlignment="Center" VerticalAlignment="Center"></icons:PackIconMaterialLight>

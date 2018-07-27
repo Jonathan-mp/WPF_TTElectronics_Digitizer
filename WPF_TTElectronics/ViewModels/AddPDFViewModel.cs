@@ -33,8 +33,6 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-
-
         #region --------ShowBrowseDestination and ShowBrowseDestinationCommand
 
         private RelayCommand _showBrowseDestinationCommand;
@@ -60,12 +58,16 @@ namespace WPF_TTElectronics.ViewModels
  
         public void ShowBrowseDestination()
         {
+           
             var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
             if (openFileDialog.ShowDialog() != true)
                 return;
 
+          
             var file = new FileInfo(openFileDialog.FileName);
             App.Current.Dispatcher.Invoke(() => {
+                AcrobatProcess();
+                Task.Delay(500);
                 File.Copy(file.FullName, $"{_model.TempFolder}{file.Name}", true);
             });
             
@@ -156,8 +158,6 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-
-
         #region --------ShowSelectPDF2Add and ShowSelectPDF2AddCommand
 
         private RelayCommand _showSelectPDF2AddCommand;
@@ -215,35 +215,30 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
+        #region --------ShowAddingPage and ShowAddingPageCommand
 
-
-
-
-
-        #region --------TEST
-
-        private RelayCommand _showTestCommand;
-        public ICommand ShowTestCommand
+        private RelayCommand _showAddingPageCommand;
+        public ICommand ShowAddingPageCommand
         {
             get
             {
-                if (_showTestCommand == null)
+                if (_showAddingPageCommand == null)
                 {
-                    _showTestCommand = new RelayCommand(param => this.ShowTest(), param => this.CanTest);
+                    _showAddingPageCommand = new RelayCommand(param => this.ShowAddingPage(), param => this.CanAddingPage);
                 }
 
-                return _showTestCommand;
+                return _showAddingPageCommand;
             }
         }
 
-        public bool CanTest
+        public bool CanAddingPage
         {
             get { return true; }
         }
 
 
 
-        public async void ShowTest()
+        public async void ShowAddingPage()
         {
             if (_model.PDF2Add == null || _model.DestinationFile ==  null)
                 return;
@@ -253,6 +248,7 @@ namespace WPF_TTElectronics.ViewModels
             var converter = new ScannerImageConverter(_model.TempFolder);
             _model.IsMsgVisible = true;
             var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false);
+        
             AcrobatProcess();
             await Task.Delay(500);
 
@@ -261,6 +257,10 @@ namespace WPF_TTElectronics.ViewModels
                     await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
 
             activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
+
+       
+          
+
             await x.CloseAsync();
             _model.IsMsgVisible = false;
         }
@@ -301,12 +301,7 @@ namespace WPF_TTElectronics.ViewModels
             fullView.Fullpdfview.Navigate($@"{_model.FileSelected.FullPathWithExtension}");
             var vm_fullView = new FullWindowModel() { TitleWindow = $@"OPENED FILE: {_model.FileSelected.FullName}" };
             fullView.DataContext = vm_fullView;
-           
             fullView.ShowDialog();
-
-
-
-
         }
 
 
@@ -316,12 +311,73 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
+        #region --------ShowSave and ShowSaveCommand
+
+        private RelayCommand _showSaveCommand;
+        public ICommand ShowSaveCommand
+        {
+            get
+            {
+                if (_showSaveCommand == null)
+                {
+                    _showSaveCommand = new RelayCommand(param => this.ShowSave(), param => this.CanSave);
+                }
+
+                return _showSaveCommand;
+            }
+        }
+
+        public bool CanSave
+        {
+            get { return true; }
+        }
+
+
+
+        public async void ShowSave()
+        {
+            if (_model.PDF2Add == null || _model.DestinationFile == null)
+                return;
+            if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
+                return;
+            _model.IsMsgVisible = true;
+            var x = await activeWindow.ShowProgressAsync("Saving file", $"");
+
+            try
+            {
+                
+                //  App.Current.Dispatcher.Invoke(() => {
+                File.Copy($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", $"{_model.DestinationFile.FullPathWithExtension}", true);
+                //  });
+                x.SetTitle("File saved!");
+                x.SetMessage($"{_model.DestinationFile.FullName}.pdf saved successfully");
+                await Task.Delay(1500);
+                await x.CloseAsync();
+                _model.IsMsgVisible = false;
+                
+                
+            }
+            catch (Exception ex)
+            {
+                await x.CloseAsync();
+                _model.IsMsgVisible = false;
+                ShowErrorMessage(message:ex.Message);
+                
+            }
+
+           
+        }
+
+
+
+
+        #endregion
+
         public async void ShowErrorMessage(string title = "Error", string message = "default message")
         {
             _model.IsMsgVisible = true;
             await activeWindow.ShowMessageAsync(title, message, MessageDialogStyle.Affirmative, s_err);
             _model.IsMsgVisible = false;
-
         }
 
     }
