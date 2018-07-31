@@ -23,7 +23,7 @@ namespace WPF_TTElectronics.Models
                 try
                 {
                     var dirInfo = new DirectoryInfo($@"{FolderToSearch.FolderPath}");
-                    var listResult = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.StartsWith(ModelToSearch) && x.Name.Split('_')[1].StartsWith($@"{CodeDateToSearch}") && nameFormat.IsMatch(x.Name.Split('.')[0])).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).ToList();
+                    var listResult = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.StartsWith(ModelToSearch) && x.Name.Split('_')[1].StartsWith($@"{CodeDateToSearch}") && nameFormat.IsMatch(x.Name.Split('.')[0])).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime.ToString("d"), TimeLastAccess = x.LastAccessTime.ToString("d"), TimeLastWrite = x.LastWriteTime.ToString("d") }).ToList();
 
                     _allFilesNames = new ObservableCollection<cFileInfo>(listResult);
                 }

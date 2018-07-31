@@ -35,11 +35,11 @@
             <StackPanel Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center" Visibility="{Binding _model.SearchStackVisibility}">
                 <TextBlock Text="Search a PDF File" HorizontalAlignment="Center" FontSize="32"></TextBlock>
                     <StackPanel>
-                        <xctk:WatermarkComboBox  x:Name="comboBox" Width="300" Height="35"  Margin="0,10,0,0" Focusable="False"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ItemsSource="{Binding _model.ComboItems}" HorizontalAlignment="Center" SelectedValue="{Binding _model.FolderToSearch, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Title" Controls:ComboBoxHelper.CharacterCasing="Upper" BorderBrush="Black" BorderThickness="1">
+                        <xctk:WatermarkComboBox  x:Name="comboBox" Width="300" Height="35"  Focusable="False"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ItemsSource="{Binding _model.ComboItems}" HorizontalAlignment="Center" SelectedValue="{Binding _model.FolderToSearch, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Title" Controls:ComboBoxHelper.CharacterCasing="Upper" BorderBrush="Black" BorderThickness="1">
                             <xctk:WatermarkComboBox.Watermark>
                                 <StackPanel Orientation="Horizontal" >
-                                    <icons:PackIconMaterialLight Kind="Folder" HorizontalAlignment="Left" Margin="0,0,10,0"></icons:PackIconMaterialLight>
-                                    <TextBlock Text="Select A Family"></TextBlock>
+                                    <icons:PackIconMaterialLight Kind="Folder" HorizontalAlignment="Left"></icons:PackIconMaterialLight>
+                                    <TextBlock Text="  Select A Family"></TextBlock>
                                 </StackPanel>
                             </xctk:WatermarkComboBox.Watermark>
                         </xctk:WatermarkComboBox>

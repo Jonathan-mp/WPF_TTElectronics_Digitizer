@@ -37,31 +37,66 @@
         <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="1" Margin="1"  BorderBrush="#3FAFDF" BorderThickness="1">
             <Grid >
               <Grid.ColumnDefinitions>
-                 <ColumnDefinition></ColumnDefinition>
-                  <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition Width="*"></ColumnDefinition>
+                  <ColumnDefinition Width="*"></ColumnDefinition>
               </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
                  <RowDefinition Height="auto"></RowDefinition>
                  <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                 <RowDefinition Height="auto"></RowDefinition>
+                 <RowDefinition Height="*"></RowDefinition>
                  <RowDefinition Height="*"></RowDefinition>
                  <RowDefinition Height="*"></RowDefinition>
               </Grid.RowDefinitions>
 
-              <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N   F I L E" Background="#3FAFDF" VerticalAlignment="Stretch" FontSize="10" HorizontalAlignment="Stretch"></Label>
-              <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" >
-                  <Button Command="{Binding ShowBrowseDestinationCommand}" Focusable="False">
+              <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="D E S T I N A T I O N   F I L E" Background="#3FAFDF" VerticalAlignment="Center" FontSize="8" HorizontalAlignment="Stretch"></Label>
+              <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
+                  <Button Command="{Binding ShowBrowseDestinationCommand}" Focusable="False" VerticalAlignment="Stretch" Margin="2">
                      <Button.Content>
                          <StackPanel Orientation="Horizontal">
-                           <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
-                           <TextBlock Text=" Browse file" VerticalAlignment="Center"></TextBlock>
+                           <!--<icons:PackIconFontAwesome Kind="SearchSolid"  ></icons:PackIconFontAwesome>-->
+                           <TextBlock Text=" Browse file" ></TextBlock>
                            </StackPanel>
                         </Button.Content>
                     </Button>
                </StackPanel>
-                <TextBlock Text="{Binding _model.SelectADestinationFile}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="1" Margin="5" FontSize="15"></TextBlock>
 
+                <TextBlock Text="{Binding _model.SelectADestinationFile}" VerticalAlignment="Center" FontSize="15" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="1"  ></TextBlock>
+
+                <StackPanel  Orientation="Horizontal" Margin="5,0,0,0" Grid.Column="0" Grid.Row="3" Visibility="{Binding _model.VisibilityInfo}"  >
+                    <icons:PackIconFontAwesome Kind="FolderOpenRegular"></icons:PackIconFontAwesome>
+                    <TextBlock Text="Family: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.Family }"  ></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0" Grid.Column="0" Grid.Row="4" Visibility="{Binding _model.VisibilityInfo}" >
+                    <icons:PackIconFontAwesome Kind="FileAltRegular"  ></icons:PackIconFontAwesome>
+                    <TextBlock Text="Model: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.Model}"  ></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0" Grid.Column="0" Grid.Row="5" Visibility="{Binding _model.VisibilityInfo}" >
+                    <icons:PackIconFontAwesome Kind="CalendarAltRegular"></icons:PackIconFontAwesome>
+                    <TextBlock Text="Date Code: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.DateCode}" ></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0"  Grid.Column="1" Grid.Row="3" Visibility="{Binding _model.VisibilityInfo}">
+                    <icons:PackIconFontAwesome Kind="EditSolid"></icons:PackIconFontAwesome>
+                    <TextBlock Text="Created: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.TimeCreation}"   ></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0" Grid.Column="1" Grid.Row="4" Visibility="{Binding _model.VisibilityInfo}">
+                    <icons:PackIconMaterial Kind="Timetable"  ></icons:PackIconMaterial>
+                    <TextBlock Text="Lass Write: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.TimeLastWrite}"   ></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0" Grid.Column="1" Grid.Row="5" Visibility="{Binding _model.VisibilityInfo}">
+                    <icons:PackIconMaterial Kind="Timetable" ></icons:PackIconMaterial>
+                    <TextBlock Text="Last Access: " FontWeight="Bold" ></TextBlock>
+                    <TextBlock Text="{Binding _model.DestinationFile.TimeLastWrite}"   ></TextBlock>
+                </StackPanel>
+
+                <!--<TextBlock Text="{Binding _model.SelectADestinationFile}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="1" Margin="5" FontSize="15"></TextBlock>
+               
                 <StackPanel  Orientation="Horizontal" Margin="2" Grid.Column="0" Grid.Row="3" Visibility="{Binding _model.VisibilityInfo}" >
                         <icons:PackIconFontAwesome Kind="FolderOpenRegular" Margin="2" Height="12" Width="12"></icons:PackIconFontAwesome>
                         <TextBlock Text="Family:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
@@ -92,7 +127,7 @@
                         <icons:PackIconMaterial Kind="Timetable" Margin="2" Height="12" Width="12"></icons:PackIconMaterial>
                         <TextBlock Text="Last Access:" FontWeight="Bold" FontSize="12" Margin="2"></TextBlock>
                         <TextBlock Text="{Binding _model.DestinationFile.TimeLastWrite}"  FontSize="12" Margin="2" ></TextBlock>
-                    </StackPanel>
+                </StackPanel>-->
             </Grid>
         </Border>
 
@@ -111,13 +146,13 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height=".135*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="S O U R C E    F I L E S" Background="#3FAFDF" VerticalAlignment="Stretch" FontSize="10" HorizontalAlignment="Stretch"></Label>
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Content="S O U R C E    F I L E S" Background="#3FAFDF" VerticalAlignment="Stretch" FontSize="8" HorizontalAlignment="Stretch"></Label>
 
-                <StackPanel  Orientation="Horizontal" Grid.Column="0"  Grid.Row="1" Margin="5" >
-                    <Button Focusable="False" Command="{Binding ShowSelectPDF2Addommand}">
+                <StackPanel  Orientation="Horizontal" Grid.Column="0"  Grid.Row="1"  >
+                    <Button Focusable="False" Command="{Binding ShowSelectPDF2Addommand}" Margin="2">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
-                                <icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>
+                                <!--<icons:PackIconFontAwesome Kind="SearchSolid" VerticalAlignment="Center"></icons:PackIconFontAwesome>-->
                                 <TextBlock Text=" Browse files" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
                         </Button.Content>
@@ -185,11 +220,11 @@
             </Grid>
         </Border>
         
-        <Button Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="6" Margin="2" Focusable="False" Command="{Binding ShowSaveCommand}">
+        <Button Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="6" Margin="2" Focusable="False" Command="{Binding ShowSaveCommand}" >
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-                    <icons:PackIconMaterialLight Kind="ContentSave" Width="45" Height="45" HorizontalAlignment="Center" VerticalAlignment="Center"></icons:PackIconMaterialLight>
-                    <TextBlock Text=" S a v e " FontSize="35" ></TextBlock>
+                    <icons:PackIconMaterialLight Kind="ContentSave" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></icons:PackIconMaterialLight>
+                    <TextBlock Text=" S a v e " FontSize="20" ></TextBlock>
                 </StackPanel>
             </Button.Content>
         </Button>

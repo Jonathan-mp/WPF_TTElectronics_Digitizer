@@ -19,7 +19,8 @@ namespace WPF_TTElectronics.ViewModels
     public class AddPDFViewModel : HelperClosePDFProcess
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
+        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide=false, AnimateShow=false };
+        MetroDialogSettings settings = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
         Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
 
 
@@ -87,9 +88,9 @@ namespace WPF_TTElectronics.ViewModels
                     DateCode = file.Name.Split('_')[1].Split('.')[0],
                     Family = file.Directory.Name,
                     FullPathWithExtension = file.FullName,
-                    TimeCreation = file.CreationTime, 
-                    TimeLastAccess = file.LastAccessTime,
-                    TimeLastWrite = file.LastWriteTime
+                    TimeCreation = file.CreationTime.ToString("d"),
+                    TimeLastAccess = file.LastAccessTime.ToString("d"),
+                    TimeLastWrite =  file.LastWriteTime.ToString("d")
                 };
 
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.DestinationFile.FullPathWithExtension}");
@@ -223,20 +224,30 @@ namespace WPF_TTElectronics.ViewModels
             if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
                 return;
 
-            var converter = new ScannerImageConverter(_model.TempFolder);
-            _model.IsMsgVisible = true;
-            var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false);
-        
-            AcrobatProcess();
-            await Task.Delay(500);
+            try
+            {
+                var converter = new ScannerImageConverter(_model.TempFolder);
+                _model.IsMsgVisible = true;
+                var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false, settings);
 
-            foreach (var item in _model.PDF2Add)
-                if (item.Check2Add != false)
-                    await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
+                AcrobatProcess();
+                await Task.Delay(500);
 
-            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
-            await x.CloseAsync();
-            _model.IsMsgVisible = false;
+                foreach (var item in _model.PDF2Add)
+                    if (item.Check2Add != false)
+                        await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
+
+                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
+                await x.CloseAsync();
+                _model.IsMsgVisible = false;
+            }
+            catch (Exception ex)
+            {
+
+                ShowErrorMessage(message: ex.Message);
+            }
+
+           
         }
 
 
@@ -315,7 +326,7 @@ namespace WPF_TTElectronics.ViewModels
             if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
                 return;
             _model.IsMsgVisible = true;
-            var x = await activeWindow.ShowProgressAsync("Saving file", $"");
+            var x = await activeWindow.ShowProgressAsync("Saving file", $"", false, settings);
             AcrobatProcess();
             await Task.Delay(500);
 

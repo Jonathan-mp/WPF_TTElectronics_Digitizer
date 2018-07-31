@@ -56,7 +56,7 @@ namespace WPF_TTElectronics.Models
 
                     var dirInfo = new DirectoryInfo($@"{FolderToSearch.FolderPath}");
 
-                    var result = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.Contains($@"{ModelToSearch}_{CodeDateToSearch}")).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation = x.CreationTime, TimeLastAccess = x.LastAccessTime, TimeLastWrite = x.LastWriteTime }).FirstOrDefault();
+                    var result = dirInfo.GetFiles("*.pdf", SearchOption.AllDirectories).Where(x => x.Name.Contains($@"{ModelToSearch}_{CodeDateToSearch}")).Select(x => new cFileInfo { FullName = x.Name.Split('.')[0], Model = x.Name.Split('_')[0], DateCode = x.Name.Split('_')[1].Split('.')[0], Family = x.Directory.Name, FullPathWithExtension = x.FullName, TimeCreation =  x.CreationTime.ToString("d"), TimeLastAccess = x.LastAccessTime.ToString("d"), TimeLastWrite = x.LastWriteTime.ToString("d") }).FirstOrDefault();
 
                     _selectedFile = result;
                 }

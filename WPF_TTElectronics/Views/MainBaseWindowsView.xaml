@@ -8,7 +8,7 @@
         xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:vm="clr-namespace:WPF_TTElectronics.ViewModels"
         xmlns:uc="clr-namespace:WPF_TTElectronics.UserControls"
-        Title="TT Electronics" Icon="/Resources/main_icon.ico" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="1" BorderBrush="#3FAFDF" WindowTransitionsEnabled="True"  MinWidth="1200" MinHeight="800" Background="#F5F5F5" FontFamily="Century Gothic">
+        Title="TT Electronics" Icon="/Resources/main_icon.ico" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="1" BorderBrush="#3FAFDF" WindowTransitionsEnabled="True"  MinWidth="800" MinHeight="600" Background="#F5F5F5" FontFamily="Century Gothic">
 
    
     
@@ -131,10 +131,9 @@
                 <Controls:HamburgerMenu.ItemsSource>
                     <Controls:HamburgerMenuItemCollection>
                         <Controls:HamburgerMenuGlyphItem Glyph="Scanner" Label="New File" ToolTip="Create a new file from scanner or existing file" Command="{Binding ShowScanCommand}"/>
-                        <Controls:HamburgerMenuGlyphItem Glyph="FileFind" Label="Scan and Add" ToolTip="Search your files and adding new pages from scanner" Command="{Binding ShowSearchCommand}"/>
-                        <Controls:HamburgerMenuGlyphItem Glyph="Eye" Label="View" ToolTip="Open your files to view them" Command="{Binding ShowViewsCommand}"/>
+                        <Controls:HamburgerMenuGlyphItem Glyph="FileFind" Label="Add From Scanner" ToolTip="Search your files and adding new pages from scanner" Command="{Binding ShowSearchCommand}"/>
                         <Controls:HamburgerMenuGlyphItem Glyph="FilePlus" Label="Add Existing Files" ToolTip="Add new pages to an existing file from other existing files" Command="{Binding ShowAddPDFCommand}"/>
-                        <!--<Controls:HamburgerMenuGlyphItem Glyph="TestTube" Label="Test" ToolTip="This option only is for test" Command="{Binding ShowTestCommand}"/>-->
+                        <Controls:HamburgerMenuGlyphItem Glyph="Eye" Label="View" ToolTip="Open your files to view them" Command="{Binding ShowViewsCommand}"/>
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.ItemsSource>
 

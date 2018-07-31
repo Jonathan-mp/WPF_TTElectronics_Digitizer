@@ -11,9 +11,9 @@ namespace WPF_TTElectronics.Models
         public string DateCode { get; set; }
         public string Family { get; set; }
         public string FullPathWithExtension { get; set; }
-        public DateTime TimeCreation { get; set; }
-        public DateTime TimeLastAccess { get; set; }
-        public DateTime TimeLastWrite { get; set; }
+        public string TimeCreation { get; set; }
+        public string TimeLastAccess { get; set; }
+        public string TimeLastWrite { get; set; }
 
         public bool Check2Add { get; set; }
 

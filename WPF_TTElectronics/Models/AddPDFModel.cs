@@ -118,7 +118,7 @@ namespace WPF_TTElectronics.Models
         private string _selectADestinationFile;
         public string SelectADestinationFile
         {
-            get { return (DestinationFile == null) ? " Select a destination file..." : $" FILE SELECTED: {DestinationFile.FullName}"; }
+            get { return (DestinationFile == null) ? " Select a destination file..." : $" File selected: {DestinationFile.FullName}"; }
             set { _selectADestinationFile = value;
                 NotifyPropertyChanged();
 
