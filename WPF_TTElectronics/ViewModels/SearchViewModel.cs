@@ -61,26 +61,26 @@ namespace WPF_TTElectronics.ViewModels
 
 
 
-        private RelayCommand _showTest;
-        public ICommand ShowTestCommand
+        private RelayCommand _showSearch;
+        public ICommand ShowSearchCommand
         {
             get
             {
-                if (_showTest == null)
+                if (_showSearch == null)
                 {
-                    _showTest = new RelayCommand(param => this.ShowTest(), param => this.CanTest);
+                    _showSearch = new RelayCommand(param => this.ShowSearch(), param => this.CanSearch);
                 }
 
-                return _showTest;
+                return _showSearch;
             }
         }
 
-        public bool CanTest
+        public bool CanSearch
         {
             get { return true; }
         }
 
-        public void ShowTest()
+        public void ShowSearch()
         {
             if (_model.FullPathToSearch == null)
                 return;
@@ -216,7 +216,8 @@ namespace WPF_TTElectronics.ViewModels
         {
             _model.IsMsgVisible = true;
             var scanner = new ScannerService();
-            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting..."); 
+            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...");
+            pAsync.SetIndeterminate();
         
             var converter = new ScannerImageConverter(_model.TempFolder);
 

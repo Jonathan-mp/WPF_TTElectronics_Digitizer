@@ -30,7 +30,7 @@ namespace WPF_TTElectronics.Helpers
         public void ClearTempFolder(string TempFolder)
         {
             AcrobatProcess();
-            Task.Delay(500);
+            Task.Delay(1000);
             var tmpfiles = Directory.GetFiles($@"{TempFolder}");
 
 

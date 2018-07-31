@@ -17,45 +17,20 @@ namespace WPF_TTElectronics.ViewModels
     {
 
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-
-  
-
-
-
-
         public MainBaseModel _model { get; set; }
-
-
-
-
-
-
-
-
-
 
         public MainBaseWindowsViewModel()
         {
-            _model = (_model != null) ? _model : new MainBaseModel();
-
+            _model = _model  ?? new MainBaseModel();
             
             if (!Directory.Exists($@"{_model.TempFolder}"))
                 Directory.CreateDirectory($@"{_model.TempFolder}");
-
-
-
 
             activeWindow.Closed += (s,e) =>{
            
                 AcrobatProcess();
                 ClearTempFolder(_model.TempFolder);
             };
-
-           
-
-
-           
-
         }
 
         
@@ -88,7 +63,6 @@ namespace WPF_TTElectronics.ViewModels
         /// </summary>
         public void ShowAbout()
         {
-
             if (_model.About)
             {
                 var aboutview = new Views.AboutView();
@@ -135,16 +109,12 @@ namespace WPF_TTElectronics.ViewModels
         {
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is SearchView)
                 return;
-            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new SearchView(); //v_search;
-          
+            activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new SearchView();
         }
 
 
 
         #endregion
-
-
-
 
 
 
@@ -177,18 +147,11 @@ namespace WPF_TTElectronics.ViewModels
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is ScanView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ScanView();
-
         }
 
 
 
         #endregion
-
-
-
-
-
-
 
 
 
@@ -217,7 +180,6 @@ namespace WPF_TTElectronics.ViewModels
 
         public void ShowView()
         {
-            
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is ViewView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new ViewView(); //v_view;
@@ -254,7 +216,6 @@ namespace WPF_TTElectronics.ViewModels
 
         public void ShowAddPDF()
         {
-
             if (activeWindow.FindChild<TransitioningContentControl>("contentControl").Content is AddPDFView)
                 return;
             activeWindow.FindChild<TransitioningContentControl>("contentControl").Content = new AddPDFView(); 

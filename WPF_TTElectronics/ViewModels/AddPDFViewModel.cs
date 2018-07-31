@@ -32,7 +32,6 @@ namespace WPF_TTElectronics.ViewModels
         }
 
 
-
         #region --------ShowBrowseDestination and ShowBrowseDestinationCommand
 
         private RelayCommand _showBrowseDestinationCommand;
@@ -58,7 +57,6 @@ namespace WPF_TTElectronics.ViewModels
  
         public void ShowBrowseDestination()
         {
-           
             var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = $@"{_model.ComboItems[0].FolderPath}" };
             if (openFileDialog.ShowDialog() != true)
                 return;
@@ -77,12 +75,6 @@ namespace WPF_TTElectronics.ViewModels
                 ShowErrorMessage("Incorrect Format","The next format was expected => {Model}_{DateCode}.pdf");
                 return;
             }
-
-            
-
-           
-          
-               
 
 
             try
@@ -106,9 +98,6 @@ namespace WPF_TTElectronics.ViewModels
             {
                 _model.DestinationFile = null;
             }
-
-
-
         }
 
 
@@ -147,8 +136,6 @@ namespace WPF_TTElectronics.ViewModels
             AcrobatProcess();
             Task.Delay(500);
             _model.DestinationFile = null;
-
-
         }
 
 
@@ -187,10 +174,6 @@ namespace WPF_TTElectronics.ViewModels
             if (openFileDialog.ShowDialog() != true)
                 return;
 
-
-           
-
-
             try
             {
                 var infofiles = openFileDialog.FileNames.Select(x => new FileInfo(x)).ToList();
@@ -202,11 +185,6 @@ namespace WPF_TTElectronics.ViewModels
             {
                 _model.DestinationFile = null;
             }
-
-
-
-
-
         }
 
 
@@ -257,10 +235,6 @@ namespace WPF_TTElectronics.ViewModels
                     await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
 
             activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
-
-       
-          
-
             await x.CloseAsync();
             _model.IsMsgVisible = false;
         }
@@ -348,9 +322,7 @@ namespace WPF_TTElectronics.ViewModels
             try
             {
                 
-                //  App.Current.Dispatcher.Invoke(() => {
                 File.Copy($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", $"{_model.DestinationFile.FullPathWithExtension}", true);
-                //  });
                 x.SetTitle("File saved!");
                 x.SetMessage($"{_model.DestinationFile.FullName}.pdf saved successfully");
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
@@ -365,10 +337,7 @@ namespace WPF_TTElectronics.ViewModels
                 await x.CloseAsync();
                 _model.IsMsgVisible = false;
                 ShowErrorMessage(message:ex.Message);
-                
             }
-
-           
         }
 
 

@@ -59,8 +59,6 @@ namespace WPF_TTElectronics.Services
             // clean up
             File.Delete(fileName);
 
-
-
             return img;
           
         }
@@ -103,7 +101,6 @@ namespace WPF_TTElectronics.Services
         {
             try
             {
-                
                     var doc = new PdfDocument();
                     doc.Pages.Add(new PdfPage());
                     var xgr = XGraphics.FromPdfPage(doc.Pages[0]);
@@ -111,7 +108,6 @@ namespace WPF_TTElectronics.Services
                     xgr.DrawImage(_img, 0, 0);
                     doc.Save($"{_containerNname}.pdf");
                     
-               
                     doc.Close();
                     xgr.Dispose();
                     _img.Dispose();
@@ -125,35 +121,6 @@ namespace WPF_TTElectronics.Services
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-
-
-
-
-
-
         public void SavePDFsOn(ObservableCollection<ImageFile> imgs)
         {
 
@@ -162,8 +129,6 @@ namespace WPF_TTElectronics.Services
                 var bitmapsource = new ObservableCollection<BitmapSource>();
                 var outPdf = new PdfDocument();
 
-
-
                 foreach (ImageFile item in imgs)
                     bitmapsource.Add(ConvertScannedImage(item));
 
@@ -171,7 +136,6 @@ namespace WPF_TTElectronics.Services
                 {
                     var encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(item as BitmapFrame));
-
 
                     using (FileStream stream = new FileStream($@"{_containerNname}.png", FileMode.Create))
                         encoder.Save(stream);
@@ -188,7 +152,6 @@ namespace WPF_TTElectronics.Services
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message, ex);
             }
 
@@ -213,7 +176,6 @@ namespace WPF_TTElectronics.Services
         {
             for (int i = 0; i < from.PageCount; i++)
                 to.AddPage(from.Pages[i]);
-            
 
             return to;
         }
@@ -241,14 +203,12 @@ namespace WPF_TTElectronics.Services
             for (int i = 0; i < from.PageCount; i++)
             {
                 ctrl.SetTitle($"Adding pages to {_out.Name}");
-                ctrl.SetMessage($"{i+1}/{from.PageCount} from {_in.Name}");
+                ctrl.SetMessage($"{i+1}/{from.PageCount} pages from {_in.Name}");
                 to.AddPage(from.Pages[i]);
                 var progress = (((((i + 1f) * 100f)) / ((from.PageCount) * (100f))));
                 ctrl.SetProgress(progress);
-                Task.Factory.StartNew(async() => await Task.Delay(500));
                 
             }
-
 
             return to;
         }
@@ -266,7 +226,6 @@ namespace WPF_TTElectronics.Services
         {
             if (imageFile == null)
                 return null;
-
 
             try
             {
@@ -286,13 +245,9 @@ namespace WPF_TTElectronics.Services
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
-              
             }
 
             return null;
-
-
-
         }
 
 

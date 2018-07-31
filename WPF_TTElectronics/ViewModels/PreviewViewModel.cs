@@ -18,7 +18,6 @@ namespace WPF_TTElectronics.ViewModels
 
             if (fullPath != null)
                 pathToOpen = fullPath;
-        
            
         }
 

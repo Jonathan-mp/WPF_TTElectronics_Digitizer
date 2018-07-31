@@ -19,43 +19,38 @@ namespace WPF_TTElectronics.ViewModels
 
         public ViewModel _model { get; set; }
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-        //Helpers.HelperClosePDFProcess killer;
 
 
         public ViewViewModel()
         {
-            _model = new ViewModel();
-           // killer = new Helpers.HelperClosePDFProcess();
-
-
-
+            _model = _model ?? new ViewModel();
         }
 
 
-        #region --------ShowViewView and ShowViewViewCommand
+        #region --------ShowFullScreen and ShowFullScreenCommand
 
-        private RelayCommand _showTestCommand;
-        public ICommand ShowTestCommand
+        private RelayCommand _showFullScreenCommand;
+        public ICommand ShowFullScreenCommand
         {
             get
             {
-                if (_showTestCommand == null)
+                if (_showFullScreenCommand == null)
                 {
-                    _showTestCommand = new RelayCommand(param => this.ShowTest(), param => this.CanTest);
+                    _showFullScreenCommand = new RelayCommand(param => this.ShowFullScreen(), param => this.CanFullScreen);
                 }
 
-                return _showTestCommand;
+                return _showFullScreenCommand;
             }
         }
 
-        public bool CanTest
+        public bool CanFullScreen
         {
             get { return true; }
         }
 
 
 
-        public void ShowTest()
+        public void ShowFullScreen()
         {
             if (_model.FileNameSelected == null)
                 return;
@@ -65,17 +60,11 @@ namespace WPF_TTElectronics.ViewModels
             fullView.DataContext = vm_fullView;
             fullView.Closing += (s, e) =>
             {
-
                 AcrobatProcess();
                 activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.FileNameSelected.FullPathWithExtension}");
 
-
             };
             fullView.ShowDialog();
-
-
-
-
         }
 
 

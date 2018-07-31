@@ -24,9 +24,6 @@ namespace WPF_TTElectronics.ViewModels
         public ScanModel _model { get; set; }
         MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
        
-         //HelperClosePDFProcess killer = new HelperClosePDFProcess();
-        
-  
 
         /// <summary>
         /// initialize model
@@ -36,10 +33,8 @@ namespace WPF_TTElectronics.ViewModels
         /// </summary>
         public ScanViewModel()
         {
-            
-            _model = (_model != null) ? _model : new ScanModel();
+            _model = _model ?? new ScanModel();
             Task.Factory.StartNew(() => AcrobatProcess());
-
         }
 
 
@@ -82,10 +77,8 @@ namespace WPF_TTElectronics.ViewModels
             var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...");
             pAsync.SetIndeterminate();
             await Task.Delay(500);
-           
 
             var scanner = new ScannerService();
-
          
             activeWindow.FindChild<WebBrowser>("pdfview").Navigate("about:blank");
         
@@ -94,12 +87,7 @@ namespace WPF_TTElectronics.ViewModels
                 AcrobatProcess();
                 await Task.Delay(500);
                 File.Delete($"{_model.TempFolder}Preview.pdf");
-
-
             }
-                    //await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.TempFolder}Preview.pdf"));
-
-
 
 
                var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
@@ -123,18 +111,12 @@ namespace WPF_TTElectronics.ViewModels
                            App.Current.Dispatcher.Invoke(() => {
                                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.FullPathOpenedFile}.pdf");
                            });
-                         
-
-
-
-
                        }
                        else
                        {
                            _model.ScannedImage = null;
                            _model.SaveAsEnable = false;
                        }
-
                    }
                    catch(Exception ex)
                    {
@@ -143,78 +125,10 @@ namespace WPF_TTElectronics.ViewModels
                        ShowErrorMessage(message:ex.Message);
                        _model.ScannedImage = null;
                        _model.VisibilityHeader = (string.IsNullOrWhiteSpace(_model.OpenedFileName)) ? Visibility.Hidden : Visibility.Visible;
-
                    }
-
-                 
-
                });
-
-        
-
-                
-
-
-          
-           
-          
-
-
         }
-
-
-        //static void AcrobatProcess()
-        //{
-           
-        //        foreach (Process proc in Process.GetProcesses())
-        //        {
-        //            if (proc.ProcessName.StartsWith("Acro"))
-        //            {
-        //                string proname = proc.ProcessName.ToString();
-        //                if (proc.HasExited == false)
-        //                {
-        //                    proc.WaitForExit(10000);
-        //                    string title = proc.MainWindowTitle.ToString();
-        //                    if (title == "Adobe Reader" && proname == "AcroRd32")
-        //                    {
-        //                        proc.Kill();
-        //                        break;
-        //                    }
-        //                    else
-        //                    {
-        //                        string title2 = proc.MainWindowTitle.ToString();
-        //                        if (title2 == "Adobe Reader" && proname == "AcroRd32")
-        //                        {
-        //                            proc.Kill();
-        //                            break;
-        //                        }
-        //                    }
-
-        //                }
-        //                else
-        //                {
-        //                    try
-        //                    {
-        //                        proc.Kill();
-        //                        break;
-        //                    }
-        //                    catch
-        //                    {
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-
-
-
-            
-        //}
-
-
-
-
-
+       
 #endregion
 
 
@@ -256,16 +170,9 @@ namespace WPF_TTElectronics.ViewModels
             }
             catch (Exception ex)
             {
-                //_model.SaveAsEnable = false;
-
                 ControlsErrorState();
-                //_model.VisibilityHeader = Visibility.Hidden;
                 ShowErrorMessage(message:ex.Message);
-               
-                //_model.VisibilityHeader = Visibility.Visible;
             }
-          
-
         }
 
 #endregion
@@ -298,14 +205,11 @@ namespace WPF_TTElectronics.ViewModels
            
             try
             {
-               
                 SaveFileDialog MyFiles = new SaveFileDialog() { Filter= "PDF Files|*.pdf", Title= "Save as...",DefaultExt= "*.pdf" };
 
                 if (MyFiles.ShowDialog() != true)
-                {
-                   // _model.VisibilityHeader = Visibility.Visible;
                     return;
-                }
+
                 _model.VisibilityHeader = Visibility.Hidden;
                 File.Copy($"{_model.FullPathOpenedFile}.pdf", $"{MyFiles.FileName}", true);
 
@@ -316,9 +220,7 @@ namespace WPF_TTElectronics.ViewModels
             }
             catch (Exception ex)
             {
-               
                 ShowErrorMessage(message:ex.Message);
-               // _model.VisibilityHeader = Visibility.Visible;
             }
            
 
@@ -363,25 +265,7 @@ namespace WPF_TTElectronics.ViewModels
                     ShowErrorMessage(message:$"The file named \"{_model.FileNameToSave}\" already exists on this folder");
                     return;
                 }
-                    //while (File.Exists($@"{_model.FullPathToSave}.pdf"))
-                    //{
-                      
-                    //    var x = await AskReplaceFile();
-                    //    // _model.VisibilityHeader = Visibility.Visible;
-                    //    if (x == _model.FileNameToSave)
-                    //        continue;
-                    //    else if (string.IsNullOrWhiteSpace(x))
-                    //    {
-                    //        _model.VisibilityHeader = Visibility.Visible;
-                    //        return;
-                    //    }
-                    //    else
-                    //        _model.FileNameToSave = x;
-                    //}
-
-
-               
-
+                   
                 File.Copy($"{_model.FullPathOpenedFile}.pdf", $"{_model.FullPathToSave}.pdf", false);
                 var c = await activeWindow.ShowProgressAsync("Status!", $"{_model.FileNameToSave}.pdf saved on {_model.FolderToSave.Title} Folder ", false);
                 await Task.Delay(1000);
@@ -394,19 +278,11 @@ namespace WPF_TTElectronics.ViewModels
                 _model.VisibilityHeader = Visibility.Visible;
 
                 if (File.Exists($"{_model.TempFolder}Preview.pdf"))
-                {
                     await Task.Factory.StartNew(() => AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.TempFolder}Preview.pdf"));
-                }
-
-
-               
             }
             catch (Exception ex)
             {
-              
                 ShowErrorMessage(message:ex.Message);
-                //_model.FileNameToSave = string.Empty;
-                //_model.VisibilityHeader = Visibility.Visible;
             }
         }
 
@@ -438,16 +314,11 @@ namespace WPF_TTElectronics.ViewModels
 
         public async void ShowScanAll()
         {
-            
-
             _model.VisibilityHeader = Visibility.Hidden;
             var pAsync = await activeWindow.ShowProgressAsync("Status", "Scanning...");
             
             pAsync.SetIndeterminate();
             await Task.Delay(500);
-
-
-
             
                 if (File.Exists($"{_model.TempFolder}Preview.pdf"))
                 {
@@ -455,7 +326,6 @@ namespace WPF_TTElectronics.ViewModels
                     AcrobatProcess();
                     await Task.Delay(500);
                     File.Delete($"{_model.TempFolder}Preview.pdf");
-                    //await Task.Factory.StartNew(() => killer.AcrobatProcess()).ContinueWith((t) => File.Delete($"{_model.FoldersContainer.FolderPath}Preview.pdf"));
                 }
 
                 var scanner = new ScannerService();
@@ -463,9 +333,6 @@ namespace WPF_TTElectronics.ViewModels
 
                 await Task.Factory.StartNew(async () =>
                 {
-
-
-
                     try
                     {
 
@@ -489,20 +356,11 @@ namespace WPF_TTElectronics.ViewModels
                     }
                     catch (Exception ex)
                     {
-
                         ControlsErrorState();
                         await pAsync.CloseAsync();
                         ShowErrorMessage(message:ex.Message);
                         _model.ScannedImage = null;
-
-
-
                     }
-
-
-
-
-
                 });
 
                 if (File.Exists($@"{_model.FullPathOpenedFile}.pdf"))
@@ -513,12 +371,8 @@ namespace WPF_TTElectronics.ViewModels
                 else
                     return;
 
-
-
                 await pAsync.CloseAsync();
                 _model.VisibilityHeader = Visibility.Visible;
-
-
         }
 
 #endregion
@@ -548,24 +402,16 @@ namespace WPF_TTElectronics.ViewModels
 
         public async void ShowClosePDF()
         {
-           
-
-            //await Task.Delay(500);
-
             try
             {
-               
                 _model.VisibilityHeader = Visibility.Hidden;
                 ControlsErrorState();
                 await Task.Factory.StartNew(() => AcrobatProcess());
-
             }
             catch (Exception ex)
             {
                 ShowErrorMessage(message:ex.Message);
             }
-
-
         }
 
         #endregion
@@ -581,11 +427,7 @@ namespace WPF_TTElectronics.ViewModels
                     _model.OpenedFileName = string.Empty;
                     _model.OpenedFileFolder = string.Empty;
                     _model.FullPathOpenedFile = string.Empty;
-               
             });
-           
-
-
         }
 
 
@@ -625,16 +467,12 @@ namespace WPF_TTElectronics.ViewModels
         /// </param>
         public async void ShowErrorMessage(string title = "Error", string message = "default message")
         {
-
            await  App.Current.Dispatcher.Invoke(async() =>
             {
                 _model.VisibilityHeader = Visibility.Hidden;
                 await activeWindow.ShowMessageAsync(title, message, MessageDialogStyle.Affirmative, s_err);
                 _model.VisibilityHeader = (string.IsNullOrWhiteSpace(_model.OpenedFileName)) ? Visibility.Hidden : Visibility.Visible;
-
             });
-           
-
         }
 
 
