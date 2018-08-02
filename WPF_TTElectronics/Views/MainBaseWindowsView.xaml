@@ -8,7 +8,7 @@
         xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:vm="clr-namespace:WPF_TTElectronics.ViewModels"
         xmlns:uc="clr-namespace:WPF_TTElectronics.UserControls"
-        Title="TT Electronics" Icon="/Resources/main_icon.ico" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="1" BorderBrush="#3FAFDF" WindowTransitionsEnabled="True"  MinWidth="800" MinHeight="600" Background="#F5F5F5" FontFamily="Century Gothic">
+        Title="TT Electronics" Icon="/Resources/main_icon.ico" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="1" BorderBrush="#3FAFDF" WindowTransitionsEnabled="False"  MinWidth="800" MinHeight="600" Background="#F5F5F5" FontFamily="Century Gothic">
 
    
     

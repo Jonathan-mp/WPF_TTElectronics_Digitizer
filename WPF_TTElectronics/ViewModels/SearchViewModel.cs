@@ -21,7 +21,8 @@ namespace WPF_TTElectronics.ViewModels
     class SearchViewModel : HelperClosePDFProcess
     {
        MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-       MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
+       MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide = false, AnimateShow = false };
+       MetroDialogSettings s_without_animation = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
 
 
         public SearchModel _model { get; set; }
@@ -149,8 +150,8 @@ namespace WPF_TTElectronics.ViewModels
 
             AcrobatProcess();
             await Task.Delay(500);
-            if (File.Exists($@"{_model.TempFolder}{_model.FileNameAdded}.pdf"))
-                    File.Delete($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
+            //if (File.Exists($@"{_model.TempFolder}{_model.FileNameAdded}.pdf"))
+              //      File.Delete($@"{_model.TempFolder}{_model.FileNameAdded}.pdf");
 
           
          
@@ -216,7 +217,7 @@ namespace WPF_TTElectronics.ViewModels
         {
             _model.IsMsgVisible = true;
             var scanner = new ScannerService();
-            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...");
+            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...", false, s_without_animation);
             pAsync.SetIndeterminate();
         
             var converter = new ScannerImageConverter(_model.TempFolder);

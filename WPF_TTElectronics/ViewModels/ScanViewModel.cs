@@ -22,8 +22,9 @@ namespace WPF_TTElectronics.ViewModels
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
         public ScanModel _model { get; set; }
-        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted };
-       
+        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide = false, AnimateShow = false };
+        MetroDialogSettings s_without_animation = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
+
 
         /// <summary>
         /// initialize model
@@ -74,7 +75,7 @@ namespace WPF_TTElectronics.ViewModels
         {
            
             _model.VisibilityHeader = Visibility.Hidden;
-            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...");
+            var pAsync = await activeWindow.ShowProgressAsync("Status", "Starting...",false, s_without_animation);
             pAsync.SetIndeterminate();
             await Task.Delay(500);
 
@@ -213,7 +214,7 @@ namespace WPF_TTElectronics.ViewModels
                 _model.VisibilityHeader = Visibility.Hidden;
                 File.Copy($"{_model.FullPathOpenedFile}.pdf", $"{MyFiles.FileName}", true);
 
-                var c = await activeWindow.ShowProgressAsync("Status!", "File Saved", false);
+                var c = await activeWindow.ShowProgressAsync("Status!", "File Saved", false, s_without_animation);
                 await Task.Delay(1000);
                 await c.CloseAsync();
                 _model.VisibilityHeader = Visibility.Visible;
@@ -267,7 +268,7 @@ namespace WPF_TTElectronics.ViewModels
                 }
                    
                 File.Copy($"{_model.FullPathOpenedFile}.pdf", $"{_model.FullPathToSave}.pdf", false);
-                var c = await activeWindow.ShowProgressAsync("Status!", $"{_model.FileNameToSave}.pdf saved on {_model.FolderToSave.Title} Folder ", false);
+                var c = await activeWindow.ShowProgressAsync("Status!", $"{_model.FileNameToSave}.pdf saved on {_model.FolderToSave.Title} Folder ", false, s_without_animation);
                 await Task.Delay(1000);
                 await c.CloseAsync();
 
@@ -315,7 +316,7 @@ namespace WPF_TTElectronics.ViewModels
         public async void ShowScanAll()
         {
             _model.VisibilityHeader = Visibility.Hidden;
-            var pAsync = await activeWindow.ShowProgressAsync("Status", "Scanning...");
+            var pAsync = await activeWindow.ShowProgressAsync("Status", "Scanning...", false, s_without_animation);
             
             pAsync.SetIndeterminate();
             await Task.Delay(500);

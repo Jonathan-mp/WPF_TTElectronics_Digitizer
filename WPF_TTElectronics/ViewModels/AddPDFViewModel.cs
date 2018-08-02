@@ -19,8 +19,8 @@ namespace WPF_TTElectronics.ViewModels
     public class AddPDFViewModel : HelperClosePDFProcess
     {
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
-        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide=false, AnimateShow=false };
-        MetroDialogSettings settings = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
+        MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide = false, AnimateShow = false };
+        MetroDialogSettings s_without_animation = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
         Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
 
 
@@ -223,12 +223,12 @@ namespace WPF_TTElectronics.ViewModels
                 return;
             if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
                 return;
-
+            var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false, s_without_animation);
             try
             {
                 var converter = new ScannerImageConverter(_model.TempFolder);
                 _model.IsMsgVisible = true;
-                var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false, settings);
+              
 
                 AcrobatProcess();
                 await Task.Delay(500);
@@ -243,7 +243,7 @@ namespace WPF_TTElectronics.ViewModels
             }
             catch (Exception ex)
             {
-
+                await x.CloseAsync();
                 ShowErrorMessage(message: ex.Message);
             }
 
@@ -326,7 +326,7 @@ namespace WPF_TTElectronics.ViewModels
             if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
                 return;
             _model.IsMsgVisible = true;
-            var x = await activeWindow.ShowProgressAsync("Saving file", $"", false, settings);
+            var x = await activeWindow.ShowProgressAsync("Saving file", $"", false, s_without_animation);
             AcrobatProcess();
             await Task.Delay(500);
 
