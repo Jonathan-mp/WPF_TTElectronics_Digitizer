@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -56,13 +57,13 @@ namespace WPF_TTElectronics.ViewModels
 
 
  
-        public void ShowBrowseDestination()
+        public async void ShowBrowseDestination()
         {
             var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = $@"{_model.ComboItems[0].FolderPath}" };
             if (openFileDialog.ShowDialog() != true)
                 return;
             AcrobatProcess();
-            Task.Delay(500);
+            await Task.Delay(500);
 
             var file = new FileInfo(openFileDialog.FileName);
             App.Current.Dispatcher.Invoke(() => {
@@ -73,7 +74,7 @@ namespace WPF_TTElectronics.ViewModels
 
             if (nameFormat.IsMatch(file.Name.Split('.')[0]) != true)
             {
-                ShowErrorMessage("Incorrect Format","The next format was expected => {Model}_{DateCode}.pdf");
+                await ShowErrorMessage("Incorrect Format","The next format was expected => {Model}_{DateCode}.pdf");
                 return;
             }
 
@@ -224,31 +225,70 @@ namespace WPF_TTElectronics.ViewModels
             if (_model.PDF2Add.Where(w => w.Check2Add != false).Select(w => w).Count() == 0)
                 return;
             var x = await activeWindow.ShowProgressAsync("Starting to Add Pages", "", false, s_without_animation);
+            var converter = new ScannerImageConverter(_model.TempFolder);
+            _model.IsMsgVisible = true;
             try
             {
-                var converter = new ScannerImageConverter(_model.TempFolder);
-                _model.IsMsgVisible = true;
-              
+                var passNeeded = false;
+                var pass = string.Empty;
 
                 AcrobatProcess();
                 await Task.Delay(500);
 
                 foreach (var item in _model.PDF2Add)
-                    if (item.Check2Add != false)
-                        await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
+                {
+                    passNeeded = false;
+                    try
+                    {
+                        if (item.Check2Add != false)
+                            await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x));
+                    }
+                    catch (Exception ex)
+                    {
 
-                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
+                        //if (ex.Message.ToUpper() == "A PASSWORD IS REQUIRED TO OPEN THE PDF DOCUMENT.")
+                        // pass = await AskForPassword(item.FullName);
+                        if (ex.Message.ToUpper() == "THE SPECIFIED PASSWORD IS INVALID.")
+                        {
+                            pass = await AskForPassword(item.FullName);
+                            if(pass!=null)
+                                try
+                                {
+                                await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x, pass));
+
+                                }
+                                catch(Exception exx)
+                                {
+                                    await ShowErrorMessage($"File: {item.FullName}.pdf", exx.Message);
+                                }
+                        }
+                       
+                        
+                       
+
+                    }
+                    
+                    
+
+                }
+
+               
+                 
+
                 await x.CloseAsync();
                 _model.IsMsgVisible = false;
             }
             catch (Exception ex)
             {
                 await x.CloseAsync();
-                ShowErrorMessage(message: ex.Message);
+                await ShowErrorMessage(message: ex.Message);
+                _model.IsMsgVisible = false;
             }
+            activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf");
 
-           
         }
+
+      
 
 
         #endregion
@@ -346,8 +386,8 @@ namespace WPF_TTElectronics.ViewModels
             catch (Exception ex)
             {
                 await x.CloseAsync();
+                await ShowErrorMessage(message:ex.Message);
                 _model.IsMsgVisible = false;
-                ShowErrorMessage(message:ex.Message);
             }
         }
 
@@ -356,12 +396,18 @@ namespace WPF_TTElectronics.ViewModels
 
         #endregion
 
-        public async void ShowErrorMessage(string title = "Error", string message = "default message")
+        public  async Task ShowErrorMessage(string title = "Error", string message = "default message")
         {
             _model.IsMsgVisible = true;
             await activeWindow.ShowMessageAsync(title, message, MessageDialogStyle.Affirmative, s_err);
-            _model.IsMsgVisible = false;
+            //_model.IsMsgVisible = false;
         }
 
+        public async Task<string> AskForPassword(string filename)
+        {
+            var r = await activeWindow.ShowInputAsync($"The file named \"{filename}\" require a password", "Password.", s_err);
+         
+            return r;
+        }
     }
 }

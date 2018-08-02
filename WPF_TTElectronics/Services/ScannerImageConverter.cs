@@ -182,12 +182,12 @@ namespace WPF_TTElectronics.Services
 
 
 
-        public  void AddToExistingPDF(string pathFrom, string pathTo, ProgressDialogController ctrl)
+        public  void AddToExistingPDF(string pathFrom, string pathTo, ProgressDialogController ctrl, string pass = "")
         {
             var _in = new FileInfo(pathFrom);
             var _out = new FileInfo(pathTo);
 
-            var inputPdf = PdfReader.Open($@"{_in.FullName}", PdfDocumentOpenMode.Import);
+            var inputPdf = PdfReader.Open($@"{_in.FullName}", pass ,PdfDocumentOpenMode.Import);
             var outPdf = PdfReader.Open($@"{_out.FullName}", PdfDocumentOpenMode.Modify);
             outPdf =  CopyPages(inputPdf, outPdf, ctrl, _in, _out);
       
