@@ -74,7 +74,9 @@ namespace WPF_TTElectronics.ViewModels
 
             if (nameFormat.IsMatch(file.Name.Split('.')[0]) != true)
             {
+                ShowClosePDFDocument();
                 await ShowErrorMessage("Incorrect Format","The next format was expected => {Model}_{DateCode}.pdf");
+                _model.IsMsgVisible = false;
                 return;
             }
 
@@ -251,17 +253,19 @@ namespace WPF_TTElectronics.ViewModels
                         if (ex.Message.ToUpper() == "THE SPECIFIED PASSWORD IS INVALID.")
                         {
                             pass = await AskForPassword(item.FullName);
-                            if(pass!=null)
+                            if (pass != null)
                                 try
                                 {
-                                await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x, pass));
+                                    await Task.Factory.StartNew(() => converter.AddToExistingPDF(item.FullPathWithExtension, $@"{_model.TempFolder}{_model.DestinationFile.FullName}.pdf", x, pass));
 
                                 }
-                                catch(Exception exx)
+                                catch (Exception exx)
                                 {
                                     await ShowErrorMessage($"File: {item.FullName}.pdf", exx.Message);
                                 }
                         }
+                        else
+                            await ShowErrorMessage(message:ex.Message);
                        
                         
                        
