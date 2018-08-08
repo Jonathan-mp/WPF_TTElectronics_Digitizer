@@ -9,66 +9,29 @@
         xmlns:vm="clr-namespace:WPF_TTElectronics.ViewModels"
         xmlns:uc="clr-namespace:WPF_TTElectronics.UserControls"
         Title="TT Electronics" Icon="/Resources/main_icon.ico" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="1" BorderBrush="#3FAFDF" WindowTransitionsEnabled="False"  MinWidth="800" MinHeight="600" Background="#F5F5F5" FontFamily="Century Gothic">
-
-   
-    
-    <!--<Controls:MetroWindow.Resources>
-        <DataTemplate  DataType="{x:Type vm:ScanViewModel}">
-            <uc:ScanView DataContext="{Binding}"></uc:ScanView>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:SearchViewModel}">
-            <uc:SearchView DataContext="{Binding}"></uc:SearchView>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:ViewViewModel}">
-            <uc:ViewView DataContext="{Binding}"></uc:ViewView>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:ViewViewModel2}">
-            <uc:ViewView2 DataContext="{Binding}"></uc:ViewView2>
-        </DataTemplate>
-    </Controls:MetroWindow.Resources>-->
-
-
     <Controls:MetroWindow.RightWindowCommands>
-        
     <Controls:WindowCommands>
             <StackPanel Orientation="Horizontal">
                 <StackPanel.DataContext>
                     <vm:WindowCommandViewModel></vm:WindowCommandViewModel>
                 </StackPanel.DataContext>
-
                 <StackPanel Orientation="Horizontal">
-
                     <Icons:PackIconFontAwesome Kind="CalendarAltRegular" VerticalAlignment="Center" Margin="10,0,0,0" ></Icons:PackIconFontAwesome>
                     <TextBlock Margin="10, 0, 10, 0"
                    VerticalAlignment="Center"
                    Text="{Binding _model.DateNow}"
                   FontWeight="Black"/>
                 </StackPanel>
-
                 <StackPanel Orientation="Horizontal">
-
-
                     <Icons:PackIconFontAwesome Spin="True" SpinDuration="15" Kind="ClockRegular" VerticalAlignment="Center" Margin="10,0,0,0" ></Icons:PackIconFontAwesome>
                     <TextBlock Margin="10, 0, 10, 0"
                    VerticalAlignment="Center"
                    Text="{Binding _model.Time}"
                   FontWeight="Black"       />
                 </StackPanel>
-
-
             </StackPanel>
-         
-           
-
-          
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-  
-    
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition> 
@@ -86,17 +49,12 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="{StaticResource LogoSource}" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="5" Opacity=".07" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None" ></Image>
-        
-        <!--<Controls:TransitioningContentControl x:Name="contenedor"  Content="{Binding}" Transition="Default"  Grid.Column="1" Margin="1" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5"></Controls:TransitioningContentControl>-->
         <Controls:TransitioningContentControl x:Name="contentControl" Content="{Binding}" Transition="Normal"  Grid.Column="1" Margin="1" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5"></Controls:TransitioningContentControl>
-
-
         <DockPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="5">
             <DockPanel.DataContext>
                 <vm:MainBaseWindowsViewModel></vm:MainBaseWindowsViewModel>
             </DockPanel.DataContext>
             <DockPanel.Resources>
-           
                 <DataTemplate x:Key="MenuItemTemplate">
                     <Grid Height="50">
                         <Grid.ColumnDefinitions>
@@ -108,7 +66,6 @@
                         <TextBlock Cursor="Hand" Grid.Column="1" VerticalAlignment="Center" FontSize="16" Foreground="White" Text="{Binding Label}"/>
                     </Grid>
                 </DataTemplate>
-
                 <DataTemplate x:Key="MenuOptionsTemplate">
                     <Grid Focusable="False">
                         <Grid.ColumnDefinitions>
@@ -120,14 +77,7 @@
                     </Grid>
                 </DataTemplate>
             </DockPanel.Resources>
-
-
-          
-            
-            
             <Controls:HamburgerMenu VerticalScrollBarOnLeftSide="False" IsPaneOpen="True" Grid.Column="0" OpenPaneLength="200" HamburgerVisibility="Hidden" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="5"  Foreground="White" PaneBackground="#FF444444"  DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuOptionsTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}">
-
-
                 <Controls:HamburgerMenu.ItemsSource>
                     <Controls:HamburgerMenuItemCollection>
                         <Controls:HamburgerMenuGlyphItem Glyph="Scanner" Label="New File" ToolTip="Create a new file from scanner or existing file" Command="{Binding ShowScanCommand}"/>
@@ -136,29 +86,12 @@
                         <Controls:HamburgerMenuGlyphItem Glyph="Eye" Label="View" ToolTip="Open your files to view them" Command="{Binding ShowViewsCommand}"/>
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.ItemsSource>
-
-
                 <Controls:HamburgerMenu.OptionsItemsSource>
                     <Controls:HamburgerMenuItemCollection>
                         <Controls:HamburgerMenuGlyphItem  Glyph="InformationOutline" Label="{Binding _model.Version}" IsEnabled="{Binding _model.About}"  ToolTip="About this software!" Command="{Binding ShowAboutCommand}" />
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.OptionsItemsSource>
-
             </Controls:HamburgerMenu>
         </DockPanel>
-
-
-
-       
-
-
-
-
-        
-
-      
-       
-       
-
     </Grid>
 </Controls:MetroWindow>

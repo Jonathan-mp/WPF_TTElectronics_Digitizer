@@ -69,8 +69,6 @@ namespace WPF_TTElectronics.Models
             {
                 _tempFolder = value;
                 NotifyPropertyChanged();
-
-
             }
         }
 
@@ -96,9 +94,6 @@ namespace WPF_TTElectronics.Models
             {
                 _correctFormat = value;
                 NotifyPropertyChanged();
-               
-
-
             }
         }
 
@@ -110,23 +105,18 @@ namespace WPF_TTElectronics.Models
             {
                 _visibilityInfo = value;
                 NotifyPropertyChanged();
-               
-
             }
         }
 
         private string _selectADestinationFile;
         public string SelectADestinationFile
         {
-            get { return (DestinationFile == null) ? " Select a destination file..." : $" File selected: {DestinationFile.FullName}"; }
+            get { return (DestinationFile == null) ? " Select a destination file" : $" File selected: {DestinationFile.FullName}"; }
             set { _selectADestinationFile = value;
                 NotifyPropertyChanged();
 
             }
         }
-
-
-
 
         private bool _isMsgVisible;
         public bool IsMsgVisible
@@ -135,7 +125,6 @@ namespace WPF_TTElectronics.Models
             set { _isMsgVisible = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("VisibilityPDF");
-
             }
         }
 
@@ -150,8 +139,6 @@ namespace WPF_TTElectronics.Models
             }
         }
 
-
-
         private ObservableCollection<cFileInfo> _pdf2Add;
         public ObservableCollection<cFileInfo> PDF2Add
         {
@@ -159,19 +146,17 @@ namespace WPF_TTElectronics.Models
             set { _pdf2Add = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("SelectFiles2Add");
-              
             }
         }
 
         private string _selectFiles2Add;
         public string SelectFiles2Add
         {
-            get { return (PDF2Add != null) ? $" {PDF2Add.Where(x => x.Check2Add == true).Count()} PDF files selected" : " Select files to add..." ; }
+            get { return (PDF2Add != null) ? $" {PDF2Add.Where(x => x.Check2Add == true).Count()} PDF files selected" : " Select files to add" ; }
             set
             {
                 _selectFiles2Add = value;
                 NotifyPropertyChanged();
-
             }
         }
 
@@ -184,7 +169,6 @@ namespace WPF_TTElectronics.Models
             {
                 _fileSelected = value;
                 NotifyPropertyChanged();
-
             }
         }
 

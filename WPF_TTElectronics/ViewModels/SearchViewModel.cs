@@ -222,7 +222,6 @@ namespace WPF_TTElectronics.ViewModels
         
             var converter = new ScannerImageConverter(_model.TempFolder);
 
-
             switch (_model.AutoAdd)
             {
                 case true:
@@ -264,11 +263,7 @@ namespace WPF_TTElectronics.ViewModels
 
                         }
                     });
-
-
                     break;
-
-
                 case false:
                     var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
                     {
@@ -294,7 +289,6 @@ namespace WPF_TTElectronics.ViewModels
                         {
 
                         }
-
                     }
                     catch (Exception ex)
                     {
