@@ -103,7 +103,7 @@ namespace WPF_TTElectronics.ViewModels
                            _model.FileNameToSave = _model.OpenedFileName;
                            _model.OpenedFileFolder = _model.TempFolder;
                            _model.ScannedImage = converter.ConvertScannedImage(t.Result);
-                           var saveResult = converter.SaveOnPDF(_model.ScannedImage as BitmapFrame);
+                           var saveResult = converter.SaveOnPDF(_model.ScannedImage as BitmapFrame, pAsync);
 
                            _model.FullPathOpenedFile = $@"{_model.TempFolder}{_model.OpenedFileName}";
                            await pAsync.CloseAsync();
@@ -348,7 +348,7 @@ namespace WPF_TTElectronics.ViewModels
                         _model.OpenedFileName = "Preview";
                         _model.FileNameToSave = _model.OpenedFileName;
                         _model.OpenedFileFolder = _model.TempFolder;
-                        converter.SavePDFsOn(file);
+                        converter.SavePDFsOn(file, pAsync);
                         if (File.Exists($@"{_model.TempFolder}{_model.OpenedFileName}.pdf"))
                             _model.FullPathOpenedFile = $@"{_model.TempFolder}{_model.OpenedFileName}";
                         else

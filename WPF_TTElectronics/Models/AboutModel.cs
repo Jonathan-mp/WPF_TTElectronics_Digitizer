@@ -26,7 +26,7 @@ namespace WPF_TTElectronics.Models
         private string _aboutInfo;
         public string AboutInfo
         {
-            get { return _aboutInfo = $"Digitizer software designed to TT Electronics.\nDigitizing scanned files to PDF.\nPrincipal functions: Create, View and Save files.\nSoftware {Version}."; ; }
+            get { return _aboutInfo = $"Digitizer software designed to TT Electronics.\nDigitizing scanned files to PDF.\nPrincipal functions: Create, Save, View and Add PDF files.\nSoftware {Version}."; ; }
             set
             {
                 _aboutInfo = value;

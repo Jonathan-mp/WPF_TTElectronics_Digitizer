@@ -81,7 +81,7 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Column="1"  HorizontalAlignment="Center" >
+            <Grid Grid.Column="1"  HorizontalAlignment="Center"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -108,19 +108,14 @@
                     </Button>
                     <Label FontWeight="Bold" HorizontalAlignment="Center">Scan All</Label>
                 </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                    <Controls:ToggleSwitchButton  HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="{Binding _model.ColorSetting}"  Style="{DynamicResource MetroCircleToggleButtonStyle}" Width="25" Height="25" Focusable="False">
+                    <Controls:ToggleSwitchButton Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"  HorizontalAlignment="Left"  IsChecked="{Binding _model.ColorSetting}"  Style="{DynamicResource MetroCircleToggleButtonStyle}" Width="25" Height="25" Focusable="False">
                         <Controls:ToggleSwitchButton.Content>
                             <icons:PackIconMaterial Kind="{Binding _model.ColorSettingIcon}" Height="8" Width="8"></icons:PackIconMaterial>
                         </Controls:ToggleSwitchButton.Content>
                     </Controls:ToggleSwitchButton>
-                    <TextBlock Text="{Binding _model.ColorSettingTitle}" FontSize="12" VerticalAlignment="Center"></TextBlock>
-                </StackPanel>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  VerticalAlignment="Center"  HorizontalAlignment="Center"  Text="{Binding _model.ColorSettingTitle}" FontSize="11" ></TextBlock>
             </Grid>
             
-           
-
             <Grid Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>

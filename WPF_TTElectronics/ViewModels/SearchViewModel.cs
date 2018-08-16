@@ -237,7 +237,7 @@ namespace WPF_TTElectronics.ViewModels
                                 return;
                             }
 
-                            converter.SavePDFsOn(filee);
+                            converter.SavePDFsOn(filee, pAsync);
                             await pAsync.CloseAsync();
                             _model.IsMsgVisible = false;
                             AcrobatProcess();
@@ -272,7 +272,7 @@ namespace WPF_TTElectronics.ViewModels
                         if (t != null)
                         {
                             var scannedImage = converter.ConvertScannedImage(t.Result);
-                            var saveResult = converter.SaveOnPDF(scannedImage as BitmapFrame);
+                            var saveResult = converter.SaveOnPDF(scannedImage as BitmapFrame, pAsync);
                             AcrobatProcess();
                             await Task.Delay(500);
 

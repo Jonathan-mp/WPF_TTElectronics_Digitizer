@@ -72,10 +72,13 @@ namespace WPF_TTElectronics.Services
 
 
       
-        public bool SaveOnPDF(BitmapFrame img)
+        public bool SaveOnPDF(BitmapFrame img, ProgressDialogController ctrl)
         {
             try
             {
+                int c = 0;
+                ctrl.SetTitle("Converting to PDF");
+                ctrl.SetMessage($"{c}/1 Wait a moment...");
                     var encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(img));
                     using (FileStream stream = new FileStream($@"{_containerNname}.png", FileMode.Create))
@@ -83,8 +86,9 @@ namespace WPF_TTElectronics.Services
                     ConvertImageToPDF();
                 if(File.Exists($"{_containerNname}.png"))
                     File.Delete($"{_containerNname}.png");
-
-                    return true;
+                c++;
+                ctrl.SetMessage($"{c}/1 Wait a moment...");
+                return true;
             }
             catch (Exception ex)
             {
@@ -121,11 +125,14 @@ namespace WPF_TTElectronics.Services
         }
 
 
-        public void SavePDFsOn(ObservableCollection<ImageFile> imgs)
+        public void SavePDFsOn(ObservableCollection<ImageFile> imgs, ProgressDialogController ctrl)
         {
 
             try
             {
+                int c = 0;
+                ctrl.SetTitle("Converting to PDF");
+                ctrl.SetMessage($"{c}/{imgs.Count} Wait a moment...");
                 var bitmapsource = new ObservableCollection<BitmapSource>();
                 var outPdf = new PdfDocument();
 
@@ -134,6 +141,7 @@ namespace WPF_TTElectronics.Services
 
                 foreach (BitmapSource item in bitmapsource)
                 {
+                   
                     var encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(item as BitmapFrame));
 
@@ -146,6 +154,9 @@ namespace WPF_TTElectronics.Services
                         File.Delete($"{_containerNname}.pdf");
                     if (File.Exists($"{_containerNname}.png"))
                         File.Delete($"{_containerNname}.png");
+                    c++;
+                    ctrl.SetMessage($"{c}/{imgs.Count} Wait a moment...");
+                    ctrl.SetProgress(c/imgs.Count);
                 }
 
                 outPdf.Save($"{_containerNname}.pdf");
