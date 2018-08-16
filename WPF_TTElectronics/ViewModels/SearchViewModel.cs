@@ -100,10 +100,10 @@ namespace WPF_TTElectronics.ViewModels
                 else
                     ShowErrorMessage("File NOT Found");
             }
-            catch
+            catch(Exception ex)
             {
 
-                return;
+                ShowErrorMessage(message:ex.Message);
             }
 
          
@@ -230,7 +230,7 @@ namespace WPF_TTElectronics.ViewModels
 
                         try
                         {
-                            var filee = scanner.ScanAll(pAsync);
+                            var filee = scanner.ScanAll(pAsync, _model.ColorSetting);
                             if (filee.Count == 0)
                             {
                                 await pAsync.CloseAsync();
@@ -265,7 +265,7 @@ namespace WPF_TTElectronics.ViewModels
                     });
                     break;
                 case false:
-                    var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
+                    var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync, _model.ColorSetting)).ContinueWith(async (t) =>
                     {
                     try
                     {

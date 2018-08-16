@@ -12,7 +12,9 @@ namespace WPF_TTElectronics.Models
 {
     class ViewModel : Observable
     {
-        readonly Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
+        //readonly Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
+        readonly Regex nameFormat = new Regex(@"^[a-zA-Z-\d]{1,15}_[a-zA-Z-\d]{1,15}$");
+        readonly Regex inputForlat = new Regex(@"^[a-zA-Z-\d]{1,15}$");
 
         private ObservableCollection<cFileInfo> _allFilesNames;
         public ObservableCollection<cFileInfo> AllFileNames
@@ -79,10 +81,11 @@ namespace WPF_TTElectronics.Models
  Application.Current.Dispatcher.Invoke(() =>
                 {
                     y = x.GetAllElementsFromXML($@"{Environment.CurrentDirectory}\Settings.xml", "FolderPath");
+                   
                 });
 
 #endif
-                return y;
+                return new ObservableCollection<cHojaDeRuta>(y.OrderBy(i => i.Title));
             }
             set
             {
@@ -99,7 +102,10 @@ namespace WPF_TTElectronics.Models
             get { return _modelToSearch; }
             set
             {
-                _modelToSearch = (value.All(char.IsDigit)) ? value : _modelToSearch;
+                if (value == string.Empty)
+                    _modelToSearch = string.Empty;
+                else
+                    _modelToSearch = (inputForlat.IsMatch(value)) ? value.ToUpper() : _modelToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
@@ -113,7 +119,10 @@ namespace WPF_TTElectronics.Models
             get { return _codeDateToSearch; }
             set
             {
-                _codeDateToSearch = (value.All(char.IsDigit)) ? value : _codeDateToSearch;
+                if (value == string.Empty)
+                    _codeDateToSearch = string.Empty;
+                else
+                    _codeDateToSearch = (inputForlat.IsMatch(value)) ? value.ToUpper() : _codeDateToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");

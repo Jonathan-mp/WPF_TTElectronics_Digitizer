@@ -87,9 +87,9 @@
                     <DataGridTextColumn Header="Family" Binding="{Binding Family}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Date Code" Binding="{Binding DateCode}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Creation Time" Binding="{Binding TimeCreation}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Last Access Time" Binding="{Binding TimeLastAccess}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Last Write Time" Binding="{Binding TimeLastWrite}" Width="auto"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Creation" Binding="{Binding TimeCreation}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Last Access" Binding="{Binding TimeLastAccess}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Last Write" Binding="{Binding TimeLastWrite}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

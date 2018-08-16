@@ -8,7 +8,7 @@ namespace WPF_TTElectronics.Views
     /// </summary>
     public partial class MainBaseWindowsView : MetroWindow
     {
-       
+        
 
         public MainBaseWindowsView()
         {

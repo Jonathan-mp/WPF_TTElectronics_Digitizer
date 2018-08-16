@@ -91,7 +91,7 @@ namespace WPF_TTElectronics.ViewModels
             }
 
 
-               var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync)).ContinueWith(async (t) =>
+               var file = await Task<ImageFile>.Factory.StartNew(() => scanner.Scan(pAsync,_model.ColorSetting)).ContinueWith(async (t) =>
                {
 
                    try
@@ -337,7 +337,7 @@ namespace WPF_TTElectronics.ViewModels
                     try
                     {
 
-                        var file = scanner.ScanAll(pAsync);
+                        var file = scanner.ScanAll(pAsync, _model.ColorSetting);
                         if (file.Count == 0)
                         {
                             await pAsync.CloseAsync();

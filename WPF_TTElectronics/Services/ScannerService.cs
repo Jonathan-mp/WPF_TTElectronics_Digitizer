@@ -32,9 +32,11 @@ namespace WPF_TTElectronics.Services
 
     public class ScannerService
     {
+
+       
         
 
-        public ImageFile Scan(ProgressDialogController ctrl)
+        public ImageFile Scan(ProgressDialogController ctrl, bool colorSetting = true)
         {
             try
             {
@@ -43,8 +45,20 @@ namespace WPF_TTElectronics.Services
 
                 ctrl.SetTitle("STARTING SCANNER");
                 ctrl.SetMessage("This can take a few seconds...");
+
                 var x = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, false, false);
                 var item = x.Items[1];
+                // HorizontalResolution
+                item.Properties["6147"].set_Value(75);
+                // VerticalResolution
+                item.Properties["6148"].set_Value(75);
+
+                // CurrentInten, 1 - Color, 4 - Black & White
+                if (colorSetting)
+                    item.Properties["6146"].set_Value(1);
+                else
+                    item.Properties["6146"].set_Value(4);
+
 
                 image = dialog.ShowTransfer(item, "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}", true);
 
@@ -70,7 +84,7 @@ namespace WPF_TTElectronics.Services
 
 
 
-        public ObservableCollection<ImageFile> ScanAll(ProgressDialogController ctrl)
+        public ObservableCollection<ImageFile> ScanAll(ProgressDialogController ctrl, bool colorSetting = true)
         {
             try
             {
@@ -82,9 +96,21 @@ namespace WPF_TTElectronics.Services
                 ctrl.SetMessage("This can take a few seconds...");
 
                 var x = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, false, true);
-                foreach (Item item in x.Items)
-                {
-                    while (true)
+                var item = x.Items[1];
+                // HorizontalResolution
+                item.Properties["6147"].set_Value(75);
+                // VerticalResolution
+                item.Properties["6148"].set_Value(75);
+
+                // CurrentInten, 1 - Color, 4 - Black & White
+                if (colorSetting)
+                    item.Properties["6146"].set_Value(1);
+                else
+                    item.Properties["6146"].set_Value(4);
+
+                // foreach (Item item in x.Items)
+                //{
+                while (true)
                     {
                         try
                         {
@@ -101,7 +127,7 @@ namespace WPF_TTElectronics.Services
                         }
 
                     }
-                }
+              //  }
                
 
 

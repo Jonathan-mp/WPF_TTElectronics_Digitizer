@@ -35,7 +35,17 @@ namespace WPF_TTElectronics.Helpers
 
 
             if (tmpfiles != null)
-                Array.ForEach(tmpfiles, delegate (string path) { File.Delete(path); });
+                Array.ForEach(tmpfiles, delegate (string path) {
+                    try
+                    {
+                        File.Delete(path);
+                    }
+                    catch (Exception)
+                    {
+
+                     
+                    }
+                    });
 
         }
 

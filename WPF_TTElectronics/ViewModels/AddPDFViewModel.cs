@@ -22,7 +22,8 @@ namespace WPF_TTElectronics.ViewModels
         MetroWindow activeWindow = Application.Current.Windows.OfType<Views.MainBaseWindowsView>().FirstOrDefault();
         MetroDialogSettings s_err = new MetroDialogSettings { NegativeButtonText = "Cancel", AffirmativeButtonText = "Aceptar", ColorScheme = MetroDialogColorScheme.Inverted, AnimateHide = false, AnimateShow = false };
         MetroDialogSettings s_without_animation = new MetroDialogSettings { AnimateHide = false, AnimateShow = false };
-        Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
+       // Regex nameFormat = new Regex(@"[\d]{1,8}_[\d]{1,8}$");
+       readonly Regex inputFormat = new Regex(@"^[a-zA-Z-\d]{1,15}_[a-zA-Z-\d]{1,15}$");
 
 
         public AddPDFModel _model { get; set; }
@@ -59,49 +60,60 @@ namespace WPF_TTElectronics.ViewModels
  
         public async void ShowBrowseDestination()
         {
-            var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = $@"{_model.ComboItems[0].FolderPath}" };
-            if (openFileDialog.ShowDialog() != true)
-                return;
-            AcrobatProcess();
-            await Task.Delay(500);
-
-            var file = new FileInfo(openFileDialog.FileName);
-            App.Current.Dispatcher.Invoke(() => {
-              
-                File.Copy(file.FullName, $"{_model.TempFolder}{file.Name}", true);
-            });
-            
-
-            if (nameFormat.IsMatch(file.Name.Split('.')[0]) != true)
-            {
-                ShowClosePDFDocument();
-                await ShowErrorMessage("Incorrect Format","The next format was expected => {Model}_{DateCode}.pdf");
-                _model.IsMsgVisible = false;
-                return;
-            }
-
 
             try
             {
+                var openFileDialog = new OpenFileDialog() { Filter = "PDF Files|*.pdf", InitialDirectory = $@"{_model.ComboItems[0].FolderPath}" };
+                if (openFileDialog.ShowDialog() != true)
+                    return;
+                AcrobatProcess();
+                await Task.Delay(500);
 
-                _model.DestinationFile = new cFileInfo()
+                var file = new FileInfo(openFileDialog.FileName);
+                //App.Current.Dispatcher.Invoke(() => {
+
+                    File.Copy(file.FullName, $"{_model.TempFolder}{file.Name}", true);
+               // });
+
+
+                if (inputFormat.IsMatch(file.Name.Split('.')[0]) != true)
                 {
-                    FullName = file.Name.Split('.')[0],
-                    Model = file.Name.Split('_')[0],
-                    DateCode = file.Name.Split('_')[1].Split('.')[0],
-                    Family = file.Directory.Name,
-                    FullPathWithExtension = file.FullName,
-                    TimeCreation = file.CreationTime.ToString("d"),
-                    TimeLastAccess = file.LastAccessTime.ToString("d"),
-                    TimeLastWrite =  file.LastWriteTime.ToString("d")
-                };
+                    ShowClosePDFDocument();
+                    await ShowErrorMessage("Incorrect Format", "The next format was expected => {Model}_{DateCode}.pdf");
+                    _model.IsMsgVisible = false;
+                    return;
+                }
 
-                activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.DestinationFile.FullPathWithExtension}");
+
+                try
+                {
+
+                    _model.DestinationFile = new cFileInfo()
+                    {
+                        FullName = file.Name.Split('.')[0],
+                        Model = file.Name.Split('_')[0],
+                        DateCode = file.Name.Split('_')[1].Split('.')[0],
+                        Family = file.Directory.Name,
+                        FullPathWithExtension = file.FullName,
+                        TimeCreation = file.CreationTime.ToString("d"),
+                        TimeLastAccess = file.LastAccessTime.ToString("d"),
+                        TimeLastWrite = file.LastWriteTime.ToString("d")
+                    };
+
+                    activeWindow.FindChild<WebBrowser>("pdfview").Navigate($"{_model.DestinationFile.FullPathWithExtension}");
+                }
+                catch
+                {
+                    _model.DestinationFile = null;
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                _model.DestinationFile = null;
+               
+                await ShowErrorMessage(message: ex.Message);
+                _model.IsMsgVisible = false;
             }
+          
         }
 
 
@@ -231,7 +243,6 @@ namespace WPF_TTElectronics.ViewModels
             _model.IsMsgVisible = true;
             try
             {
-                var passNeeded = false;
                 var pass = string.Empty;
 
                 AcrobatProcess();
@@ -239,7 +250,6 @@ namespace WPF_TTElectronics.ViewModels
 
                 foreach (var item in _model.PDF2Add)
                 {
-                    passNeeded = false;
                     try
                     {
                         if (item.Check2Add != false)

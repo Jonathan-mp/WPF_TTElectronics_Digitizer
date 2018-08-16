@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,6 +12,7 @@ namespace WPF_TTElectronics.Models
 {
     public class SearchModel : Observable
     {
+        readonly Regex inputForlat = new Regex(@"^[a-zA-Z-\d]{1,15}$");
 
         private string _tempFolder;
         public string TempFolder
@@ -123,7 +125,7 @@ namespace WPF_TTElectronics.Models
                 });
 
 #endif
-                return y;
+                return new ObservableCollection<cHojaDeRuta>(y.OrderBy(i => i.Title));
             }
             set
             {
@@ -138,7 +140,10 @@ namespace WPF_TTElectronics.Models
         {
             get { return _modelToSearch; }
             set {
-                _modelToSearch = (value.All(char.IsDigit)) ? value : _modelToSearch;
+                if (value == string.Empty)
+                    _modelToSearch = null;
+                else
+                _modelToSearch = (inputForlat.IsMatch(value)) ? value.ToUpper() : _modelToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
@@ -152,7 +157,10 @@ namespace WPF_TTElectronics.Models
             get { return _codeDateToSearch; }
             set
             {
-                _codeDateToSearch = (value.All(char.IsDigit)) ? value : _codeDateToSearch;
+                if (value == string.Empty)
+                    _codeDateToSearch = null;
+                else
+                    _codeDateToSearch = (inputForlat.IsMatch(value)) ? value.ToUpper() : _codeDateToSearch;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FullPathToSearch");
                 NotifyPropertyChanged("FileNameAdded");
@@ -271,6 +279,54 @@ namespace WPF_TTElectronics.Models
         {
             get { return _autoAdd; }
             set { _autoAdd = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AutoAddIcon");
+            }
+        }
+
+        private string _autoAddIcon;
+        public string AutoAddIcon
+        {
+            get { return (_autoAdd)? "Check" : string.Empty; }
+            set { _autoAddIcon = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _colorSetting;
+        public bool ColorSetting
+        {
+            get { return _colorSetting; }
+            set
+            {
+                _colorSetting = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("ColorSettingTitle");
+                NotifyPropertyChanged("ColorSettingIcon");
+
+
+
+            }
+        }
+
+        private string _colorSettingTitle;
+        public string ColorSettingTitle
+        {
+            get { return (_colorSetting) ? "Color" : "Black & White"; }
+            set
+            {
+                _colorSettingTitle = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _colorSettingdIcon;
+        public string ColorSettingIcon
+        {
+            get { return (_colorSetting) ? "Check" : string.Empty; }
+            set
+            {
+                _colorSettingdIcon = value;
                 NotifyPropertyChanged();
             }
         }

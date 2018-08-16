@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -10,6 +11,43 @@ namespace WPF_TTElectronics.Models
 {
     public class ScanModel : Observable
     {
+        readonly Regex inputForlat = new Regex(@"^[a-zA-Z-\d]{1,15}$");
+
+
+        private bool _colorSetting;
+        public bool ColorSetting
+        {
+            get { return _colorSetting; }
+            set { _colorSetting = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("ColorSettingTitle");
+                NotifyPropertyChanged("ColorSettingIcon");
+
+            }
+        }
+
+        private string _colorSettingTitle;
+        public string ColorSettingTitle
+        {
+            get { return (_colorSetting)? "Color" : "Black & White"; }
+            set { _colorSettingTitle = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _colorSettingdIcon;
+        public string ColorSettingIcon
+        {
+            get { return (_colorSetting) ? "Check" : string.Empty; }
+            set
+            {
+                _colorSettingdIcon = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+
 
         private string _tempFolder;
         public string TempFolder
@@ -65,7 +103,7 @@ namespace WPF_TTElectronics.Models
                 });
 
 #endif
-                return y;
+                return new ObservableCollection<cHojaDeRuta>(y.OrderBy(i => i.Title));
             }
             set
             {
@@ -94,7 +132,11 @@ namespace WPF_TTElectronics.Models
         public string ModelToSave
         {
             get { return _modelToSave; }
-            set { _modelToSave = (value.All(char.IsDigit)) ? value : _modelToSave;
+            set {
+                if (value == string.Empty)
+                    _modelToSave = null;
+                else
+                    _modelToSave = (inputForlat.IsMatch(value)) ? value.ToUpper() : _modelToSave;
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FileNameToSave");
@@ -108,7 +150,11 @@ namespace WPF_TTElectronics.Models
         public string CodeDateToSave
         {
             get { return _codeDateToSave; }
-            set { _codeDateToSave = (value.All(char.IsDigit)) ? value : _codeDateToSave;
+            set {
+                if (value == string.Empty)
+                    _codeDateToSave = null;
+                else
+                    _codeDateToSave = (inputForlat.IsMatch(value)) ? value.ToUpper() : _codeDateToSave;
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("FileNameToSave");
